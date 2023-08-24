@@ -1,0 +1,26 @@
+.headerDialog * {
+    color: white;
+}
+
+.headerDialog {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 45vw;
+}
+
+.danger {
+    background-color: #fa3030;
+}
+
+.success {
+    background-color: #006600;
+}
+
+.warn {
+    background-color: #ffb100
+}
+
+.info {
+    background-color: #7a00d1;
+}

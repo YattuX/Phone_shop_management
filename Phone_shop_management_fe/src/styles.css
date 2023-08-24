@@ -1,0 +1,17 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* @import 'assets/themeExemple.scss'; */
+
+.red-text {
+    color: rgb(223, 38, 38);
+  }
+
+  .yellow-text {
+    color: rgb(207, 207, 29);
+  }
+
+  .blue-text {
+    color: rgb(0, 0, 100);
+  }

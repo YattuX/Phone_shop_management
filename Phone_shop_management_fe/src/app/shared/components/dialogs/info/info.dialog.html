@@ -1,0 +1,19 @@
+<div>
+    <div class="headerDialog" [ngClass]="backColorClass">
+        <h2 mat-dialog-title>{{data.title}}</h2>
+        <button mat-icon-button (click)="dialogRef.close()" align="end">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+    <mat-dialog-content>
+        {{data.message}}
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-button (click)="dialogRef.close()" *ngIf="data?.type!=='info' && data?.type">
+            {{data.cancelAction??'Annuler'}}
+        </button>
+        <button mat-stroked-button (click)="doAction()" [color]="colorthemeAdaptable">
+            {{data.valideAction??'OK'}}
+        </button>
+    </mat-dialog-actions>
+</div>
