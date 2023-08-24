@@ -1,6 +1,6 @@
 <ng-container *ngIf="showTopBarAndSideBar; else fullComponent">
     <div style="height: 100vh; overflow: hidden;">
-        <mat-toolbar color="primary">
+        <mat-toolbar color="primary" class="shadow-md shadow-black">
             <mat-toolbar-row>
                 <div id="left_topbar">
                     <div class="logo-container">
@@ -42,7 +42,7 @@
         </mat-toolbar>
 
         <mat-sidenav-container [hasBackdrop]="!openedSideNav">
-            <mat-sidenav #sidenav style="min-width: 15vw;" [mode]="openedSideNav?'side':'over'"
+            <mat-sidenav #sidenav style="min-width: 20vw;" [mode]="openedSideNav?'side':'over'"
                 [opened]="openedSideNav">
                 <mat-card>
                     <mat-card-content [style]="{
@@ -73,7 +73,7 @@
                 </mat-nav-list>
             </mat-sidenav>
             <mat-sidenav-content>
-                <div style="height: 88vh; overflow-y: scroll;">
+                <div style="height: 88vh; overflow-y: scroll; overflow-x: hidden;">
                     <router-outlet></router-outlet>
                 </div>
                 <app-footer></app-footer>
