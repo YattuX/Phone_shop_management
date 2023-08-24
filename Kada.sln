@@ -21,6 +21,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{3818E191-033
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kada.Api", "Kada.Api\Kada.Api.csproj", "{F42D396E-1485-4CBB-BCD4-DAC29952FC66}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "client", "client", "{C056DA84-77EF-43AE-A9FD-F7227AA3122F}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Phone_shop_management_fe", "Phone_shop_management_fe\Phone_shop_management_fe.esproj", "{814D7E30-4522-411D-A2E1-66F5FF56C9A8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +55,12 @@ Global
 		{F42D396E-1485-4CBB-BCD4-DAC29952FC66}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F42D396E-1485-4CBB-BCD4-DAC29952FC66}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F42D396E-1485-4CBB-BCD4-DAC29952FC66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{814D7E30-4522-411D-A2E1-66F5FF56C9A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{814D7E30-4522-411D-A2E1-66F5FF56C9A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{814D7E30-4522-411D-A2E1-66F5FF56C9A8}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{814D7E30-4522-411D-A2E1-66F5FF56C9A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{814D7E30-4522-411D-A2E1-66F5FF56C9A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{814D7E30-4522-411D-A2E1-66F5FF56C9A8}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,6 +72,7 @@ Global
 		{5CAA79E2-647D-4091-9B2E-F61B22C62E14} = {D1AB494B-A277-4A15-84AC-80EAC39C68E2}
 		{7AA3F04C-D898-47EF-B88C-94FA8DBBCD67} = {D1AB494B-A277-4A15-84AC-80EAC39C68E2}
 		{F42D396E-1485-4CBB-BCD4-DAC29952FC66} = {3818E191-0339-4A09-B0AC-40DEFCC31333}
+		{814D7E30-4522-411D-A2E1-66F5FF56C9A8} = {C056DA84-77EF-43AE-A9FD-F7227AA3122F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B2602D1B-8185-41DD-BF4F-DC80013E6208}
