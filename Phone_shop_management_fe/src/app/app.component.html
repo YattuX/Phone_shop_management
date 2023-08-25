@@ -1,23 +1,26 @@
 <ng-container *ngIf="showTopBarAndSideBar; else fullComponent">
     <div style="height: 100vh; overflow: hidden;">
-        <mat-toolbar color="primary" class="shadow-md shadow-black">
-            <mat-toolbar-row>
-                <div id="left_topbar">
-                    <div class="logo-container">
-                        <img src="../assets/images/logo.png" alt="logo" id="logo" height="55px">
-                    </div>
-                    <h1 id="title">
+        <mat-toolbar color="primary" [class.mat-elevation-z8]="true">
+            <mat-toolbar-row class="flex justify-between items-center">
+                <div class="flex justify-between items-center md:w-1/4">
+                    <!-- <div class="logo-container">
+                        <img src="../assets/images/logo.png" alt="logo" id="logo" height="60px" width="60px">
+                    </div> -->
+                    <!-- <h1 id="title">
                         <span class="red-text">KAD</span>
                         <span class="yellow-text">ALA</span>
                         <span class="blue-text">ND</span>
-                    </h1>
+                    </h1> -->
+                    <p id="title" class="p-0 m-0">
+                        KADA TECH
+                    </p>
                     <div id="menu">
                         <button mat-icon-button (click)="sidenav.toggle();">
                             <mat-icon>menu</mat-icon>
                         </button>
                     </div>
                 </div>
-                <span class="menu-spacer"></span>
+                <!-- <span class="menu-spacer"></span> -->
                 <div id="right_topbar">
                     <div class="profile-container">
                         <img src="../assets/images/luffy_profile.jpg" alt="profile_image" matCardAvatar>
@@ -43,11 +46,11 @@
 
         <mat-sidenav-container [hasBackdrop]="!openedSideNav">
             <mat-sidenav #sidenav style="min-width: 20vw;" [mode]="openedSideNav?'side':'over'"
-                [opened]="openedSideNav">
+                [opened]="openedSideNav" [class.mat-elevation-z8]="true">
                 <mat-card>
-                    <mat-card-content [style]="{
+                    <!-- <mat-card-content [style]="{
                     'background':'url(\'../assets/images/luffy_profile.jpg\') center / cover',
-                    'height':'40px',
+                    'height':'65px',
                     'background-color': '#00000070',
                     'background-blend-mode': 'overlay',
                     'color':'white',
@@ -58,7 +61,7 @@
                         <div class="img__description">
                             <span>Voir le Profile</span>
                         </div>
-                    </mat-card-content>
+                    </mat-card-content> -->
                 </mat-card>
                 <mat-nav-list>
                     <ng-container *ngFor="let menuItem of menuItems">
@@ -73,7 +76,7 @@
                 </mat-nav-list>
             </mat-sidenav>
             <mat-sidenav-content>
-                <div style="height: 88vh; overflow-y: scroll; overflow-x: hidden;">
+                <div style="height: 88vh; overflow-y: scroll; padding: 20px; overflow-x: hidden;" class="bg-blue-50">
                     <router-outlet></router-outlet>
                 </div>
                 <app-footer></app-footer>

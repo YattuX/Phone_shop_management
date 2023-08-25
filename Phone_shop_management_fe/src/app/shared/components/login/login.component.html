@@ -1,86 +1,32 @@
-<!-- <div class="login-page">
-    <div class="form">
-        <div class="login">
-            <div class="login-header">
-                <h3>LOGIN</h3>
-                <p>Please enter your credentials to login.</p>
-            </div>
+<div class="flex justify-center items-center h-full bg-blue-50" [class.mat-elevation-z8]="true">
+    <mat-card class="max-w-xs max-sm:m-2">
+        <div class="text-center">
+            <img src="/assets/images/logo.png" alt="" class="w-24 h-24 md:w-48 md:h-auto  mx-auto" width="384"
+                height="512">
         </div>
-        <form class="login-form">
-            <input type="text" placeholder="username" />
-            <input type="password" placeholder="password" />
-            <button>login</button>
-            <p class="message">Not registered? <a href="#">Create an account</a></p>
-        </form>
-    </div>
-</div> -->
-
-
-
-<!-- <div class="container" id="container">
-    <div class="form-container log-in-container">
-        <form action="#">
-            <h1>Login</h1>
-            <div class="social-container">
-            <a href="#" class="social"><i class="fa fa-facebook fa-2x"></i></a>
-            <a href="#" class="social"><i class="fab fa fa-twitter fa-2x"></i></a>
-            </div>
-            <span>or use your account</span>
-            <input type="email" placeholder="Email" />
-            <input type="password" placeholder="Password" />
-            <a href="#">Forgot your password?</a>
-            <button>Log In</button>
-            </form>
-    </div>
-    <div class="overlay-container">
-    <div class="overlay">
-        <div class="overlay-container">
-            <div class="overlay">
-            <div class="overlay-panel overlay-right">
-            <h1>HTML CSS Login Form</h1>
-            <p>This login form is created using pure HTML and CSS. For social icons, FontAwesome is used.</p>
-            </div>
-            </div>
-            </div>
-    </div>
-</div> -->
-
-<mat-card>
-    <mat-card-content align="center"
-        style="width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center;">
-        <div class="container" id="container">
-            <div class="form-container log-in-container">
-                <form action="#">
-                    <!-- <h1>Login</h1> -->
-                    <!-- <div class="social-container">
-                        <button mat-icon-button>
-                            <mat-icon>facebook</mat-icon>
-                        </button>
-                        <button mat-icon-button>
-                            <mat-icon>g_translate</mat-icon>
-                        </button>
-                    </div> -->
-                    <h1 style="font-weight: 900;">
-                        <span class="red-text" style="font-size: 1.8em;">KAD</span>
-                        <span class="yellow-text" style="font-size: 1.8em;">ALA</span>
-                        <span class="blue-text" style="font-size: 1.8em;">ND</span>
-                    </h1>
-                    <!-- <span>or use your account</span> -->
-                    <input type="email" placeholder="Email" />
-                    <input type="password" placeholder="Password" />
-                    <a href="#">Forgot your password?</a>
-                    <button>Log In</button>
-                </form>
-            </div>
-            <div class="overlay-container">
-                <div class="overlay">
-                    <div class="overlay-panel overlay-right">
-                        <h1>HTML CSS Login Form</h1>
-                        <p>This login form is created using pure HTML and CSS. For social icons, FontAwesome is used.
-                        </p>
-                    </div>
+        <mat-card-content>
+            <form>
+                <mat-form-field class="w-full">
+                    <mat-label>Nom d'utilisateur</mat-label>
+                    <input matInput placeholder="Nom d'utilisateur">
+                    <mat-icon matPrefix>person</mat-icon>
+                </mat-form-field>
+                <mat-form-field class="w-full">
+                    <mat-label>Mot de passe</mat-label>
+                    <input matInput [type]="hide ? 'password' : 'text'" placeholder="Mot de passe">
+                    <button mat-icon-button matSuffix (click)="$event.preventDefault();hide = !hide"
+                        [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+                <div align="end">
+                    <!-- <button mat-stroked-button color="warn" class="mr-2" type="button">Effacer</button> -->
+                    <button mat-raised-button type="button" (click)="login()">
+                        Se Connecter
+                    </button>
                 </div>
-            </div>
-        </div>
-    </mat-card-content>
-</mat-card>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>
+<!-- </div> -->

@@ -59,12 +59,13 @@
 }
 
 .active {
-    background-color: #3F51B5;
+    // background-color: #3F51B5;
+    @apply bg-blue-100;
 }
 
 .active mat-icon,
 .active div {
-    color: white;
+    @apply text-blue-500;
 }
 
 #porfiles {
@@ -118,6 +119,10 @@
     background-color: rgba(0, 0, 0, 0.288);
 }
 
+.mat-toolbar {
+    position: relative;
+    z-index: 5;
+  }
 
 //***************************************************************
 

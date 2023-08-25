@@ -12,6 +12,9 @@ import { MatListModule } from '@angular/material/list';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatCardModule} from '@angular/material/card';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './shared/components/header/header.component';
@@ -41,7 +44,10 @@ import { InfoDialog } from './shared/components/dialogs/info/info.dialog';
     MatListModule,
     MatBadgeModule,
     MatTooltipModule,
-    MatCardModule
+    MatCardModule,
+    MatGridListModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]
