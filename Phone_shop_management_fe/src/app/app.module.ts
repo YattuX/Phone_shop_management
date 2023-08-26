@@ -17,27 +17,30 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './shared/components/header/header.component';
-import { FooterComponent } from './shared/components/footer/footer.component';
-import { NotFoundComponent } from './shared/components/not-found/not-found.component';
-import { LoginComponent } from './shared/components/login/login.component';
+import { FooterComponent } from './shared/components/layouts/footer/footer.component';
 import { InfoDialog } from './shared/components/dialogs/info/info.dialog';
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FullComponent } from './shared/components/layouts/full/full.component';
+import { AppBreadcrumbComponent } from './shared/components/layouts/breadcrumb/breadcrumb.component';
+import { AppBlankComponent } from './shared/components/layouts/blank/blank.component';
+import { SpinnerComponent } from './shared/spinner/spinner.component';
+import { SidebarComponent } from './shared/components/layouts/sidebar/sidebar.component';
+import { HeaderComponent } from './shared/components/layouts/header/header.component';
+import { AuthModule } from './modules/auth/auth.module';
+import { DashboardsModule } from './shared/components/dashboards/dashboards.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
     FooterComponent,
-    NotFoundComponent,
-    LoginComponent,
     InfoDialog,
+    SidebarComponent,
+    FullComponent,
+    AppBreadcrumbComponent,
+    AppBlankComponent,
+    SpinnerComponent,
+    HeaderComponent,
   ],
   imports: [
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
     MatButtonModule,
@@ -52,7 +55,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatCardModule,
     MatGridListModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    AuthModule,
+    DashboardsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

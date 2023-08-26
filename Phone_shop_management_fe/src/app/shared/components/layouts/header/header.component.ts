@@ -1,14 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { InfoDialog } from '../dialogs/info/info.dialog';
+import { InfoDialog } from '../../dialogs/info/info.dialog';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
-
+export class HeaderComponent {  
   constructor(
     private _dialog:MatDialog
   ) {}
