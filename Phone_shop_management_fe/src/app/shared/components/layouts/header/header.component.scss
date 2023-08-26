@@ -1,0 +1,27 @@
+
+
+#right_topbar {
+    display: flex;
+    align-items: bottom;
+    justify-content: space-around;
+    min-width: 10%;
+}
+//************dot status****************//
+.profile-container {
+    position: relative;
+    display: inline-block;
+}
+
+.status-dot {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: rgb(0, 255, 0);
+    border-radius: 50%; /* Pour créer un cercle */
+    bottom: 0;
+    right: 0; 
+    top: 40%;
+    left: 1;
+}
+
+//************ end dot status *************//

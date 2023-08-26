@@ -5,23 +5,26 @@
                 height="512">
         </div>
         <mat-card-content>
-            <form>
+            <form [formGroup]="form">
                 <mat-form-field class="w-full">
                     <mat-label>Nom d'utilisateur</mat-label>
-                    <input matInput placeholder="Nom d'utilisateur">
+                    <input formControlName="username"
+                    matInput placeholder="Nom d'utilisateur">
                     <mat-icon matPrefix>person</mat-icon>
                 </mat-form-field>
                 <mat-form-field class="w-full">
                     <mat-label>Mot de passe</mat-label>
-                    <input matInput [type]="hide ? 'password' : 'text'" placeholder="Mot de passe">
+                    <input formControlName="password"
+                     matInput [type]="hide ? 'password' : 'text'" placeholder="Mot de passe">
                     <button mat-icon-button matSuffix (click)="$event.preventDefault();hide = !hide"
                         [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon> 
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
                 </mat-form-field>
                 <div align="end">
                     <!-- <button mat-stroked-button color="warn" class="mr-2" type="button">Effacer</button> -->
-                    <button mat-raised-button type="button" (click)="login()">
+                    <button (click)="login()"
+                    mat-raised-button type="button" >
                         Se Connecter
                     </button>
                 </div>
