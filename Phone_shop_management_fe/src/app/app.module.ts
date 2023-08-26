@@ -22,6 +22,8 @@ import { FooterComponent } from './shared/components/footer/footer.component';
 import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 import { LoginComponent } from './shared/components/login/login.component';
 import { InfoDialog } from './shared/components/dialogs/info/info.dialog';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,9 @@ import { InfoDialog } from './shared/components/dialogs/info/info.dialog';
     InfoDialog,
   ],
   imports: [
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
     MatButtonModule,

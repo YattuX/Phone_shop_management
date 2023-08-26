@@ -9,6 +9,8 @@ using System.Data;
 
 namespace Kada.Api.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -19,7 +21,7 @@ namespace Kada.Api.Controllers
         }
 
         [HttpGet("users")]
-        public async Task<List<UserModel>> GetUserList()
+        public async Task<List<UserModel>> GetUserListPage()
         {
             try
             {
@@ -45,7 +47,7 @@ namespace Kada.Api.Controllers
         }
 
         [HttpGet("roles")]
-        public async Task<List<RoleModel>> GetRoleList()
+        public async Task<List<RoleModel>> GetRoleListPage()
         {
             try
             {
@@ -78,9 +80,9 @@ namespace Kada.Api.Controllers
                 return await _userService.DeleteRole(roleId);
 
             }
-            catch (Exception) 
-            { 
-                throw; 
+            catch (Exception)
+            {
+                throw;
             }
         }
     }

@@ -21,9 +21,13 @@ builder.Services.AddControllers();
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("all", builder => builder.AllowAnyOrigin()
-    .AllowAnyHeader()
-    .AllowAnyMethod());
+    options.AddPolicy("AllowLocalhost4200", builder =>
+    {
+        builder.AllowAnyHeader()
+               .AllowAnyMethod()
+               .WithOrigins("http://localhost:4200")
+               .AllowCredentials();
+    });
 });
 
 builder.Services.AddHttpContextAccessor();
@@ -47,7 +51,7 @@ app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
 
-app.UseCors("all");
+app.UseCors("AllowLocalhost4200"); // Utilisation de la politique CORS
 
 app.UseAuthentication();
 app.UseAuthorization();
