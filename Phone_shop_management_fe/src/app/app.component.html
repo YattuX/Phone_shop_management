@@ -2,51 +2,30 @@
     <div style="height: 100vh; overflow: hidden;">
         <mat-toolbar color="primary" [class.mat-elevation-z8]="true">
             <mat-toolbar-row class="flex justify-between items-center">
-                <div class="flex justify-between items-center md:w-1/4">
-                    <!-- <div class="logo-container">
-                        <img src="../assets/images/logo.png" alt="logo" id="logo" height="60px" width="60px">
-                    </div> -->
-                    <!-- <h1 id="title">
-                        <span class="red-text">KAD</span>
-                        <span class="yellow-text">ALA</span>
-                        <span class="blue-text">ND</span>
-                    </h1> -->
-                    <p id="title" class="p-0 m-0">
-                        KADA TECH
-                    </p>
-                    <div id="menu">
-                        <button mat-icon-button (click)="sidenav.toggle();">
-                            <mat-icon>menu</mat-icon>
-                        </button>
-                    </div>
+                <div class="flex justify-between items-center md:w-1/5 pr-2">
+                    <div id="title"> KADA SOLUTION</div>
+                    <mat-icon (click)="sidenav.toggle();">menu</mat-icon>
                 </div>
                 <!-- <span class="menu-spacer"></span> -->
-                <div id="right_topbar">
-                    <div class="profile-container">
-                        <img src="../assets/images/luffy_profile.jpg" alt="profile_image" matCardAvatar>
-                        <!-- <button mat-icon-button matTooltip="Profil">
-                        <mat-icon ma>account_circle</mat-icon>
-                    </button> -->
-                        <div class="status-dot"></div>
+                <div id="right_topbar" class="flex space-x-4 md:space-x-2">
+                    <div class="profile-container" >
+                        <img class="h-[20px] w-[20px]" style="margin-bottom: 0;" src="../assets/images/luffy_profile.jpg" alt="profile_image" matCardAvatar>
+                        <span class="status-dot mt-2"></span>
                     </div>
-                    <div>
-                        <button mat-icon-button matTooltip="Notifications">
-                            <mat-icon matBadge="8" matBadgePosition="after"
+                    <div class="flex items-center">
+                        <mat-icon matTooltip="Notifications" matBadge="8" matBadgePosition="after"
                                 matBadgeColor="accent">notifications</mat-icon>
-                        </button>
                     </div>
-                    <div>
-                        <button mat-icon-button matTooltip="Se Deconnecter" routerLink="/login">
-                            <mat-icon>logout</mat-icon>
-                        </button>
+                    <div (click)="logout()" class="flex items-center">
+                        <mat-icon matTooltip="Se Deconnecter">logout</mat-icon>
                     </div>
                 </div>
             </mat-toolbar-row>
         </mat-toolbar>
 
         <mat-sidenav-container [hasBackdrop]="!openedSideNav">
-            <mat-sidenav #sidenav style="min-width: 20vw;" [mode]="openedSideNav?'side':'over'"
-                [opened]="openedSideNav" [class.mat-elevation-z8]="true">
+            <mat-sidenav [class.mat-elevation-z8]="true" #sidenav style="min-width: 20vw;" [mode]="openedSideNav?'side':'over'"
+                [opened]="openedSideNav" >
                 <mat-card>
                     <!-- <mat-card-content [style]="{
                     'background':'url(\'../assets/images/luffy_profile.jpg\') center / cover',

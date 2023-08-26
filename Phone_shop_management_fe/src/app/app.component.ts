@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
+import { AuthService } from './shared/services/auth.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -15,7 +16,12 @@ export class AppComponent implements OnInit {
 
   urlNotSideAndTopNav=['/404','/login'];
 
-  constructor(private breakpointObserver: BreakpointObserver, private router: Router, private route: ActivatedRoute) {
+  constructor(
+    private breakpointObserver: BreakpointObserver, 
+    private _auth: AuthService,
+    private router: Router,
+    private route: ActivatedRoute,
+    ) {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
@@ -49,6 +55,12 @@ export class AppComponent implements OnInit {
     { title: "Reparations", icon: "build", link: "g", divider: true },
     { title: "Configuration", icon: "settings", link: "h", divider: true }
   ];
+
+  logout(){
+    this._auth.logout();
+    this.router.navigateByUrl('/login');
+  }
+  
 }
 
 export interface MenuItems {
@@ -57,3 +69,4 @@ export interface MenuItems {
   link: string;
   divider?: boolean;
 }
+
