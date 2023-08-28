@@ -27,8 +27,12 @@ import { SidebarComponent } from './shared/components/layouts/sidebar/sidebar.co
 import { HeaderComponent } from './shared/components/layouts/header/header.component';
 import { AuthModule } from './modules/auth/auth.module';
 import { DashboardsModule } from './shared/components/dashboards/dashboards.module';
+<<<<<<< HEAD
 import { BreadcrumbCarouselComponent } from './shared/components/layouts/breadcrumb/breadcrumb-carousel/breadcrumb-carousel.component';
 import { BreadcrumbNavigationComponent } from './shared/components/layouts/breadcrumb/breadcrumb-navigation/breadcrumb-navigation.component';
+=======
+
+>>>>>>> 54e71ae9d7b3ecca570a1f2932556eda7b30b06e
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,9 +44,12 @@ import { BreadcrumbNavigationComponent } from './shared/components/layouts/bread
     AppBlankComponent,
     SpinnerComponent,
     HeaderComponent,
+<<<<<<< HEAD
     BreadcrumbCarouselComponent,
     BreadcrumbNavigationComponent,
     
+=======
+>>>>>>> 54e71ae9d7b3ecca570a1f2932556eda7b30b06e
   ],
   imports: [
     BrowserModule,
@@ -61,8 +68,12 @@ import { BreadcrumbNavigationComponent } from './shared/components/layouts/bread
     MatFormFieldModule,
     MatInputModule,
     AuthModule,
+<<<<<<< HEAD
     DashboardsModule,
 
+=======
+    DashboardsModule
+>>>>>>> 54e71ae9d7b3ecca570a1f2932556eda7b30b06e
   ],
   providers: [],
   bootstrap: [AppComponent]
