@@ -1,0 +1,10 @@
+<!-- Breadcrumb -->
+<ul id="breadcrumb">
+    <li *ngFor="let url of pageInfo['urls']; let index = index ; let last = last">
+        <a href="#" *ngIf="!last" [routerLink]="url.url">
+            <mat-icon  *ngIf="url.icon">{{url.icon}}</mat-icon>
+            <span class="">{{ url.title }}</span>
+        </a>
+    </li>
+</ul>
+<h1 class="p-l-1"> {{this.titleService.getTitle()}}</h1>
