@@ -1,4 +1,4 @@
-<mat-toolbar color="primary" [class.mat-elevation-z8]="true">
+    <mat-toolbar color="primary" [class.mat-elevation-z8]="true">
     <mat-toolbar-row class="flex justify-between items-center">
         <div class="flex justify-between items-center md:w-1/4">
             <p id="title" class="p-0 m-0">
@@ -24,7 +24,7 @@
     <!-- container: body -->
     <mat-sidenav-content>
         <app-breadcrumb></app-breadcrumb>
-        <div style="height: 88vh; overflow-y: scroll; padding: 20px; overflow-x: hidden;" class="bg-blue-50">
+        <div style="height: 88vh; overflow-y: hidden; padding: 20px; overflow-x: hidden;" class="bg-blue-50">
             <router-outlet>
                 <app-spinner></app-spinner>
             </router-outlet>

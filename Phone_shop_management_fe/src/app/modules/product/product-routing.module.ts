@@ -7,7 +7,7 @@ const routes: Routes = [
         path: '', component: ProductListComponent,
         data: {
             title: "Articles",
-            urls: [{ title: "", url: "/dashboard" ,icon: "home"},{title:'Articles', icon: "receipt",url:'/products'}, { title: "Ajout Articles" }],
+            urls: [{ title: "", url: "/dashboard" ,icon: "home"},{title:'Articles', icon: "receipt",url:'/products'}],
             // indexComponent: MENU_INDEX.LIVRAISON_DES_CLIENTS,
             // action: "create"
         },

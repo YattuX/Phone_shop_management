@@ -1,130 +1,151 @@
+@import '/src/assets/themeExemple.scss';
+// $blue-gray 			    : #34495e;
+// $blue-gray-darken 	: #2c3e50;
+// $blue 				      : #3498db;
+// $blue-darken 		    : #2980b9;
+// $green 				      : #1abc9c;
+// $green-darken 		  : #16a085;
+// src/styles.scss
 
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
-$blue-gray 			    : #34495e;
-$blue-gray-darken 	: #2c3e50;
-$blue 				      : #3498db;
-$blue-darken 		    : #2980b9;
-$green 				      : #1abc9c;
-$green-darken 		  : #16a085;
+// styles.scss
 
-*{
+
+
+$blue-gray : #34495e;
+$blue-gray-darken : #2c3e50;
+$blue : #4299e1;;
+$blue-darken : #2980b9;
+$green : #1abc9c;
+$green-darken : #16a085;
+
+
+* {
   margin: 0;
   padding: 0;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  // font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 12px;
 }
 
-body{
-  text-align: center;
-  background-color: $blue-gray;
-}
+// body{
+//   text-align: center;
+//   background-color: $blue-gray;
+// }
 
-h1{
-  font-weight:100;
+h1 {
+  font-weight: 100;
   font-weight: bold;
-  font-size:32px;
-  color:#fff;
-  padding-left: 5px;  
+  font-size: 32px;
+  color: hwb(0 100% 0%);
+  padding-left: 5px;
 }
 
-#breadcrumb{
-  list-style:none;
+#breadcrumb {
+  list-style: none;
   display: inline-block;
   padding: 5px;
-  .icon{
+
+  .icon {
     font-size: 14px;
   }
-  
-  li{
-    float:left;
-    a{
-      color:#FFF;
-      display:block;
+
+  li {
+    float: left;
+
+    a {
+      color: #FFF;
+      display: block;
       background: $blue;
       text-decoration: none;
-      position:relative;
+      position: relative;
       height: 40px;
-      line-height:40px;
+      line-height: 40px;
       padding: 0 10px 0 5px;
       text-align: center;
       margin-right: 23px;
     }
-    &:nth-child(even){
-      a{
-        background-color: $blue-darken;
-        
-        &:before{
-          border-color:$blue-darken;
-          border-left-color:transparent;
-         }
-        &:after{
-          border-left-color:$blue-darken;
+
+    // &:nth-child(even){
+    //  a{
+    //       // background-color: $blue-darken;
+
+    //     &:before{
+    //       // border-color:$blue-darken;
+    //       // border-left-color:transparent;
+    //      }
+    //     &:after{
+    //       // border-left-color:$blue-darken;
+    //     }
+    //   }
+    // }
+    &:first-child {
+      a {
+        // padding-left:15px;
+
+        &:before {
+          border: none;
         }
       }
     }
-    &:first-child{
-      a{
-        padding-left:15px;
-       
-        &:before{
-          border:none;
-         }
-      }
-    }
-    &:last-child{
-      a{
-        padding-right:15px;
+
+    &:last-child {
+      a {
+        padding-right: 15px;
         border-radius: 0 4px 4px 0;
-        &:after{
-          border:none;
-         }
+
+        &:after {
+          border: none;
+        }
       }
     }
-    
-    a{   
+
+    a {
+
       &:before,
-      &:after{
+      &:after {
         content: "";
-        position:absolute;
+        position: absolute;
         top: 0;
-        border:0 solid $blue;
-        border-width:20px 10px;
+        border: 0 solid $blue;
+        border-width: 20px 10px;
         width: 0;
         height: 0;
       }
-      &:before{
-        left:-20px;
-        border-left-color:transparent;
+
+      &:before {
+        left: -20px;
+        border-left-color: transparent;
       }
-      &:after{
-        left:100%;
-        border-color:transparent;
-        border-left-color:$blue;
+
+      &:after {
+        left: 100%;
+        border-color: transparent;
+        border-left-color:$blue ;
       }
-      &:hover{
-        background-color: $green;
-        
-        &:before{
-          border-color:$green;
-          border-left-color:transparent;
-         }
-        &:after{
-          border-left-color:$green;
-        }
-      }
-      &:active{
-        background-color: $green-darken;
-        
-        &:before{
-          border-color:$green-darken;
-          border-left-color:transparent;
-         }
-        &:after{
-          border-left-color:$green-darken;
-        }
-      }
+      // &:hover{
+      //   // background-color: $green;
+
+      //   &:before{
+      //     border-color:$green;
+      //     border-left-color:transparent;
+      //    }
+      //   &:after{
+      //     border-left-color:$green;
+      //   }
+      // }
+      // &:active{
+      //   // background-color: $green-darken;
+
+      //   &:before{
+      //     // border-color:$green-darken !important;
+      //     border-left-color:transparent;
+      //    }
+      //   &:after{
+      //     // border-left-color:$green-darken;
+      //   }
+      // }
     }
   }
 }
