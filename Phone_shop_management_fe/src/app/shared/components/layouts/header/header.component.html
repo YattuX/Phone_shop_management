@@ -1,19 +1,13 @@
-<div id="right_topbar">
-    <div class="profile-container">
-        <img src="../assets/images/luffy_profile.jpg" alt="profile_image" matCardAvatar>
-        <!-- <button mat-icon-button matTooltip="Profil">
-                <mat-icon ma>account_circle</mat-icon>
-            </button> -->
-        <div class="status-dot"></div>
+<div class="flex items-center justify-around space-x-4">
+    <div class="profile-container flex items-center">
+        <img src="../assets/images/luffy_profile.jpg" alt="profile_image" class="rounded-full" height="40px" width="40px">
+        <div class="status-dot mt-2"></div>
     </div>
-    <div>
-        <button mat-icon-button matTooltip="Notifications">
-            <mat-icon matBadge="8" matBadgePosition="after" matBadgeColor="accent">notifications</mat-icon>
-        </button>
+    <div class="flex items-center">
+        <mat-icon matBadge="8" matTooltip="Notifications" matBadgePosition="after" 
+        matBadgeColor="accent" class="cursor-pointer">notifications</mat-icon>
     </div>
-    <div>
-        <button mat-icon-button matTooltip="Se Deconnecter" routerLink="/login">
-            <mat-icon>logout</mat-icon>
-        </button>
+    <div class="flex items-center">
+        <mat-icon matTooltip="Se Deconnecter" routerLink="/auth/login" class="cursor-pointer">logout</mat-icon>
     </div>
 </div>

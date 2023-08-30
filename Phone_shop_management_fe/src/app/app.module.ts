@@ -32,6 +32,7 @@ import { BreadcrumbNavigationComponent } from './shared/components/layouts/bread
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { UsersModule } from './modules/users/users.module';
 
 @NgModule({
   declarations: [
@@ -68,9 +69,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     AuthModule,
     DashboardsModule,
     MatSlideToggleModule,
-    MatCheckboxModule
-    
-    
+    MatCheckboxModule,
+    UsersModule
   ],
   providers: [],
   bootstrap: [AppComponent]
