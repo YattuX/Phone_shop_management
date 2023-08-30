@@ -1,5 +1,5 @@
 ﻿using HR.LeaveManagement.Application.Contracts.Identity;
-using Kada.Application.Utils;
+using Kada.Application.Utility;
 using Kada.Application.Exceptions;
 using Kada.Application.Models.Identity;
 using Kada.Identity.Models;
@@ -84,7 +84,7 @@ namespace Kada.Identity.Services
                 LastName = request.LastName,
                 UserName = request.UserName,
                 PhoneNumber = request.PhoneNumber,
-                Identifiant = Utils.GenerateRandomIdentifier("Tech-")
+                Identifiant = Utils.GenerateRandomIdentifier(typeRoleIdentifiant)
             };
 
             var result = await _userManager.CreateAsync(user, request.Password);

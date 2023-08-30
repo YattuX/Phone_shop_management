@@ -10,14 +10,15 @@ namespace Kada.persistence
 {
     public static class PersistenceServicesRegistration
     {
-        public static IServiceCollection AddPersistenceServices(this IServiceCollection services,
-       IConfiguration configuration)
+        public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<KadaDataBaseContext>(options => {
-                options.UseSqlServer(configuration?.GetConnectionString("KadaConnectionString"));
+                options.UseSqlServer(configuration.GetConnectionString("KadaConnectionString"));
             });
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<IClientRepository, ClientRepository>();
+            services.AddScoped<IFournisseurRepository, FournisseurRepository>();
 
             return services;
         }

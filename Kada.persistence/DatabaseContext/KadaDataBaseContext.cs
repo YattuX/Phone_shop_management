@@ -1,5 +1,6 @@
 ﻿using HR.LeaveManagement.Application.Contracts.Identity;
 using Kada.Application.Contracts.Identity;
+using Kada.Domain;
 using Kada.Domain.Common;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -12,11 +13,14 @@ namespace Kada.persistence.DatabaseContext
 {
     public class KadaDataBaseContext : DbContext
     {
-         private readonly IUserService _userService;
+        private readonly IUserService _userService;
         public KadaDataBaseContext(DbContextOptions<KadaDataBaseContext> options, IUserService userService): base(options) 
         {
             _userService = userService;
         }
+
+        public DbSet<Client> Client { get; set; }
+        public DbSet<Fournisseur> Fournisseur { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
