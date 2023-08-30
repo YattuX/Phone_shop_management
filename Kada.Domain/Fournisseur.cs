@@ -1,18 +1,18 @@
-﻿using System;
+﻿using Kada.Domain.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kada.Application.DTOs
+namespace Kada.Domain
 {
-    public class ClientViewModel
+    public class Fournisseur : BaseEntity
     {
+        public string Identifiant { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
-        public string PhoneNumber { get; set; }
+        public string Email {get; set; }
         public string WhatsappNumber { get; set; }
-        public string Adress { get; set; }
-        public bool IsClientEnGros { get; set; }
     }
 }
