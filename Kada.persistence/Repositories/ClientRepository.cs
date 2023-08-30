@@ -11,6 +11,6 @@ namespace Kada.persistence.Repositories
 {
     public class ClientRepository : GenericRepository<Client>, IClientRepository
     {
-        public ClientRepository(KadaDataBaseContext _context) : base(_context) { }
+        public ClientRepository(KadaDataBaseContext context) : base(context) { }
     }
 }

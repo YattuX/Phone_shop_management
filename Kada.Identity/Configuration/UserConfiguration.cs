@@ -1,4 +1,4 @@
-﻿using Kada.Application.Utils;
+﻿using Kada.Application.Utility;
 using Kada.Identity.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

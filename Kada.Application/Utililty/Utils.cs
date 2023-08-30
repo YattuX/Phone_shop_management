@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kada.Application.Utils
+namespace Kada.Application.Utility
 {
     public static class Utils
     {

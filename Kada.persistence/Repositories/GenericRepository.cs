@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -31,7 +32,7 @@ namespace Kada.persistence.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IReadOnlyList<T>> GetAsync()
+        public async Task<IReadOnlyList<T>> GetAllAsync()
         {
             return await _context.Set<T>().AsNoTracking().ToListAsync();
         }
@@ -47,6 +48,11 @@ namespace Kada.persistence.Repositories
         {
             _context.Entry(entity).State = EntityState.Modified;
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<bool> ExistsAsync(Expression<Func<T, bool>> whereExpression)
+        {
+            return await _context.Set<T>().AnyAsync(whereExpression);
         }
     }
 }
