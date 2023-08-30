@@ -28,7 +28,8 @@ import { HeaderComponent } from './shared/components/layouts/header/header.compo
 import { AuthModule } from './modules/auth/auth.module';
 import { DashboardsModule } from './shared/components/dashboards/dashboards.module';
 import { BreadcrumbCarouselComponent } from './shared/components/layouts/breadcrumb/breadcrumb-carousel/breadcrumb-carousel.component';
-import { BreadcrumbNavigationComponent } from './shared/components/layouts/breadcrumb/breadcrumb-navigation/breadcrumb-navigation.component';
+import { BreadcrumbNavigationComponent } from './shared/components/layouts/breadcrumb/breadcrumb-navigation/breadcrumb-navigation.component';import { UsersModule } from './modules/users/users.module';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,7 +62,8 @@ import { BreadcrumbNavigationComponent } from './shared/components/layouts/bread
     MatFormFieldModule,
     MatInputModule,
     AuthModule,
-    DashboardsModule
+    DashboardsModule,
+    UsersModule
   ],
   providers: [],
   bootstrap: [AppComponent]
