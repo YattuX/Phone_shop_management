@@ -9,7 +9,7 @@ export const DashboardsRoutes: Routes = [
     component: Dashboard1Component,
     data: {
       title: 'Tableau de bord',
-      urls: [{ title: 'Tableau de bord', url: '/dashboard' },],
+      urls: [{ title: '', url: '/dashboard', icon: 'home' },],
     },
   },
 ];

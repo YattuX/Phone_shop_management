@@ -1,0 +1,21 @@
+<!-- Breadcrumb -->
+<ul id="breadcrumb">
+    <li *ngFor="let url of pageInfo['urls']; let index = index ; let last = last" class="">
+        <a style="display: flex;align-items: center;" *ngIf="!last" [routerLink]="url.url"
+            class="bg-blue-500 after:border-l-blue-500 flex items-center">
+            <mat-icon style="
+            margin: 0;
+            padding: 0;
+            margin-top: 10px;" *ngIf="url.icon">{{url.icon}}</mat-icon>
+            {{ url.title }}
+        </a>
+        <a *ngIf="last" class="bg-blue-500  after:border-l-blue-500" style="display: flex;align-items: center;">
+            <mat-icon style="
+            margin: 0;
+            padding: 0;
+            margin-top: 10px;" *ngIf="url.icon">{{url.icon}}</mat-icon>
+            {{ url.title }}
+        </a>
+    </li>
+</ul>
+<h1 class="p-l-1"> {{this.titleService.getTitle()}}</h1>

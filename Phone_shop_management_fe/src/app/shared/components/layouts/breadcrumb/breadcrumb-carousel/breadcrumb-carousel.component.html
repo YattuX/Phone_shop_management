@@ -1,0 +1,4 @@
+<div *ngFor="let slide of slides; let index = index" class="carousel-container bg-cover bg-no-repeate bg-center"
+    [style.background-image]="'url(' + slide.image + ')'">
+    <app-breadcrumb-navigation></app-breadcrumb-navigation>
+</div>
