@@ -1,0 +1,274 @@
+/*
+Template Name: Material Pro Admin
+Author: Themedesigner
+Email: niravjoshi87@gmail.com
+File: scss
+*/
+/**
+ * Table Of Content
+ *
+ * 	1. Globals
+ *	2. Headers
+ *	3. Navigations
+ *	4. Banners
+ *	5. Footers
+ *	6. app
+ *	7. Widgets
+ *	8. Custom Templates
+ */
+
+@use '@angular/material' as mat;
+@import 'variable';
+
+// @import 'icons/themify-icons/themify-icons.css';
+// @import 'icons/font-awesome/css/font-awesome.css';
+// @import 'icons/flag-icon-css/flag-icon.min.css';
+// @import 'spinner';
+@import 'app';
+// @import 'header';
+// @import 'widgets';
+@import'/src/app/shared/components/layouts/breadcrumb/breadcrumb-navigation/breadcrumb-navigation.component.scss';
+// @import 'horizontal.scss';
+
+// @import 'pages';
+// @import 'sidebar';
+// @import 'dark-sidebar';
+// @import 'responsive';
+// @import 'rtl';
+
+// Red Theme
+
+.danger {
+  @import 'colors/red';
+  @include mat.all-component-themes($red-app-theme);
+}
+
+// Blue Theme
+
+.blue {
+  @import 'colors/blue';
+  @include mat.all-component-themes($blue-app-theme);
+}
+
+// Green Theme
+
+.green {
+  @import 'colors/green';
+  @include mat.all-component-themes($green-app-theme);
+}
+
+// Dark Theme
+
+.dark {
+  .mat-drawer-container {
+    color: #8999a0 !important;
+  }
+  @import 'colors/dark';
+  @include mat.all-component-themes($dark-theme);
+}
+
+$custom-typography: mat.define-typography-config(
+  $font-family: 'Poppins',
+);
+// @include mat.core($custom-typography);
+@include mat.core();
+
+
+/**
+* ==============================================
+* Dot Flashing
+* ==============================================
+*/
+.dot-flashing {
+  position: relative;
+  width: 5px;
+  height: 5px;
+  border-radius: 5px;
+  background-color: #1976d2;
+  color: #1976d2;
+  animation: dotFlashing 1s infinite linear alternate;
+  animation-delay: .5s;
+}
+
+.dot-flashing::before,
+.dot-flashing::after {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  top: 0;
+}
+
+.dot-flashing::before {
+  left: -15px;
+  width: 5px;
+  height: 5px;
+  border-radius: 5px;
+  background-color: #1976d2;
+  color: #1976d2;
+  animation: dotFlashing 1s infinite alternate;
+  animation-delay: 0s;
+}
+
+.dot-flashing::after {
+  left: 15px;
+  width: 5px;
+  height: 5px;
+  border-radius: 5px;
+  background-color: #1976d2;
+  color: #1976d2;
+  animation: dotFlashing 1s infinite alternate;
+  animation-delay: 1s;
+}
+
+@keyframes dotFlashing {
+  0% {
+      background-color: #1976d2;
+  }
+
+  50%,
+  100% {
+      background-color: #ebe6ff;
+  }
+}
+
+/**
+* ==============================================
+* Dot Pulse
+* ==============================================
+*/
+.dot-pulse {
+  position: relative;
+  left: -9999px;
+  width: 5px;
+  height: 5px;
+  border-radius: 5px;
+  background-color: #1976d2;
+  color: #1976d2;
+  box-shadow: 9999px 0 0 -5px #1976d2;
+  animation: dotPulse 1.5s infinite linear;
+  animation-delay: .25s;
+}
+
+.dot-pulse::before,
+.dot-pulse::after {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 5px;
+  background-color: #1976d2;
+  color: #1976d2;
+}
+
+.dot-pulse::before {
+  box-shadow: 9984px 0 0 -5px #1976d2;
+  animation: dotPulseBefore 1.5s infinite linear;
+  animation-delay: 0s;
+}
+
+.dot-pulse::after {
+  box-shadow: 10014px 0 0 -5px #1976d2;
+  animation: dotPulseAfter 1.5s infinite linear;
+  animation-delay: .5s;
+}
+
+@keyframes dotPulseBefore {
+  0% {
+      box-shadow: 9984px 0 0 -5px #1976d2;
+  }
+
+  30% {
+      box-shadow: 9984px 0 0 2px #1976d2;
+  }
+
+  60%,
+  100% {
+      box-shadow: 9984px 0 0 -5px #1976d2;
+  }
+}
+
+@keyframes dotPulse {
+  0% {
+      box-shadow: 9999px 0 0 -5px #1976d2;
+  }
+
+  30% {
+      box-shadow: 9999px 0 0 2px #1976d2;
+  }
+
+  60%,
+  100% {
+      box-shadow: 9999px 0 0 -5px #1976d2;
+  }
+}
+
+@keyframes dotPulseAfter {
+  0% {
+      box-shadow: 10014px 0 0 -5px #1976d2;
+  }
+
+  30% {
+      box-shadow: 10014px 0 0 2px #1976d2;
+  }
+
+  60%,
+  100% {
+      box-shadow: 10014px 0 0 -5px #1976d2;
+  }
+}
+.blue{
+ color: darkmagenta;
+}
+/**
+* ==============================================
+* Dot Windmill
+* ==============================================
+*/
+.dot-windmill {
+  position: relative;
+  top: -10px;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #1976d2;
+  color: #1976d2;
+  transform-origin: 5px 15px;
+  animation: dotWindmill 2s infinite linear;
+}
+
+.dot-windmill::before, .dot-windmill::after {
+  content: '';
+  display: inline-block;
+  position: absolute;
+}
+
+.dot-windmill::before {
+  left: -8.66px;
+  top: 15px;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #1976d2;
+  color: #1976d2;
+}
+
+.dot-windmill::after {
+  left: 8.66px;
+  top: 15px;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #1976d2;
+  color: #1976d2;
+}
+
+@keyframes dotWindmill {
+  0% {
+    transform: rotateZ(0deg) translate3d(0, 0, 0);
+  }
+  100% {
+    transform: rotateZ(720deg) translate3d(0, 0, 0);
+  }
+}

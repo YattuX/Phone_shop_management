@@ -1,34 +1,106 @@
+<div [ngClass]="{
+        minisidebar: minisidebar,
+        boxed: boxed,
+        danger: danger,
+        blue: blue,
+        dark: dark,
+        green: green,
+        horizontal: horizontal
+      }">
+
+
     <mat-toolbar color="primary" [class.mat-elevation-z8]="true">
-    <mat-toolbar-row class="flex justify-between items-center">
-        <div class="flex justify-between items-center md:w-1/4">
-            <p id="title" class="p-0 m-0">
-                KADA TECH
-            </p>
-            <div id="menu">
-                <button mat-icon-button (click)="sidenav.toggle();">
-                    <mat-icon>menu</mat-icon>
-                </button>
+        <mat-toolbar-row class="flex justify-between items-center">
+            <div class="flex justify-between items-center md:w-1/4">
+                <p id="title" class="p-0 m-0">
+                    KADA TECH
+                </p>
+                <div id="menu">
+                    <button mat-icon-button (click)="sidenav.toggle();">
+                        <mat-icon>menu</mat-icon>
+                    </button>
+                </div>
             </div>
-        </div>
-        <app-header></app-header>
-    </mat-toolbar-row>
-</mat-toolbar>
+            <div class="flex justify-end items-center md:w-1/4">
+                <app-header></app-header>
+                <div>
+                    <!-- Right sidebar toggle - style you can find in rightsidebar.component.scss -->
+                    <!-- ============================================================== -->
+                    <button (click)="end.toggle()" title="Settings" mat-icon-button class="ml-xs overflow-visible">
+                        <mat-icon>settings</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </mat-toolbar-row>
+    </mat-toolbar>
 
 
-<mat-sidenav-container [hasBackdrop]="!openedSideNav">
-    <mat-sidenav #sidenav style="min-width: 20vw;" [mode]="openedSideNav?'side':'over'" [opened]="openedSideNav"
-        [class.mat-elevation-z8]="true">
-        <!-- Side Bar -->
-        <app-sidebar></app-sidebar>
-    </mat-sidenav>
-    <!-- container: body -->
-    <mat-sidenav-content>
-        <app-breadcrumb></app-breadcrumb>
-        <div style="height: 88vh; overflow-y: hidden; padding: 20px; overflow-x: hidden;" class="bg-blue-50">
-            <router-outlet>
-                <app-spinner></app-spinner>
-            </router-outlet>
-        </div>
-        <app-footer></app-footer>
-    </mat-sidenav-content>
-</mat-sidenav-container>
+    <mat-sidenav-container [hasBackdrop]="!openedSideNav">
+        <mat-sidenav #sidenav style="min-width: 20vw;" [mode]="openedSideNav?'side':'over'" [opened]="openedSideNav"
+            [class.mat-elevation-z8]="true">
+            <!-- Side Bar -->
+            <app-sidebar></app-sidebar>
+        </mat-sidenav>
+        <!-- ============================================================== -->
+        <!-- Sidebar - style you can find in sidebar.scss -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Right Sidebar - style you can find in rightsidebar.component.scss -->
+        <!-- ============================================================== -->
+        <mat-sidenav #end position="end" class="chat-panel" mode="over" opened="false">
+            <div class="scroll">
+                <mat-nav-list>
+                    <h3 mat-subheader class="text-uppercase font-weight-bold">Settings</h3>
+                    <mat-list-item *ngIf="!minisidebar">
+                        <mat-slide-toggle color="warn" [(ngModel)]="horizontal">
+                            Horizontal Layout</mat-slide-toggle>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <mat-slide-toggle color="warn" (change)="dir = dir == 'rtl' ? 'ltr' : 'rtl'">RTL
+                        </mat-slide-toggle>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <mat-slide-toggle color="warn" [(ngModel)]="boxed">Boxed Layout</mat-slide-toggle>
+                    </mat-list-item>
+                    <mat-list-item *ngIf="!horizontal">
+                        <mat-slide-toggle [(ngModel)]="minisidebar">Mini Sidebar</mat-slide-toggle>
+                    </mat-list-item>
+                    <mat-divider></mat-divider>
+                    <h3 mat-subheader class="text-uppercase font-weight-bold">Colors</h3>
+
+                    <mat-list-item>
+                        <mat-checkbox color="warn" [(ngModel)]="this.danger" (change)="green = blue = false"
+                            class="text-danger">Red
+                        </mat-checkbox>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <mat-checkbox color="warn" [(ngModel)]="green" (change)="danger = blue = false"
+                            class="text-megna">Teal Green</mat-checkbox>
+                    </mat-list-item>
+
+                    <mat-list-item>
+                        <mat-checkbox color="warn" [(ngModel)]="blue" (change)="green = danger = false"
+                            class="text-info">Blue
+                        </mat-checkbox>
+                    </mat-list-item>
+
+                    <mat-list-item>
+                        <mat-checkbox color="warn" [(ngModel)]="dark"
+                            (change)="darkClick() ;green = blue = danger = false">Dark
+                        </mat-checkbox>
+                    </mat-list-item>
+                </mat-nav-list>
+            </div>
+        </mat-sidenav>
+        <!-- container: body -->
+        <mat-sidenav-content>
+            <app-breadcrumb></app-breadcrumb>
+            <div style="height: 88vh; overflow-y: hidden; padding: 20px; overflow-x: hidden;" class="bg-blue-50">
+                <router-outlet>
+                    <app-spinner></app-spinner>
+                </router-outlet>
+            </div>
+            <app-footer></app-footer>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>

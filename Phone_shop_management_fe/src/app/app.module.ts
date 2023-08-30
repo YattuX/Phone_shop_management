@@ -29,6 +29,10 @@ import { AuthModule } from './modules/auth/auth.module';
 import { DashboardsModule } from './shared/components/dashboards/dashboards.module';
 import { BreadcrumbCarouselComponent } from './shared/components/layouts/breadcrumb/breadcrumb-carousel/breadcrumb-carousel.component';
 import { BreadcrumbNavigationComponent } from './shared/components/layouts/breadcrumb/breadcrumb-navigation/breadcrumb-navigation.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { FormsModule } from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,6 +50,7 @@ import { BreadcrumbNavigationComponent } from './shared/components/layouts/bread
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     MatButtonModule,
     BrowserAnimationsModule,
@@ -61,7 +66,11 @@ import { BreadcrumbNavigationComponent } from './shared/components/layouts/bread
     MatFormFieldModule,
     MatInputModule,
     AuthModule,
-    DashboardsModule
+    DashboardsModule,
+    MatSlideToggleModule,
+    MatCheckboxModule
+    
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
