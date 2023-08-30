@@ -27,7 +27,8 @@ import { SidebarComponent } from './shared/components/layouts/sidebar/sidebar.co
 import { HeaderComponent } from './shared/components/layouts/header/header.component';
 import { AuthModule } from './modules/auth/auth.module';
 import { DashboardsModule } from './shared/components/dashboards/dashboards.module';
-import { UsersModule } from './modules/users/users.module';
+import { BreadcrumbCarouselComponent } from './shared/components/layouts/breadcrumb/breadcrumb-carousel/breadcrumb-carousel.component';
+import { BreadcrumbNavigationComponent } from './shared/components/layouts/breadcrumb/breadcrumb-navigation/breadcrumb-navigation.component';import { UsersModule } from './modules/users/users.module';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,9 @@ import { UsersModule } from './modules/users/users.module';
     AppBlankComponent,
     SpinnerComponent,
     HeaderComponent,
+    BreadcrumbCarouselComponent,
+    BreadcrumbNavigationComponent,
+    
   ],
   imports: [
     BrowserModule,

@@ -9,7 +9,8 @@ namespace Kada.Domain
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
         public string WhatsappNumber { get; set; }
+        public string Identifiant { get; set; }
         public string Adress { get; set; }
-        public bool IsClientEnGros { get; set; }
+        public bool IsClientEnGros { get; set; } = false;
     }
 }

@@ -3,7 +3,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { ProductListComponent } from './components/product-list/product-list.component';
 
 const routes: Routes = [
-    { path: '', component: ProductListComponent },
+    {
+        path: '', component: ProductListComponent,
+        data: {
+            title: "Articles",
+            urls: [{ title: "", url: "/dashboard" ,icon: "home"},{title:'Articles', icon: "receipt",url:'/products'}],
+            // indexComponent: MENU_INDEX.LIVRAISON_DES_CLIENTS,
+            // action: "create"
+        },
+    },
     // ... Autres routes spécifiques au module "Produits"
 ];
 
