@@ -1,34 +1,29 @@
-<mat-toolbar color="primary" [class.mat-elevation-z8]="true">
+<mat-toolbar color="primary" [class.mat-elevation-z8]="true" class="fixed inset-x-0 top-0 z-10">
     <mat-toolbar-row class="flex justify-between items-center">
-        <div class="flex justify-between items-center md:w-1/4">
-            <p id="title" class="p-0 m-0">
+        <div class="flex justify-between items-center md:w-1/5">
+            <span class="cursor-pointer" routerLink="/">
                 KADA TECH
-            </p>
-            <div id="menu">
-                <button mat-icon-button (click)="sidenav.toggle();">
-                    <mat-icon>menu</mat-icon>
-                </button>
-            </div>
+            </span>
+            <mat-icon (click)="sidenav.toggle();" class="cursor-pointer">menu</mat-icon>
         </div>
         <app-header></app-header>
     </mat-toolbar-row>
 </mat-toolbar>
 
-
+<div class="mt-16 fixed w-full h-screen">
 <mat-sidenav-container [hasBackdrop]="!openedSideNav">
     <mat-sidenav #sidenav style="min-width: 20vw;" [mode]="openedSideNav?'side':'over'" [opened]="openedSideNav"
         [class.mat-elevation-z8]="true">
         <!-- Side Bar -->
         <app-sidebar></app-sidebar>
     </mat-sidenav>
-    <!-- container: body -->
     <mat-sidenav-content>
         <app-breadcrumb></app-breadcrumb>
-        <div style="height: 88vh; overflow-y: scroll; padding: 20px; overflow-x: hidden;" class="bg-blue-50">
+        <div style="height: 100vh; padding: 20px;" class="">
             <router-outlet>
-                <app-spinner></app-spinner>
             </router-outlet>
+            <app-footer></app-footer>
         </div>
-        <app-footer></app-footer>
     </mat-sidenav-content>
 </mat-sidenav-container>
+</div>

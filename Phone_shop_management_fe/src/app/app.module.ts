@@ -27,6 +27,7 @@ import { SidebarComponent } from './shared/components/layouts/sidebar/sidebar.co
 import { HeaderComponent } from './shared/components/layouts/header/header.component';
 import { AuthModule } from './modules/auth/auth.module';
 import { DashboardsModule } from './shared/components/dashboards/dashboards.module';
+import { UsersModule } from './modules/users/users.module';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { DashboardsModule } from './shared/components/dashboards/dashboards.modu
     MatFormFieldModule,
     MatInputModule,
     AuthModule,
-    DashboardsModule
+    DashboardsModule,
+    UsersModule
   ],
   providers: [],
   bootstrap: [AppComponent]
