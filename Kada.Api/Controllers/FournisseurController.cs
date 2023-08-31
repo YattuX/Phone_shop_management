@@ -1,4 +1,6 @@
 ﻿using Kada.Application.DTOs;
+using Kada.Application.DTOs.Search;
+using Kada.Application.Feature.Client_.Query.GetClients;
 using Kada.Application.Feature.Fournisseur.Command.CreateFournisseur;
 using Kada.Application.Feature.Fournisseur.Command.DeleteFournisseur;
 using Kada.Application.Feature.Fournisseur.Command.UpdateFournisseur;
@@ -21,11 +23,11 @@ namespace Kada.Api.Controllers
             _mediator = mediator;
         }
         // GET: api/<FournisseurController>
-        [HttpGet]
-        public async Task<IReadOnlyList<FournisseurDto>> GetFournisseurListPage()
+        [HttpPost]
+        public async Task<SearchResult<FournisseurDto>> GetFournisseurListPage([FromBody] SearchDTO search)
         {
-            var fournisseurs = await _mediator.Send(new GetFournisseurQuery() { });
-            return fournisseurs;
+            var Fournisseurs = await _mediator.Send(new GetFournisseurQuery() { Search = search });
+            return Fournisseurs;
         }
 
         // GET api/<FournisseurController>/5

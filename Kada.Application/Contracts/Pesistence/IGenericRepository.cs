@@ -16,5 +16,8 @@ namespace Kada.Application.Contracts.Pesistence
         Task UpdateAsync(T entity);
         Task DeleteAsync(T entity);
         Task<bool> ExistsAsync(Expression<Func<T, bool>> whereExpression);
+        IQueryable<T> GetQuery();
+        IQueryable<T> GetQuery(string linkedElements);
+        IQueryable<T> FilterQuery(IQueryable<T> query, Expression<Func<T, bool>> whereExpression);
     }
 }

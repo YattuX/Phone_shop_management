@@ -2,12 +2,8 @@
 using Kada.Domain.Common;
 using Kada.persistence.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Kada.persistence.Repositories
 {
@@ -53,6 +49,30 @@ namespace Kada.persistence.Repositories
         public async Task<bool> ExistsAsync(Expression<Func<T, bool>> whereExpression)
         {
             return await _context.Set<T>().AnyAsync(whereExpression);
+        }
+
+        public virtual IQueryable<T> GetQuery()
+        {
+            return _context.Set<T>().AsQueryable();
+        }
+
+        public IQueryable<T> GetQuery(string linkedElements)
+        {
+            string[] splited = linkedElements.Split(',');
+
+            IQueryable<T> query = _context.Set<T>().AsQueryable();
+
+            foreach (string element in splited)
+            {
+                query = query.Include(element);
+            }
+
+            return query;
+        }
+
+        public IQueryable<T> FilterQuery(IQueryable<T> query, Expression<Func<T, bool>> whereExpression)
+        {
+            return query.Where(whereExpression);
         }
     }
 }

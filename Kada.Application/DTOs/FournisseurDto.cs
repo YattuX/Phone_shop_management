@@ -12,5 +12,6 @@ namespace Kada.Application.DTOs
         public string LastName { get; set; }
         public string Email { get; set; }
         public string WhatsappNumber { get; set; }
+        public string Identifiant { get; set; }
     }
 }
