@@ -7,13 +7,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { MatTableResponsiveModule } from 'src/app/shared/global/mat-table-responsive/mat-table-responsive.module';
 
 
 
 @NgModule({
-  declarations: [
-    ListUsersComponent
-  ],
+
   imports: [
     CommonModule,
     UsersRoutingModule,
@@ -21,7 +20,13 @@ import { MatSortModule } from '@angular/material/sort';
     MatFormFieldModule,
     MatInputModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatTableResponsiveModule
   ]
+  ,
+  declarations: [
+    ListUsersComponent
+  ],
+  exports:[MatTableResponsiveModule]
 })
 export class UsersModule { }

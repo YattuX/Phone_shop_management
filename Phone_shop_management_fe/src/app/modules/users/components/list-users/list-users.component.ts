@@ -7,7 +7,7 @@ import { UserModel } from 'src/app/shared/services/user.service';
 @Component({
   selector: 'app-list-users',
   templateUrl: './list-users.component.html',
-  styleUrls: ['./list-users.component.css']
+  styleUrls: ['./list-users.component.scss']
 })
 export class ListUsersComponent {
   displayedColumns = ['id', 'username', 'email', 'firstname','lastname'];

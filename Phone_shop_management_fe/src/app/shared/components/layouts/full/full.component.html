@@ -93,12 +93,14 @@
             </div>
         </mat-sidenav>
         <!-- container: body -->
-        <mat-sidenav-content>
+        <mat-sidenav-content class="page-wrapper">
             <app-breadcrumb></app-breadcrumb>
-            <div style="height: 88vh; overflow-y: hidden; padding: 20px; overflow-x: hidden;" class="bg-blue-50">
-                <router-outlet>
-                    <app-spinner></app-spinner>
-                </router-outlet>
+            <div class="page-container">
+                <div class="page-content overflow-y-hidden overflow-x-scroll">
+                    <router-outlet>
+                        <app-spinner></app-spinner>
+                    </router-outlet>
+                </div>
             </div>
             <app-footer></app-footer>
         </mat-sidenav-content>
