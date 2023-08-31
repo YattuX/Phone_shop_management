@@ -70,9 +70,9 @@ import { UsersModule } from './modules/users/users.module';
     DashboardsModule,
     MatSlideToggleModule,
     MatCheckboxModule,
-    UsersModule
+    UsersModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
