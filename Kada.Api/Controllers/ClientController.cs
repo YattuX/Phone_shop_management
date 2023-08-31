@@ -1,4 +1,5 @@
 ﻿using Kada.Application.DTOs;
+using Kada.Application.DTOs.Search;
 using Kada.Application.Feature.Client_.Command.CreateClient;
 using Kada.Application.Feature.Client_.Command.DeleteClient;
 using Kada.Application.Feature.Client_.Command.UpdateClient;
@@ -21,10 +22,10 @@ namespace Kada.Api.Controllers
         }
 
         // GET: api/<ClientController>
-        [HttpGet]
-        public async Task<IReadOnlyList<ClientDto>> GetClientListPage()
+        [HttpPost]
+        public async Task<SearchResult<ClientDto>> GetClientListPage([FromBody] SearchDTO search_)
         {
-            var clients = await _mediator.Send(new GetClientsQuery() { });
+            var clients = await _mediator.Send(new GetClientsQuery() { Search = search_ });
             return clients;
         }
 

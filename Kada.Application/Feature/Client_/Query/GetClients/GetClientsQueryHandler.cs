@@ -1,29 +1,85 @@
 ﻿using AutoMapper;
 using Kada.Application.Contracts.Pesistence;
 using Kada.Application.DTOs;
+using Kada.Application.DTOs.Search;
+using Kada.Domain;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Kada.Application.Feature.Client_.Query.GetClients
 {
-    public class GetClientsQueryHandler : IRequestHandler<GetClientsQuery, IReadOnlyList<ClientDto>>
+    public class GetClientsQueryHandler : IRequestHandler<GetClientsQuery, SearchResult<ClientDto>>
     {
         private readonly IClientRepository _clientRepository;
-        private readonly IMapper _map;
-        public GetClientsQueryHandler(IClientRepository clientRepository, IMapper map) 
+        public GetClientsQueryHandler(IClientRepository clientRepository) 
         {
             _clientRepository = clientRepository;
-            _map = map;
         }
-        public async Task<IReadOnlyList<ClientDto>> Handle(GetClientsQuery request, CancellationToken cancellationToken)
-        {
-            var clientList = await _clientRepository.GetAllAsync();
-            return _map.Map<IReadOnlyList<ClientDto>>(clientList);
 
+        public async Task<SearchResult<ClientDto>> Handle(GetClientsQuery request, CancellationToken cancellationToken)
+        {
+            return await GetClientListPageAsync(request.Search.PageIndex, request.Search.PageSize, request.Search.Filters);
         }
+
+        public async Task<SearchResult<ClientDto>> GetClientListPageAsync(int pageIndex, int pageSize, Dictionary<string, string> filters)
+        {
+            var filteredRequest = GetFilteredQuery(filters);
+            var filteredClient = (pageIndex == -1) ? filteredRequest.ToList() : filteredRequest.Skip(pageIndex * pageSize).Take(pageSize).ToList();
+            var rows = new List<ClientDto>();
+
+            foreach (Client client in filteredClient)
+            {
+                rows.Add(new ClientDto
+                {
+                    Name = client.Name,
+                    LastName = client.LastName,
+                    Adress = client.Adress,
+                    PhoneNumber = client.PhoneNumber,
+                    WhatsappNumber = client.WhatsappNumber,
+                    IsClientEnGros = client.IsClientEnGros
+                });
+            }
+
+            return new SearchResult<ClientDto>
+            {
+                Page = pageIndex,
+                CountPerPage = pageSize,
+                TotalCount = filteredRequest.Count(),
+                Results = rows
+            };
+        }
+
+        public IQueryable<Client> GetFilteredQuery(Dictionary<string, string> filter)
+        {
+            IQueryable<Client> clientQuery = _clientRepository.GetQuery();
+
+            foreach (var key in filter.Keys)
+            {
+                if (string.IsNullOrEmpty(filter[key]))
+                {
+                    continue;
+                }
+
+                switch (key)
+                {
+                    case "name":
+                        clientQuery = _clientRepository.FilterQuery(clientQuery, x => x.Name.StartsWith(filter[key]));
+                        break;
+                    case "lastName":
+                        clientQuery = _clientRepository.FilterQuery(clientQuery, x => x.LastName.StartsWith(filter[key]));
+                        break;
+                    case "whatsappNumber":
+                        clientQuery = _clientRepository.FilterQuery(clientQuery, x => x.WhatsappNumber.StartsWith(filter[key]));
+                        break;
+                    case "adress":
+                        clientQuery = _clientRepository.FilterQuery(clientQuery, x => x.Adress.StartsWith(filter[key]));
+                        break;
+                    case "identifiant":
+                        clientQuery = _clientRepository.FilterQuery(clientQuery, x => x.Identifiant.StartsWith(filter[key]));
+                        break;
+                }
+            }
+            return clientQuery;
+        }
+        
     }
 }
