@@ -8,6 +8,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableResponsiveModule } from 'src/app/shared/global/mat-table-responsive/mat-table-responsive.module';
+import { DataPropertyGetterPipe } from 'src/app/shared/components/pipes/data-property-getter.pipe';
+import { MatIconModule } from '@angular/material/icon';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
 
 
 
@@ -21,12 +27,17 @@ import { MatTableResponsiveModule } from 'src/app/shared/global/mat-table-respon
     MatInputModule,
     MatPaginatorModule,
     MatSortModule,
-    MatTableResponsiveModule
+    MatTableResponsiveModule,
+    MatIconModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatCardModule,
+    MatDividerModule
   ]
   ,
   declarations: [
-    ListUsersComponent
+    ListUsersComponent,
+    DataPropertyGetterPipe,
   ],
-  exports:[MatTableResponsiveModule]
 })
 export class UsersModule { }

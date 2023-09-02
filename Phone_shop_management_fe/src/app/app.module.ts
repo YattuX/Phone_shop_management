@@ -33,6 +33,12 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { UsersModule } from './modules/users/users.module';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
+import { CustomPaginatorIntl } from './shared/global/custom-paginator-intl';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './shared/interceptors/AuthInterceptors/auth-Interceptor';
 
 @NgModule({
   declarations: [
@@ -47,7 +53,7 @@ import { UsersModule } from './modules/users/users.module';
     HeaderComponent,
     BreadcrumbCarouselComponent,
     BreadcrumbNavigationComponent,
-    
+    // TableComponent
   ],
   imports: [
     BrowserModule,
@@ -71,8 +77,19 @@ import { UsersModule } from './modules/users/users.module';
     MatSlideToggleModule,
     MatCheckboxModule,
     UsersModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
   ],
-  providers: [],
+  providers:[
+    { provide: MatPaginatorIntl, useClass: CustomPaginatorIntl },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
+  exports:[]
 })
 export class AppModule { }
