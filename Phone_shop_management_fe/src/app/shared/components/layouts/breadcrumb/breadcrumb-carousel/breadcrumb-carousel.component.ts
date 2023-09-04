@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 @Component({
   selector: 'app-breadcrumb-carousel',
@@ -18,6 +18,7 @@ export class BreadcrumbCarouselComponent {
   carouselTransform = '';
   intervalId: any;
   active= true;
+  @Input() Title : string = '';
   constructor(private cdr: ChangeDetectorRef) { }
 
   slides = [
@@ -28,17 +29,16 @@ export class BreadcrumbCarouselComponent {
   ];
 
   ngOnInit() {
-    this.startAutoSlide();
+    // this.startAutoSlide();
   }
 
   ngOnDestroy() {
-    this.stopAutoSlide();
+    // this.stopAutoSlide();
   }
 
   startAutoSlide() {
     this.intervalId = setInterval(() => {
       this.goToSlide(this.currentIndex + 1);
-      console.log(this.currentIndex);
 
     }, 1000); // 10 seconds interval
   }

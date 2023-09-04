@@ -9,8 +9,8 @@
       }">
 
 
-    <mat-toolbar color="primary" [class.mat-elevation-z8]="true">
-        <mat-toolbar-row class="flex justify-between items-center">
+    <mat-toolbar [class.mat-elevation-z8]="true">
+        <mat-toolbar-row class="flex justify-between items-center bg-[#011039] text-white" >
             <div class="flex justify-between items-center md:w-1/4">
                 <p id="title" class="p-0 m-0">
                     KADA TECH
@@ -26,9 +26,9 @@
                 <div>
                     <!-- Right sidebar toggle - style you can find in rightsidebar.component.scss -->
                     <!-- ============================================================== -->
-                    <button (click)="end.toggle()" title="Settings" mat-icon-button class="ml-xs overflow-visible">
+                    <!-- <button (click)="end.toggle()" title="Settings" mat-icon-button class="ml-xs overflow-visible">
                         <mat-icon>settings</mat-icon>
-                    </button>
+                    </button> -->
                 </div>
             </div>
         </mat-toolbar-row>
@@ -93,10 +93,9 @@
             </div>
         </mat-sidenav>
         <!-- container: body -->
-        <mat-sidenav-content class="page-wrapper">
-            <app-breadcrumb></app-breadcrumb>
-            <div class="page-container">
-                <div class="page-content overflow-y-hidden overflow-x-scroll">
+        <mat-sidenav-content class="page-wrapper p-0">
+            <div class="page-container min-h-[50vh]">
+                <div class="page-content overflow-y-hidden overflow-x-scroll ">
                     <router-outlet>
                         <app-spinner></app-spinner>
                     </router-outlet>
