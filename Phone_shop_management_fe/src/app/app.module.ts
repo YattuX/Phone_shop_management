@@ -28,5 +28,6 @@ import { ProductModule } from './modules/product/product.module';
   providers: [
   ],
   bootstrap: [AppComponent],
+  exports:[]
 })
 export class AppModule { }

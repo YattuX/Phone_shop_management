@@ -68,9 +68,9 @@ export class UserService implements IClient {
      * @return Success
      */
     GetUserListPage(): Observable<UserModel[]> {
-        let url_ = this.baseUrl + "/users";
+        let url_ = this.baseUrl + "/api/User/GetUserListPage/users";
         url_ = url_.replace(/[?&]$/, "");
-
+        let pd
         let options_ : any = {
             observe: "response",
             responseType: "blob",
