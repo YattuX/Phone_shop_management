@@ -11,6 +11,7 @@ import { ThemePalette } from '@angular/material/core';
 export class BreadcrumbNavigationComponent {
 // @Input() layout;
 pageInfo: Data = Object.create(null);
+title : string = '';
 primaryColor: ThemePalette;
 constructor(
   private router: Router,
@@ -38,4 +39,10 @@ constructor(
     });
     this.primaryColor = 'primary'
 }
+
+ngOnInit(): void {
+  this. title = this.activatedRoute.snapshot.routeConfig?.data?.['title']
+  console.log(this.title)
+}
+
 }
