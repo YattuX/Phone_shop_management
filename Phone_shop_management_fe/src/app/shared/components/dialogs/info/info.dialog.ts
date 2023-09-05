@@ -18,10 +18,6 @@ export class InfoDialog {
     this.dialogRef.close({response:true});
   }
 
-  get backColorClass():string{
-    return this.data?.type??'info';
-  }
-
   get colorthemeAdaptable():string{
     return this.data?.type === 'danger'||this.data?.type ==='warn' ?'warn':'primary';
   }

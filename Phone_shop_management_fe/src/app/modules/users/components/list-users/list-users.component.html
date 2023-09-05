@@ -9,35 +9,39 @@
             <input matInput placeholder="Prenom" formControlName="firstName">
         </mat-form-field>
     </form>
-    <mat-table [dataSource]="pageRows" matSort>
+    <div align="end" class="">
+        <button mat-raised-button (click)="openDialog()" color="primary">Ajouter</button>
+    </div>
+    <mat-table [dataSource]="pageRows" matSort cdkDropList cdkDropListOrientation="horizontal"
+    (cdkDropListDropped)="drop($event)">
 
         <!-- ID Column -->
         <ng-container matColumnDef="id">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>#</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef  mat-sort-header cdkDrag>#</mat-header-cell>
             <mat-cell *matCellDef="let row;let index=index"> {{index+1}} </mat-cell>
         </ng-container>
 
         <!-- username Column -->
         <ng-container matColumnDef="username">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Nom D'utilisateur</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef  mat-sort-header cdkDrag>Nom D'utilisateur</mat-header-cell>
             <mat-cell *matCellDef="let row"> {{row.username}} </mat-cell>
         </ng-container>
 
         <!-- email Column -->
         <ng-container matColumnDef="email">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef  mat-sort-header cdkDrag>Email</mat-header-cell>
             <mat-cell *matCellDef="let row"> {{row.email}} </mat-cell>
         </ng-container>
 
         <!-- firstname Column -->
         <ng-container matColumnDef="firstname">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Prénom</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef  mat-sort-header cdkDrag>Prénom</mat-header-cell>
             <mat-cell *matCellDef="let row"> {{row.firstname}} </mat-cell>
         </ng-container>
 
         <!-- lastname Column -->
         <ng-container matColumnDef="lastname">
-            <mat-header-cell *matHeaderCellDef mat-sort-header >Nom</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header cdkDrag>Nom</mat-header-cell>
             <mat-cell *matCellDef="let row"> {{row.lastname}} </mat-cell>
         </ng-container>
 

@@ -38,7 +38,7 @@ import { AuthModule } from '../modules/auth/auth.module';
 import { FormsModule } from '@angular/forms';
 import { NotificationComponent } from './components/notification/notification.component';
 import { ToastrModule } from 'ngx-toastr';
-
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 @NgModule({
@@ -79,7 +79,7 @@ import { ToastrModule } from 'ngx-toastr';
     AuthModule,
     FormsModule,
     ToastrModule.forRoot(),
-
+    
   ],
   exports:[
     SpinnerComponent,
