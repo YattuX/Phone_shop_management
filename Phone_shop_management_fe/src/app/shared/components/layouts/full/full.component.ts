@@ -1,15 +1,15 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { NotificationComponent } from '../../notification/notification.component';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-full',
   templateUrl: './full.component.html'
 })
 export class FullComponent implements OnInit {
-go() {
-console.log(this.blue);
 
-}
   openedSideNav?: boolean;
   dir = 'ltr';
   dark = false;
@@ -19,14 +19,17 @@ console.log(this.blue);
 
   green = false;
   blue = false;
-  danger:any = false;
+  danger: any = false;
   showHide = false;
   url = '';
   sidebarOpened = false;
   status = false;
 
   public showSearch = false;
-  constructor(private breakpointObserver: BreakpointObserver,) {
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private toastr: ToastrService
+  ) {
     this.dark = false;
   }
   ngOnInit(): void {
@@ -38,10 +41,12 @@ console.log(this.blue);
       this.openedSideNav = !result.matches;
     })
   }
-  
+
   clickEvent(): void {
     this.status = !this.status;
   }
+
+
 
   darkClick() {
     // const body = document.getElementsByTagName('body')[0];

@@ -17,6 +17,7 @@ import {MatInputModule} from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import { FooterComponent } from './components/layouts/footer/footer.component';
 import { InfoDialog } from './components/dialogs/info/info.dialog';
@@ -35,6 +36,8 @@ import { CommonModule } from '@angular/common';
 import { UsersModule } from '../modules/users/users.module';
 import { AuthModule } from '../modules/auth/auth.module';
 import { FormsModule } from '@angular/forms';
+import { NotificationComponent } from './components/notification/notification.component';
+import { ToastrModule } from 'ngx-toastr';
 
 
 
@@ -50,6 +53,7 @@ import { FormsModule } from '@angular/forms';
     BreadcrumbCarouselComponent,
     BreadcrumbNavigationComponent,
     SpinnerComponent,
+    NotificationComponent,
   ],
   imports: [
     CommonModule,
@@ -71,9 +75,10 @@ import { FormsModule } from '@angular/forms';
     MatInputModule,
     MatSlideToggleModule,
     MatCheckboxModule,
-    UsersModule,
+    MatSnackBarModule,
     AuthModule,
     FormsModule,
+    ToastrModule.forRoot(),
 
   ],
   exports:[
@@ -88,6 +93,7 @@ import { FormsModule } from '@angular/forms';
     FullComponent,
     AppBreadcrumbComponent,
     AppBlankComponent,
+    NotificationComponent,
   ],
   providers: [],
 })
