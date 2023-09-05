@@ -1,0 +1,30 @@
+<div class="headerDialog">
+    <h2 mat-dialog-title >Ajout d'un Utilisateur</h2>
+    <mat-icon class="cursor-pointer" (click)="dialogRef.close()">close</mat-icon>
+</div>
+<mat-dialog-content class="mat-typography">
+        <mat-form-field appearance="fill" class="w-full">
+          <mat-label>Fill form field</mat-label>
+          <input matInput placeholder="Placeholder">
+          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+          <mat-hint>Hint</mat-hint>
+        </mat-form-field>
+      
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Outline form field</mat-label>
+          <input matInput placeholder="Placeholder">
+          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+          <mat-hint>Hint</mat-hint>
+        </mat-form-field>
+      
+      
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button (click)="dialogRef.close()">
+        Annuler
+    </button>
+    <button mat-raised-button >
+        Ajouter
+    </button>
+</mat-dialog-actions>
