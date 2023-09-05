@@ -53,16 +53,7 @@ export class ListUsersComponent extends BaseTableComponent {
 
   openDialog() {
     this._dialog.open(AddUserComponent,{
-      data:{
-        title:"Dignissimos aspernatur minus ipsum magni praesentium",
-        message:`Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repudiandae illum incidunt tempore perferendis enim recusandae
-        assumenda omnis vero? Labore suscipit ad rerum maxime harum. Dignissimos aspernatur minus ipsum magni praesentium.
-        Fuga itaque voluptatum veniam voluptate optio, et dolores necessitatibus exercitationem impedit dolorem corporis non
-        perferendis delectus libero tenetur qui porro! Quisquam tempora eum molestiae modi ipsum possimus nesciunt fugit
-        voluptas?`,
-        type:'warn',
-        
-      },
+      data:{},
     })
   }
 
