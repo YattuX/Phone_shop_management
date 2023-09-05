@@ -1,5 +1,5 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NotificationComponent } from '../../notification/notification.component';
@@ -24,6 +24,7 @@ export class FullComponent implements OnInit {
   url = '';
   sidebarOpened = false;
   status = false;
+  footerVisible: boolean = false;
 
   public showSearch = false;
   constructor(
@@ -59,5 +60,17 @@ export class FullComponent implements OnInit {
     // this.dark = this.dark;
     // body.classList.toggle('dark');
     // this.dark = this.dark;
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  onScroll(event: Event): void {
+    // Récupérer la position actuelle de défilement
+    const scrollPosition = window.scrollY || document.documentElement.scrollTop;
+
+    // Définir la limite de défilement à partir de laquelle le footer doit apparaître
+    const scrollThreshold = 200; // Changez cette valeur selon vos besoins
+
+    // Mettre à jour la visibilité du footer en fonction du défilement
+    this.footerVisible = scrollPosition >= scrollThreshold;
   }
 }
