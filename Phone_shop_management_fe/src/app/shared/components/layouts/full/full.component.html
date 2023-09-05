@@ -6,16 +6,17 @@
         dark: dark,
         green: green,
         horizontal: horizontal
-      }">
+      }"
+      >
 
 
     <mat-toolbar [class.mat-elevation-z8]="true">
         <mat-toolbar-row class="flex justify-between items-center bg-[#011039] text-white" >
-            <div class="flex justify-between items-center md:w-1/4">
+            <div class="flex justify-between items-center md:w-1/5">
                 <p id="title" class="p-0 m-0">
                     KADA TECH
                 </p>
-                <div id="menu">
+                <div id="menu" >
                     <button mat-icon-button (click)="sidenav.toggle();">
                         <mat-icon>menu</mat-icon>
                     </button>
@@ -23,13 +24,6 @@
             </div>
             <div class="flex justify-end items-center md:w-1/4">
                 <app-header></app-header>
-                <div>
-                    <!-- Right sidebar toggle - style you can find in rightsidebar.component.scss -->
-                    <!-- ============================================================== -->
-                    <!-- <button (click)="end.toggle()" title="Settings" mat-icon-button class="ml-xs overflow-visible">
-                        <mat-icon>settings</mat-icon>
-                    </button> -->
-                </div>
             </div>
         </mat-toolbar-row>
     </mat-toolbar>
@@ -93,15 +87,15 @@
             </div>
         </mat-sidenav>
         <!-- container: body -->
-        <mat-sidenav-content class=" h-screen p-0">
-            <div class="min-h-[calc(100vh-128px)]">
-                <div class="overflow-y-hidden overflow-x-scroll ">
-                    <router-outlet>
-                        <app-spinner></app-spinner>
-                    </router-outlet>
+        <mat-sidenav-content>
+                <div class="min-h-[calc(100vh-64px)] max-h-[calc(100vh-64px)] overflow-y-auto flex flex-col justify-between">
+                    <div>
+                        <router-outlet>
+                            <app-spinner></app-spinner>
+                        </router-outlet>
+                    </div>
+                    <app-footer></app-footer>
                 </div>
-            </div>
-            <app-footer></app-footer>
         </mat-sidenav-content>
     </mat-sidenav-container>
 </div>
