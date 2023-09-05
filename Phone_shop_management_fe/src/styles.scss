@@ -56,12 +56,13 @@ mat-header-row * {
 }
 /********************* Dialog Design*******************/
 .headerDialog{
-  background: linear-gradient(to right, #011039, #3752A3, #011039) !important;
+  background: #011039 !important;
   color:white !important;
   display: flex;
   align-items: center;
   justify-content: space-between;
   min-width:45vw ;
+  height: 60px !important;
 }
 .headerDialog mat-icon{
   margin: 10px;
@@ -75,6 +76,24 @@ mat-header-row * {
   width: 80%;
 }
 
+.button-primary{
+  @apply py-2 px-5 rounded-md bg-[#011039] text-white text-lg;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3); 
+}
+
+.button{
+  @apply text-[#011039] py-2 px-5  rounded-md border border-[#3752A3] text-lg;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3); 
+}
+
+.button-danger{
+  @apply py-2 px-5  rounded-md bg-red-500 text-white text-lg;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3); 
+}
+
+.button:hover {
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3) !important; 
+}
 /*
 //##### si l'on veut afficher le text cacher ########//
 

@@ -9,8 +9,8 @@
             <input matInput placeholder="Prenom" formControlName="firstName">
         </mat-form-field>
     </form>
-    <div align="end" class="">
-        <button mat-raised-button (click)="openDialog()" color="primary">Ajouter</button>
+    <div align="end" >
+        <button class="mb-4 button-primary"  (click)="openDialog()" >+ Ajouter</button>
     </div>
     <mat-table [dataSource]="pageRows" matSort cdkDropList cdkDropListOrientation="horizontal"
     (cdkDropListDropped)="drop($event)">

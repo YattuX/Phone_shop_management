@@ -6,9 +6,9 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   templateUrl: './add-user.component.html',
   styleUrls: ['./add-user.component.scss']
 })
-export class AddUserComponent {
+export class AddUserDialog {
   constructor(
-    public dialogRef: MatDialogRef<AddUserComponent>,
+    public dialogRef: MatDialogRef<AddUserDialog>,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 }

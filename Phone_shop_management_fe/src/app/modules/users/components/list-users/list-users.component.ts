@@ -10,7 +10,7 @@ import { Observable, from, of } from 'rxjs';
 import { InfoDialog } from 'src/app/shared/components/dialogs/info/info.dialog';
 import { BaseTableComponent } from 'src/app/shared/components/table/base-table.component';
 import { UserService } from 'src/app/shared/services/user.service';
-import { AddUserComponent } from '../add-user/add-user.component';
+import { AddUserDialog } from '../add-user/add-user.component';
 
 @Component({
   selector: 'app-list-users',
@@ -52,7 +52,7 @@ export class ListUsersComponent extends BaseTableComponent {
   }
 
   openDialog() {
-    this._dialog.open(AddUserComponent,{
+    this._dialog.open(AddUserDialog,{
       data:{},
     })
   }

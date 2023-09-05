@@ -16,7 +16,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { AddUserComponent } from './components/add-user/add-user.component';
+import { AddUserDialog } from './components/add-user/add-user.component';
 import { MatDialogModule } from '@angular/material/dialog';
 
 
@@ -45,7 +45,7 @@ import { MatDialogModule } from '@angular/material/dialog';
   declarations: [
     ListUsersComponent,
     DataPropertyGetterPipe,
-    AddUserComponent,
+    AddUserDialog,
   ],
 })
 export class UsersModule { }

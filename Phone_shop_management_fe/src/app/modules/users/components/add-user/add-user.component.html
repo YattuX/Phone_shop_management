@@ -16,15 +16,15 @@
           <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
           <mat-hint>Hint</mat-hint>
         </mat-form-field>
-      
-      
 </mat-dialog-content>
 
-<mat-dialog-actions align="end">
-    <button mat-button (click)="dialogRef.close()">
+<mat-dialog-actions align="end" >
+  <div class="space-x-3 px-4">
+    <button class="button text-black shadow-xl"  (click)="dialogRef.close()">
         Annuler
     </button>
-    <button mat-raised-button >
+    <button class="button-primary mr-4 drop-shadow-lg">
         Ajouter
     </button>
+  </div>
 </mat-dialog-actions>
