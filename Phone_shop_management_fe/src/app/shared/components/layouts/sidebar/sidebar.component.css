@@ -1,8 +1,7 @@
 .active {
-    /* background-color: #3F51B5; */
-    @apply bg-blue-100;
+    @apply bg-gradient-to-r from-[#011039] via-[#3752A3] to-[#011039]; 
   }
   .active mat-icon,
   .active div {
-    @apply text-blue-500;
+    @apply text-white;
   }

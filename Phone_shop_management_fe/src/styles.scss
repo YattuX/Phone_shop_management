@@ -36,3 +36,21 @@ body {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+mat-header-row {
+  background: linear-gradient(to right, #011039, #3752A3, #011039) !important;
+}
+
+.content{
+  @apply p-6;
+}
+
+
+
+mat-header-row * {
+  color: whitesmoke !important;
+
+}

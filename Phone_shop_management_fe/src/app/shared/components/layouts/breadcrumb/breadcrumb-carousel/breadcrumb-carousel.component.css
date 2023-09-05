@@ -28,3 +28,12 @@
     transform: translateX(-100%);
     transition: opacity 1s ease-in-out, transform 1s ease-in-out;
 }
+
+.bg-custom-image {
+    width: 100%; /* Largeur du conteneur */
+    background-image: url('../../../../../../assets/images/bg-3.jpg'); /* URL de votre image */
+    background-size: cover; /* Ajuste la taille de l'image pour couvrir tout le conteneur */
+    background-position: center; /* Centre l'image horizontalement et verticalement */
+    /* Vous pouvez ajouter d'autres propriétés CSS pour personnaliser davantage l'arrière-plan */
+  }
+

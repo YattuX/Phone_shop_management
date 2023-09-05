@@ -63,13 +63,13 @@ File: scss
   .mat-drawer-container {
     color: #8999a0 !important;
   }
+
   @import 'colors/dark';
   @include mat.all-component-themes($dark-theme);
 }
 
-$custom-typography: mat.define-typography-config(
-  $font-family: 'Poppins',
-);
+$custom-typography: mat.define-typography-config($font-family: 'Poppins',
+  );
 // @include mat.core($custom-typography);
 @include mat.core();
 
@@ -122,12 +122,12 @@ $custom-typography: mat.define-typography-config(
 
 @keyframes dotFlashing {
   0% {
-      background-color: #1976d2;
+    background-color: #1976d2;
   }
 
   50%,
   100% {
-      background-color: #ebe6ff;
+    background-color: #ebe6ff;
   }
 }
 
@@ -176,51 +176,53 @@ $custom-typography: mat.define-typography-config(
 
 @keyframes dotPulseBefore {
   0% {
-      box-shadow: 9984px 0 0 -5px #1976d2;
+    box-shadow: 9984px 0 0 -5px #1976d2;
   }
 
   30% {
-      box-shadow: 9984px 0 0 2px #1976d2;
+    box-shadow: 9984px 0 0 2px #1976d2;
   }
 
   60%,
   100% {
-      box-shadow: 9984px 0 0 -5px #1976d2;
+    box-shadow: 9984px 0 0 -5px #1976d2;
   }
 }
 
 @keyframes dotPulse {
   0% {
-      box-shadow: 9999px 0 0 -5px #1976d2;
+    box-shadow: 9999px 0 0 -5px #1976d2;
   }
 
   30% {
-      box-shadow: 9999px 0 0 2px #1976d2;
+    box-shadow: 9999px 0 0 2px #1976d2;
   }
 
   60%,
   100% {
-      box-shadow: 9999px 0 0 -5px #1976d2;
+    box-shadow: 9999px 0 0 -5px #1976d2;
   }
 }
 
 @keyframes dotPulseAfter {
   0% {
-      box-shadow: 10014px 0 0 -5px #1976d2;
+    box-shadow: 10014px 0 0 -5px #1976d2;
   }
 
   30% {
-      box-shadow: 10014px 0 0 2px #1976d2;
+    box-shadow: 10014px 0 0 2px #1976d2;
   }
 
   60%,
   100% {
-      box-shadow: 10014px 0 0 -5px #1976d2;
+    box-shadow: 10014px 0 0 -5px #1976d2;
   }
 }
-.blue{
- color: darkmagenta;
+
+.blue {
+  color: darkmagenta;
 }
+
 /**
 * ==============================================
 * Dot Windmill
@@ -238,7 +240,8 @@ $custom-typography: mat.define-typography-config(
   animation: dotWindmill 2s infinite linear;
 }
 
-.dot-windmill::before, .dot-windmill::after {
+.dot-windmill::before,
+.dot-windmill::after {
   content: '';
   display: inline-block;
   position: absolute;
@@ -268,6 +271,7 @@ $custom-typography: mat.define-typography-config(
   0% {
     transform: rotateZ(0deg) translate3d(0, 0, 0);
   }
+
   100% {
     transform: rotateZ(720deg) translate3d(0, 0, 0);
   }
@@ -277,12 +281,19 @@ $custom-typography: mat.define-typography-config(
 html .page-wrapper {
   height: calc(100vh - 64px);
   overflow: auto;
+
   .page-content {
-    padding: 15px;
-    
+    padding: 0px;
+    width: 100%;
   }
+
   .page-container {
     max-width: $page-wrapper-boxed-width;
     margin: 0 auto;
   }
+
+}
+
+.pageContent{
+  
 }

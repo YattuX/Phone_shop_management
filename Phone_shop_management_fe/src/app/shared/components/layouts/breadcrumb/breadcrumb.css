@@ -1,0 +1,38 @@
+.carousel-container {
+    overflow: hidden;
+    width: 100%;
+    height: 30vh;
+}
+
+/* .carousel {
+    transition: transform 10s ease-in-out;
+  }   */
+.slide.active {
+
+    width: 100%;
+    height: 30vh;
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+    background-repeat:no-repeat ;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    /* ... vos autres styles ... */
+  
+}
+
+/* Styles pour l'animation de sortie */
+.slide.inactive {
+    opacity: 0;
+    transform: translateX(-100%);
+    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+}
+
+.bg-custom-image {
+    width: 100%; 
+    background-image: url('../../../../../assets/images/bg-3.jpg'); 
+    background-size: cover;
+    background-position: center; 
+  }
+

@@ -1,24 +1,14 @@
-<mat-card class="mb-5">
-    <mat-card-content>
-        <mat-card-title class="font-bold">Filtres</mat-card-title>
-        <form [formGroup]="searchForm">
-            <mat-form-field class="w-full md:w-[45%] md:mr-2">
-                <input matInput placeholder="Nom" formControlName="lastName">
-            </mat-form-field>
-            <mat-form-field class="w-full md:w-[45%]">
-                <input matInput placeholder="Prenom" formControlName="firstName">
-            </mat-form-field>
-            <div align="end">
-                <button type="button" class="mr-2" mat-stroked-button (click)="triggerSearch()"
-                    color="primary">Filter</button>
-                <!-- <button type="button" mat-stroked-button (click)="resetSearchForm()" color="warn">Effacer</button> -->
-            </div>
-        </form>
-    </mat-card-content>
-</mat-card>
 
-<div class="example-container mat-elevation-z2">
-
+<app-breadcrumb Title="'test'"></app-breadcrumb>
+<div class="content mat-elevation-z2">
+    <form [formGroup]="searchForm" class="flex justify-around mb-6 border border-gray-300 rounded-md  py-4">
+        <mat-form-field class="w-full md:w-[45%] md:mr-2">
+            <input matInput placeholder="Nom" formControlName="lastName">
+        </mat-form-field>
+        <mat-form-field class="w-full md:w-[45%]">
+            <input matInput placeholder="Prenom" formControlName="firstName">
+        </mat-form-field>
+    </form>
     <mat-table [dataSource]="pageRows" matSort>
 
         <!-- ID Column -->
@@ -47,7 +37,7 @@
 
         <!-- lastname Column -->
         <ng-container matColumnDef="lastname">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Nom</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header >Nom</mat-header-cell>
             <mat-cell *matCellDef="let row"> {{row.lastname}} </mat-cell>
         </ng-container>
 
