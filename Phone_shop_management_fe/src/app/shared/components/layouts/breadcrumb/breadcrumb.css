@@ -30,10 +30,9 @@
 }
 
 .bg-custom-image {
-    width: 100%; /* Largeur du conteneur */
-    background-image: url('../../../../../assets/images/bg-3.jpg'); /* URL de votre image */
-    background-size: cover; /* Ajuste la taille de l'image pour couvrir tout le conteneur */
-    background-position: center; /* Centre l'image horizontalement et verticalement */
-    /* Vous pouvez ajouter d'autres propriétés CSS pour personnaliser davantage l'arrière-plan */
+    width: 100%; 
+    background-image: url('../../../../../assets/images/bg-3.jpg'); 
+    background-size: cover;
+    background-position: center; 
   }
 

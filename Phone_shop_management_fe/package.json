@@ -24,6 +24,7 @@
     "apexcharts": "^3.42.0",
     "jest-editor-support": "*",
     "ng-apexcharts": "^1.8.0",
+    "ngx-toastr": "^17.0.2",
     "node": "^14.21.3",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

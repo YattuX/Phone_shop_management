@@ -30,7 +30,7 @@ export abstract class BaseTableComponent extends BaseReactiveComponent {
         this.pageOffset = pageInfo.offset as number;
         this.pageRows = [];
         const container = document.querySelector('#page-content');
-        container!.scrollTop = 0;
+        // container!.scrollTop = 0;
 
         let criteria = Object.assign({}, this.searchForm.value, {
             pageSize: this.pageSize,

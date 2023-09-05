@@ -14,6 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 
@@ -32,7 +33,8 @@ import { MatDividerModule } from '@angular/material/divider';
     ReactiveFormsModule,
     MatButtonModule,
     MatCardModule,
-    MatDividerModule
+    MatDividerModule,
+    SharedModule,
   ]
   ,
   declarations: [
