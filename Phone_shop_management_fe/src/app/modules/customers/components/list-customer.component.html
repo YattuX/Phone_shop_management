@@ -56,6 +56,19 @@
             <mat-cell *matCellDef="let row"> {{row.adress}} </mat-cell>
         </ng-container>
 
+        <!-- action Column -->
+        <ng-container matColumnDef="action">
+            <mat-header-cell *matHeaderCellDef mat-sort-header cdkDrag></mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <button mat-stroked-button [matMenuTriggerFor]="menu" color="primary">Action</button>
+                <mat-menu #menu="matMenu">
+                    <span mat-menu-item (click)="openDialog('edit',row)">
+                        Modifier
+                    </span>
+                    <span mat-menu-item (click)="removeRows(row)">Supprimer</span>
+                </mat-menu>
+            </mat-cell>
+        </ng-container>
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;">
