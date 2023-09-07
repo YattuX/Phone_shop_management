@@ -32,12 +32,12 @@ export abstract class BaseTableComponent extends BaseReactiveComponent {
         const container = document.querySelector('#page-content');
         // container!.scrollTop = 0;
 
-        let criteria = Object.assign({}, this.searchForm.value, {
+        let criteria = Object.assign({}, {filters:this.searchForm.value}, {
             pageSize: this.pageSize,
             pageOffset: this.pageOffset,
         }, this._sortBy());
         this._search(criteria).pipe(takeUntil(this.$ngOnDestroyed)).subscribe((data: any) => {
-            this.pageRows = data;
+            this.pageRows = data["results"];
             this._cd.markForCheck();
         });
     }

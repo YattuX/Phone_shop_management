@@ -1,19 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ListCustomerComponent } from './components/list-customer/list-customer.component';
-import { AddCustomerComponent } from './components/add-customer/add-customer.component';
+import { ListCustomerComponent } from './components/list-customer.component';
+import { CustomerDialog } from './components/customer.dialog';
 import { CustomerRoutingModule } from './customer-routing.module';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
 
 
 
 @NgModule({
   declarations: [
     ListCustomerComponent,
-    AddCustomerComponent
+    CustomerDialog
   ],
   imports: [
     CommonModule,
-    CustomerRoutingModule
+    CustomerRoutingModule,
+    SharedModule,
   ]
 })
 export class CustomerModule { }

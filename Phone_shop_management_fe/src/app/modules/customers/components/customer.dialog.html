@@ -1,0 +1,96 @@
+<div class="headerDialog">
+  <h2 mat-dialog-title>Ajout d'un Utilisateur</h2>
+  <mat-icon class="cursor-pointer" (click)="dialogRef.close()">close</mat-icon>
+</div>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="form">
+
+    <div class="md:flex md:space-x-2">
+      <!-- form field last name -->
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Nom</mat-label>
+        <input formControlName="lastName" matInput placeholder="Nom">
+        <mat-error *ngIf="form.controls['lastName'].errors && 
+                    form.controls['lastName'].errors['required'] && 
+                    form.controls['lastName'].touched">Le nom est Obligatoire</mat-error>
+        <mat-error *ngIf="form.controls['lastName'].errors && 
+                    form.controls['lastName'].errors['maxlength'] && 
+                    form.controls['lastName'].touched">Le nom ne doit pas dépasser
+          {{form.controls['lastName'].errors['maxlength']['requiredLength']}} caractères</mat-error>
+        <mat-error *ngIf="form.controls['lastName'].errors && 
+                    form.controls['lastName'].errors['minlength'] && 
+                    form.controls['lastName'].touched">Le nom doit avoir au moins
+          {{form.controls['lastName'].errors['minlength']['requiredLength']}} caractères</mat-error>
+      </mat-form-field>
+
+      <!-- form field name -->
+
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Prenom</mat-label>
+        <input formControlName="name" matInput placeholder="Prenom">
+        <mat-error *ngIf="form.controls['name'].errors && 
+                    form.controls['name'].errors['required'] && 
+                    form.controls['name'].touched">Le Prénom est Obligatoire</mat-error>
+        <mat-error *ngIf="form.controls['name'].errors && 
+                    form.controls['name'].errors['maxlength'] && 
+                    form.controls['name'].touched">Le Prénom ne doit pas dépasser
+          {{form.controls['name'].errors['maxlength']['requiredLength']}} caractères</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="md:flex md:space-x-2">
+
+      <!-- Phone number -->
+
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Telephone personel</mat-label>
+        <input formControlName="phoneNumber" matInput placeholder="Telephone">
+        <mat-error *ngIf="form.controls['phoneNumber'].errors && 
+          form.controls['phoneNumber'].errors['maxlength'] && 
+          form.controls['phoneNumber'].touched">Le numéro ne doit pas dépasser
+          {{form.controls['phoneNumber'].errors['maxlength']['requiredLength']}} caractères</mat-error>
+      </mat-form-field>
+
+      <!--Whatsapp  -->
+
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Whatsapp</mat-label>
+        <input formControlName="whatsappNumber" matInput placeholder="Whatsapp">
+        <mat-error *ngIf="form.controls['whatsappNumber'].errors && 
+          form.controls['whatsappNumber'].errors['maxlength'] && 
+          form.controls['whatsappNumber'].touched">Le numéro ne doit pas dépasser
+          {{form.controls['whatsappNumber'].errors['maxlength']['requiredLength']}} caractères</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="md:flex md:space-x-2">
+
+      <!-- Adress -->
+      <mat-form-field appearance="fill" class="md:w-1/2">
+        <mat-label>Adresse</mat-label>
+        <input formControlName="adress" matInput placeholder="Adresse">
+        <mat-error *ngIf="form.controls['adress'].errors && 
+                    form.controls['adress'].errors['required'] && 
+                    form.controls['adress'].touched">L'adress est Obligatoire</mat-error>
+        <mat-error *ngIf="form.controls['adress'].errors && 
+                    form.controls['adress'].errors['maxlength'] && 
+                    form.controls['adress'].touched">L'adress ne doit pas dépasser
+          {{form.controls['adress'].errors['maxlength']['requiredLength']}} caractères</mat-error>
+      </mat-form-field>
+
+      <mat-slide-toggle formControlName="isClientEnGros">
+        Client en gros ?
+      </mat-slide-toggle>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <div class="space-x-3 px-4">
+    <button class="button text-black shadow-xl" (click)="dialogRef.close()">
+      Annuler
+    </button>
+    <button class="button-primary mr-4 drop-shadow-lg">
+      Ajouter
+    </button>
+  </div>
+</mat-dialog-actions>

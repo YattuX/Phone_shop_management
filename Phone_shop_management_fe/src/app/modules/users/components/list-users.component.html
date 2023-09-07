@@ -1,12 +1,15 @@
 
 <app-breadcrumb Title="'test'"></app-breadcrumb>
 <div class="content mat-elevation-z2">
-    <form [formGroup]="searchForm" class="flex justify-around mb-6 border border-gray-300 rounded-md  py-4">
+    <form [formGroup]="searchForm" class="flex flex-wrap justify-start mb-6 border border-gray-300 rounded-md pl-5 py-4 ">
         <mat-form-field class="w-full md:w-[45%] md:mr-2">
             <input matInput placeholder="Nom" formControlName="lastName">
         </mat-form-field>
         <mat-form-field class="w-full md:w-[45%]">
             <input matInput placeholder="Prenom" formControlName="firstName">
+        </mat-form-field>
+        <mat-form-field class="w-full md:w-[45%]">
+            <input matInput placeholder="Identifiant" formControlName="identifiant">
         </mat-form-field>
     </form>
     <div align="end" >

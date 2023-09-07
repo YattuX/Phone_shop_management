@@ -48,8 +48,6 @@ mat-header-row {
   @apply p-6;
 }
 
-
-
 mat-header-row * {
   color: whitesmoke !important;
 
@@ -61,7 +59,6 @@ mat-header-row * {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-width:45vw ;
   height: 60px !important;
 }
 .headerDialog mat-icon{

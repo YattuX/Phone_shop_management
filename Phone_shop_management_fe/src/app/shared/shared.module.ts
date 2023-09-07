@@ -35,10 +35,17 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { UsersModule } from '../modules/users/users.module';
 import { AuthModule } from '../modules/auth/auth.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NotificationComponent } from './components/notification/notification.component';
 import { ToastrModule } from 'ngx-toastr';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { UsersRoutingModule } from '../modules/users/users-routing.module';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableResponsiveModule } from './global/mat-table-responsive/mat-table-responsive.module';
+import { MatDividerModule } from '@angular/material/divider';
+import { KadaService } from './services/kada.service';
 
 
 @NgModule({
@@ -78,6 +85,15 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     MatSnackBarModule,
     AuthModule,
     FormsModule,
+    UsersRoutingModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatTableResponsiveModule,
+    ReactiveFormsModule,
+    MatDividerModule,
+    DragDropModule,
+    MatDialogModule,
     ToastrModule.forRoot(),
     
   ],
@@ -94,7 +110,41 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     AppBreadcrumbComponent,
     AppBlankComponent,
     NotificationComponent,
+    CommonModule,
+    BrowserModule,
+    MatButtonModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+    MatProgressSpinnerModule,
+    RouterModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    MatBadgeModule,
+    MatTooltipModule,
+    MatCardModule,
+    MatGridListModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSlideToggleModule,
+    MatCheckboxModule,
+    MatSnackBarModule,
+    AuthModule,
+    FormsModule,
+    UsersRoutingModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatTableResponsiveModule,
+    ReactiveFormsModule,
+    MatDividerModule,
+    DragDropModule,
+    MatDialogModule,
+    MatSlideToggleModule,
   ],
-  providers: [],
+  providers: [
+    KadaService
+  ],
 })
 export class SharedModule { }

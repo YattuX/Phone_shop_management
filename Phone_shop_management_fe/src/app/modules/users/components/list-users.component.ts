@@ -10,7 +10,7 @@ import { Observable, from, of } from 'rxjs';
 import { InfoDialog } from 'src/app/shared/components/dialogs/info/info.dialog';
 import { BaseTableComponent } from 'src/app/shared/components/table/base-table.component';
 import { UserService } from 'src/app/shared/services/user.service';
-import { AddUserDialog } from '../add-user/add-user.component';
+import { AddUserDialog } from './user.dialog';
 
 @Component({
   selector: 'app-list-users',
@@ -29,7 +29,7 @@ export class ListUsersComponent extends BaseTableComponent {
     protected override _cd: ChangeDetectorRef,
     protected override _formBuilder: FormBuilder,
     protected override _router: Router,
-    private _dialog:MatDialog
+    private _dialog: MatDialog
   ) {
     super(_cd, _formBuilder, _router);
     this._createSearchForm();
@@ -48,12 +48,13 @@ export class ListUsersComponent extends BaseTableComponent {
     this.searchForm = this._formBuilder.group({
       firstName: null,
       lastName: null,
+      identifiant: null,
     });
   }
 
   openDialog() {
-    this._dialog.open(AddUserDialog,{
-      data:{},
+    this._dialog.open(AddUserDialog, {
+      data: {},
     })
   }
 

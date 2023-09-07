@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { ProductModule } from './modules/product/product.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UsersModule } from './modules/users/users.module';
+import { CustomerModule } from './modules/customers/customer.module';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { UsersModule } from './modules/users/users.module';
     ProductModule,
     BrowserAnimationsModule,
     UsersModule,
+    CustomerModule,
   ],
  
   providers: [

@@ -15,7 +15,7 @@ import { environment } from 'src/environments/environment';
 
 
 @Injectable()
-export class Client {
+export class KadaService {
     private http: HttpClient;
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
@@ -29,8 +29,7 @@ export class Client {
      * @param username (optional) 
      * @param password (optional) 
      * @return Success
-     */
-    login(username: string | undefined, password: string | undefined): Observable<AuthResponse> {
+ login(username: string | undefined, password: string | undefined): Observable<AuthResponse> {
         let url_ = this.baseUrl + "/login?";
         if (username === null)
             throw new Error("The parameter 'username' cannot be null.");
@@ -45,7 +44,6 @@ export class Client {
         let options_ : any = {
             observe: "response",
             responseType: "blob",
-            withCredentials: true,
             headers: new HttpHeaders({
                 "Accept": "text/plain"
             })
@@ -125,7 +123,6 @@ export class Client {
         let options_ : any = {
             observe: "response",
             responseType: "blob",
-            withCredentials: true,
             headers: new HttpHeaders({
                 "Accept": "text/plain"
             })
@@ -181,7 +178,6 @@ export class Client {
             body: content_,
             observe: "response",
             responseType: "blob",
-            withCredentials: true,
             headers: new HttpHeaders({
                 "Content-Type": "application/json",
                 "Accept": "text/plain"
@@ -237,7 +233,6 @@ export class Client {
         let options_ : any = {
             observe: "response",
             responseType: "blob",
-            withCredentials: true,
             headers: new HttpHeaders({
                 "Accept": "text/plain"
             })
@@ -293,7 +288,6 @@ export class Client {
             body: content_,
             observe: "response",
             responseType: "blob",
-            withCredentials: true,
             headers: new HttpHeaders({
                 "Content-Type": "application/json",
             })
@@ -363,7 +357,6 @@ export class Client {
             body: content_,
             observe: "response",
             responseType: "blob",
-            withCredentials: true,
             headers: new HttpHeaders({
                 "Content-Type": "application/json",
             })
@@ -431,7 +424,6 @@ export class Client {
         let options_ : any = {
             observe: "response",
             responseType: "blob",
-            withCredentials: true,
             headers: new HttpHeaders({
             })
         };
@@ -492,7 +484,6 @@ export class Client {
             body: content_,
             observe: "response",
             responseType: "blob",
-            withCredentials: true,
             headers: new HttpHeaders({
                 "Content-Type": "application/json",
                 "Accept": "text/plain"
@@ -548,7 +539,6 @@ export class Client {
         let options_ : any = {
             observe: "response",
             responseType: "blob",
-            withCredentials: true,
             headers: new HttpHeaders({
                 "Accept": "text/plain"
             })
@@ -604,7 +594,6 @@ export class Client {
             body: content_,
             observe: "response",
             responseType: "blob",
-            withCredentials: true,
             headers: new HttpHeaders({
                 "Content-Type": "application/json",
             })
@@ -671,7 +660,6 @@ export class Client {
             body: content_,
             observe: "response",
             responseType: "blob",
-            withCredentials: true,
             headers: new HttpHeaders({
                 "Content-Type": "application/json",
             })
@@ -739,7 +727,6 @@ export class Client {
         let options_ : any = {
             observe: "response",
             responseType: "blob",
-            withCredentials: true,
             headers: new HttpHeaders({
             })
         };
@@ -796,7 +783,6 @@ export class Client {
         let options_ : any = {
             observe: "response",
             responseType: "blob",
-            withCredentials: true,
             headers: new HttpHeaders({
                 "Accept": "text/plain"
             })
@@ -855,7 +841,6 @@ export class Client {
         let options_ : any = {
             observe: "response",
             responseType: "blob",
-            withCredentials: true,
             headers: new HttpHeaders({
                 "Accept": "text/plain"
             })
@@ -907,7 +892,6 @@ export class Client {
         let options_ : any = {
             observe: "response",
             responseType: "blob",
-            withCredentials: true,
             headers: new HttpHeaders({
                 "Accept": "text/plain"
             })
@@ -967,7 +951,6 @@ export class Client {
             body: content_,
             observe: "response",
             responseType: "blob",
-            withCredentials: true,
             headers: new HttpHeaders({
                 "Content-Type": "application/json",
                 "Accept": "text/plain"
@@ -1028,7 +1011,6 @@ export class Client {
         let options_ : any = {
             observe: "response",
             responseType: "blob",
-            withCredentials: true,
             headers: new HttpHeaders({
                 "Accept": "text/plain"
             })
@@ -1120,6 +1102,7 @@ export interface IAuthResponse {
 }
 
 export class ClientDto implements IClientDto {
+    identifiant?: string | undefined;
     name?: string | undefined;
     lastName?: string | undefined;
     phoneNumber?: string | undefined;
@@ -1138,6 +1121,7 @@ export class ClientDto implements IClientDto {
 
     init(_data?: any) {
         if (_data) {
+            this.identifiant = _data["identifiant"];
             this.name = _data["name"];
             this.lastName = _data["lastName"];
             this.phoneNumber = _data["phoneNumber"];
@@ -1156,6 +1140,7 @@ export class ClientDto implements IClientDto {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["identifiant"] = this.identifiant;
         data["name"] = this.name;
         data["lastName"] = this.lastName;
         data["phoneNumber"] = this.phoneNumber;
@@ -1167,6 +1152,7 @@ export class ClientDto implements IClientDto {
 }
 
 export interface IClientDto {
+    identifiant?: string | undefined;
     name?: string | undefined;
     lastName?: string | undefined;
     phoneNumber?: string | undefined;

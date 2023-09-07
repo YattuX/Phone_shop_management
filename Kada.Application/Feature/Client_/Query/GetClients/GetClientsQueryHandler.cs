@@ -30,6 +30,7 @@ namespace Kada.Application.Feature.Client_.Query.GetClients
             {
                 rows.Add(new ClientDto
                 {
+                    Identifiant = client.Identifiant,
                     Name = client.Name,
                     LastName = client.LastName,
                     Adress = client.Adress,
