@@ -47,7 +47,7 @@ import { MatTableResponsiveModule } from './global/mat-table-responsive/mat-tabl
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
 import { KadaService } from './services/kada.service';
-
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -144,6 +144,7 @@ import { KadaService } from './services/kada.service';
     MatDialogModule,
     MatSlideToggleModule,
     MatMenuModule,
+    MatTabsModule
   ],
   providers: [
     KadaService,

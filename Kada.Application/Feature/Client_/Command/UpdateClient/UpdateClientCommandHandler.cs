@@ -36,7 +36,7 @@ namespace Kada.Application.Feature.Client_.Command.UpdateClient
             client.PhoneNumber= request.PhoneNumber;
             client.WhatsappNumber = request.WhatsappNumber;
             client.Adress = request.Adress;
-
+            client.IsClientEnGros = request.IsClientEnGros;
             await _clientRepository.UpdateAsync(client);
             return Unit.Value;
         }
