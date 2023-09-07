@@ -35,12 +35,14 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { UsersModule } from '../modules/users/users.module';
 import { AuthModule } from '../modules/auth/auth.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NotificationComponent } from './components/notification/notification.component';
 import { ToastrModule } from 'ngx-toastr';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-
-
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatMenuModule} from '@angular/material/menu';
 @NgModule({
   declarations: [
     FooterComponent,
@@ -78,8 +80,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     MatSnackBarModule,
     AuthModule,
     FormsModule,
-    ToastrModule.forRoot(),
-    
+    ToastrModule.forRoot(),    
   ],
   exports:[
     SpinnerComponent,
@@ -91,9 +92,21 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     InfoDialog,
     SidebarComponent,
     FullComponent,
-    AppBreadcrumbComponent,
     AppBlankComponent,
     NotificationComponent,
+    ReactiveFormsModule,
+    FormsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatFormFieldModule,
+    DragDropModule,
+    MatInputModule,
+    MatIconModule,
+    MatDialogModule,
+    MatExpansionModule,
+    MatProgressSpinnerModule,
+    MatMenuModule,
+    MatButtonModule,
   ],
   providers: [],
 })

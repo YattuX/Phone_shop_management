@@ -38,6 +38,7 @@ namespace Kada.Application.Feature.Fournisseur.Query.GetFournisseur
             {
                 rows.Add(new FournisseurDto
                 {
+                    Id = fournisseur.Id,
                     Name = fournisseur.Name,
                     LastName = fournisseur.LastName,
                     Email = fournisseur.Email,
