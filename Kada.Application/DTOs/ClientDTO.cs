@@ -8,6 +8,7 @@ namespace Kada.Application.DTOs
 {
     public class ClientDto
     {
+        public Guid Id { get; set; }
         public string Identifiant { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }

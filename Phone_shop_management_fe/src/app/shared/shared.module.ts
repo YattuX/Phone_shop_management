@@ -37,7 +37,7 @@ import { UsersModule } from '../modules/users/users.module';
 import { AuthModule } from '../modules/auth/auth.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NotificationComponent } from './components/notification/notification.component';
-import { ToastrModule } from 'ngx-toastr';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { UsersRoutingModule } from '../modules/users/users-routing.module';
 import { MatTableModule } from '@angular/material/table';
@@ -45,6 +45,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableResponsiveModule } from './global/mat-table-responsive/mat-table-responsive.module';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatMenuModule } from '@angular/material/menu';
 import { KadaService } from './services/kada.service';
 
 
@@ -94,6 +95,7 @@ import { KadaService } from './services/kada.service';
     MatDividerModule,
     DragDropModule,
     MatDialogModule,
+    MatMenuModule,
     ToastrModule.forRoot(),
     
   ],
@@ -141,9 +143,11 @@ import { KadaService } from './services/kada.service';
     DragDropModule,
     MatDialogModule,
     MatSlideToggleModule,
+    MatMenuModule,
   ],
   providers: [
-    KadaService
+    KadaService,
+    ToastrService
   ],
 })
 export class SharedModule { }

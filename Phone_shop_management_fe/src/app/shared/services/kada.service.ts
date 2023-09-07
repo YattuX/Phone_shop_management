@@ -113,7 +113,8 @@ export class KadaService implements IClient {
      * @param username (optional) 
      * @param password (optional) 
      * @return Success
- login(username: string | undefined, password: string | undefined): Observable<AuthResponse> {
+     */
+    login(username: string | undefined, password: string | undefined): Observable<AuthResponse> {
         let url_ = this.baseUrl + "/login?";
         if (username === null)
             throw new Error("The parameter 'username' cannot be null.");
@@ -1186,6 +1187,7 @@ export interface IAuthResponse {
 }
 
 export class ClientDto implements IClientDto {
+    id?: string;
     identifiant?: string | undefined;
     name?: string | undefined;
     lastName?: string | undefined;
@@ -1205,6 +1207,7 @@ export class ClientDto implements IClientDto {
 
     init(_data?: any) {
         if (_data) {
+            this.id = _data["id"];
             this.identifiant = _data["identifiant"];
             this.name = _data["name"];
             this.lastName = _data["lastName"];
@@ -1224,6 +1227,7 @@ export class ClientDto implements IClientDto {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
         data["identifiant"] = this.identifiant;
         data["name"] = this.name;
         data["lastName"] = this.lastName;
@@ -1236,6 +1240,7 @@ export class ClientDto implements IClientDto {
 }
 
 export interface IClientDto {
+    id?: string;
     identifiant?: string | undefined;
     name?: string | undefined;
     lastName?: string | undefined;

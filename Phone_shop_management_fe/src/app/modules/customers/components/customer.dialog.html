@@ -1,8 +1,11 @@
 <div class="headerDialog">
   <h2 mat-dialog-title>Ajout d'un Utilisateur</h2>
-  <mat-icon class="cursor-pointer" (click)="dialogRef.close()">close</mat-icon>
+  <mat-icon [ngClass]="{'dialog-disabled': showSpinner}" class="cursor-pointer" (click)="dialogRef.close()">close</mat-icon>
 </div>
-<mat-dialog-content class="mat-typography">
+<mat-dialog-content [ngClass]="{'dialog-disabled': showSpinner}" class="mat-typography">
+  <div class="absolute inset-1/2 z-50 shadow" *ngIf="showSpinner">
+    <mat-spinner [diameter]="80"></mat-spinner>
+  </div>
   <form [formGroup]="form">
 
     <div class="md:flex md:space-x-2">
@@ -44,7 +47,7 @@
 
       <mat-form-field appearance="fill" class="w-full">
         <mat-label>Telephone personel</mat-label>
-        <input formControlName="phoneNumber" matInput placeholder="Telephone">
+        <input type="tel" pattern="[0-9]{9,}"formControlName="phoneNumber" matInput placeholder="Telephone">
         <mat-error *ngIf="form.controls['phoneNumber'].errors && 
           form.controls['phoneNumber'].errors['maxlength'] && 
           form.controls['phoneNumber'].touched">Le numéro ne doit pas dépasser
@@ -55,7 +58,7 @@
 
       <mat-form-field appearance="fill" class="w-full">
         <mat-label>Whatsapp</mat-label>
-        <input formControlName="whatsappNumber" matInput placeholder="Whatsapp">
+        <input type="tel" pattern="[0-9]{9,}" formControlName="whatsappNumber" matInput placeholder="Whatsapp">
         <mat-error *ngIf="form.controls['whatsappNumber'].errors && 
           form.controls['whatsappNumber'].errors['maxlength'] && 
           form.controls['whatsappNumber'].touched">Le numéro ne doit pas dépasser
@@ -84,12 +87,12 @@
   </form>
 </mat-dialog-content>
 
-<mat-dialog-actions align="end">
+<mat-dialog-actions [ngClass]="{'dialog-disabled': showSpinner}" align="end">
   <div class="space-x-3 px-4">
     <button class="button text-black shadow-xl" (click)="dialogRef.close()">
       Annuler
     </button>
-    <button class="button-primary mr-4 drop-shadow-lg">
+    <button (click)="save()" class="button-primary mr-4 drop-shadow-lg">
       Ajouter
     </button>
   </div>

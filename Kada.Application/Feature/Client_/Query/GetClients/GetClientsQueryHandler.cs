@@ -30,6 +30,7 @@ namespace Kada.Application.Feature.Client_.Query.GetClients
             {
                 rows.Add(new ClientDto
                 {
+                    Id = client.Id,
                     Identifiant = client.Identifiant,
                     Name = client.Name,
                     LastName = client.LastName,
@@ -37,7 +38,7 @@ namespace Kada.Application.Feature.Client_.Query.GetClients
                     PhoneNumber = client.PhoneNumber,
                     WhatsappNumber = client.WhatsappNumber,
                     IsClientEnGros = client.IsClientEnGros
-                });
+                }); ;
             }
 
             return new SearchResult<ClientDto>
@@ -63,19 +64,19 @@ namespace Kada.Application.Feature.Client_.Query.GetClients
                 switch (key)
                 {
                     case "name":
-                        clientQuery = _clientRepository.FilterQuery(clientQuery, x => x.Name.StartsWith(filter[key]));
+                        clientQuery = _clientRepository.FilterQuery(clientQuery, x => x.Name.Contains(filter[key]));
                         break;
                     case "lastName":
-                        clientQuery = _clientRepository.FilterQuery(clientQuery, x => x.LastName.StartsWith(filter[key]));
+                        clientQuery = _clientRepository.FilterQuery(clientQuery, x => x.LastName.Contains(filter[key]));
                         break;
                     case "whatsappNumber":
-                        clientQuery = _clientRepository.FilterQuery(clientQuery, x => x.WhatsappNumber.StartsWith(filter[key]));
+                        clientQuery = _clientRepository.FilterQuery(clientQuery, x => x.WhatsappNumber.Contains(filter[key]));
                         break;
                     case "adress":
-                        clientQuery = _clientRepository.FilterQuery(clientQuery, x => x.Adress.StartsWith(filter[key]));
+                        clientQuery = _clientRepository.FilterQuery(clientQuery, x => x.Adress.Contains(filter[key]));
                         break;
                     case "identifiant":
-                        clientQuery = _clientRepository.FilterQuery(clientQuery, x => x.Identifiant.StartsWith(filter[key]));
+                        clientQuery = _clientRepository.FilterQuery(clientQuery, x => x.Identifiant.Contains(filter[key]));
                         break;
                 }
             }

@@ -35,6 +35,9 @@ export class ListCustomerComponent extends BaseTableComponent {
     }
 
     protected override _search(criteria: any): Observable<any> {
+      this._kadaService.getClientListPage(criteria).subscribe((res) =>{
+        console.log(res)
+      })
       return this._kadaService.getClientListPage(criteria)
     }
 
@@ -63,10 +66,17 @@ export class ListCustomerComponent extends BaseTableComponent {
       });
     }
 
-    openDialog() {
+    openDialog(action:string,row:any) {
+      row['action']=action;
+      row['title']=(action=='add'?'Ajout d\'un client':`Modification du client ${row.name} ${row.lastName}`);
       this._dialog.open(CustomerDialog, {
-        width:"900px",
-        data: {},
+        data: row,
+        disableClose: true,
+        width:'900px'
+      }).afterClosed().subscribe(response => {
+        if (response) {
+          this.triggerSearch();
+        }
       })
     }
 
