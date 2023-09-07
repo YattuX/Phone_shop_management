@@ -107,7 +107,6 @@ import { KadaService } from './services/kada.service';
     InfoDialog,
     SidebarComponent,
     FullComponent,
-    AppBreadcrumbComponent,
     AppBlankComponent,
     NotificationComponent,
     CommonModule,

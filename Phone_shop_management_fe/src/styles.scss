@@ -73,6 +73,11 @@ mat-header-row * {
   width: 80%;
 }
 
+.dialog-disabled {
+  pointer-events: none; /* Désactive les événements de pointer (clics, survols, etc.) */
+  opacity: 0.5;
+}
+
 .button-primary{
   @apply py-2 px-5 rounded-md bg-[#011039] text-white text-lg;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3); 

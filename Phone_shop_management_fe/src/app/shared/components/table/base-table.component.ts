@@ -6,6 +6,7 @@ import { Observable, takeUntil } from "rxjs";
 
 @Directive()
 export abstract class BaseTableComponent extends BaseReactiveComponent {
+    total!: number;
     pageSize: number = 10;
     pageOffset: number = 0;
     pageRows = [];
@@ -25,19 +26,22 @@ export abstract class BaseTableComponent extends BaseReactiveComponent {
         this.searchForm = this._formBuilder.group({});
     }
 
-    protected onChangePage(pageInfo: { pageSize?: number, offset?: number }) {
+    protected onChangePage(pageInfo: { pageSize?: number, pageOffset?: number }) {
         this.pageSize = pageInfo.pageSize as number;
-        this.pageOffset = pageInfo.offset as number;
+        this.pageOffset = pageInfo.pageOffset as number;
+        
         this.pageRows = [];
-        const container = document.querySelector('#page-content');
-        // container!.scrollTop = 0;
+        const container = document.querySelector('#main');
+        container?container.scrollTop = 0:null;
 
         let criteria = Object.assign({}, {filters:this.searchForm.value}, {
             pageSize: this.pageSize,
-            pageOffset: this.pageOffset,
+            pageIndex: this.pageOffset,
         }, this._sortBy());
         this._search(criteria).pipe(takeUntil(this.$ngOnDestroyed)).subscribe((data: any) => {
+            this.total = data['totalCount'];
             this.pageRows = data["results"];
+            this.pageOffset = data["page"];
             this._cd.markForCheck();
         });
     }
@@ -58,7 +62,7 @@ export abstract class BaseTableComponent extends BaseReactiveComponent {
 
 
     public triggerSearch() {
-        this.onChangePage({ pageSize: this.pageSize, offset: this.pageOffset });
+        this.onChangePage({ pageSize: this.pageSize, pageOffset: this.pageOffset });
     }
 
     public resetSearchForm() {
@@ -67,7 +71,5 @@ export abstract class BaseTableComponent extends BaseReactiveComponent {
 
     protected abstract _search(criteria: any): Observable<any>;
 
-    protected _sortBy(): any {
-        return null;
-    }
+    protected _sortBy(): any {return null;}
 }

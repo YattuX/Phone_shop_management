@@ -12,6 +12,9 @@ import { ProductModule } from './modules/product/product.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UsersModule } from './modules/users/users.module';
 import { CustomerModule } from './modules/customers/customer.module';
+import { ProviderModule } from './modules/provider/provider.module';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { CustomPaginatorIntl } from './shared/global/custom-paginator-intl';
 
 @NgModule({
   declarations: [
@@ -27,9 +30,11 @@ import { CustomerModule } from './modules/customers/customer.module';
     BrowserAnimationsModule,
     UsersModule,
     CustomerModule,
+    ProviderModule
   ],
  
   providers: [
+    { provide: MatPaginatorIntl, useClass: CustomPaginatorIntl },
   ],
   bootstrap: [AppComponent],
   exports:[]
