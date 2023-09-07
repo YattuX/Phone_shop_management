@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { ProductModule } from './modules/product/product.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UsersModule } from './modules/users/users.module';
+import { CustomerModule } from './modules/customers/customer.module';
 import { ProviderModule } from './modules/provider/provider.module';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { CustomPaginatorIntl } from './shared/global/custom-paginator-intl';
@@ -28,6 +29,7 @@ import { CustomPaginatorIntl } from './shared/global/custom-paginator-intl';
     ProductModule,
     BrowserAnimationsModule,
     UsersModule,
+    CustomerModule,
     ProviderModule
   ],
  

@@ -129,7 +129,6 @@ export class KadaService implements IClient {
         let options_ : any = {
             observe: "response",
             responseType: "blob",
-            withCredentials: true,
             headers: new HttpHeaders({
                 "Accept": "text/plain"
             })
@@ -209,7 +208,6 @@ export class KadaService implements IClient {
         let options_ : any = {
             observe: "response",
             responseType: "blob",
-            withCredentials: true,
             headers: new HttpHeaders({
                 "Accept": "text/plain"
             })
@@ -265,7 +263,6 @@ export class KadaService implements IClient {
             body: content_,
             observe: "response",
             responseType: "blob",
-            withCredentials: true,
             headers: new HttpHeaders({
                 "Content-Type": "application/json",
                 "Accept": "text/plain"
@@ -321,7 +318,6 @@ export class KadaService implements IClient {
         let options_ : any = {
             observe: "response",
             responseType: "blob",
-            withCredentials: true,
             headers: new HttpHeaders({
                 "Accept": "text/plain"
             })
@@ -377,7 +373,6 @@ export class KadaService implements IClient {
             body: content_,
             observe: "response",
             responseType: "blob",
-            withCredentials: true,
             headers: new HttpHeaders({
                 "Content-Type": "application/json",
             })
@@ -447,7 +442,6 @@ export class KadaService implements IClient {
             body: content_,
             observe: "response",
             responseType: "blob",
-            withCredentials: true,
             headers: new HttpHeaders({
                 "Content-Type": "application/json",
             })
@@ -515,7 +509,6 @@ export class KadaService implements IClient {
         let options_ : any = {
             observe: "response",
             responseType: "blob",
-            withCredentials: true,
             headers: new HttpHeaders({
             })
         };
@@ -576,7 +569,6 @@ export class KadaService implements IClient {
             body: content_,
             observe: "response",
             responseType: "blob",
-            withCredentials: true,
             headers: new HttpHeaders({
                 "Content-Type": "application/json",
                 "Accept": "text/plain"
@@ -632,7 +624,6 @@ export class KadaService implements IClient {
         let options_ : any = {
             observe: "response",
             responseType: "blob",
-            withCredentials: true,
             headers: new HttpHeaders({
                 "Accept": "text/plain"
             })
@@ -688,7 +679,6 @@ export class KadaService implements IClient {
             body: content_,
             observe: "response",
             responseType: "blob",
-            withCredentials: true,
             headers: new HttpHeaders({
                 "Content-Type": "application/json",
             })
@@ -755,7 +745,6 @@ export class KadaService implements IClient {
             body: content_,
             observe: "response",
             responseType: "blob",
-            withCredentials: true,
             headers: new HttpHeaders({
                 "Content-Type": "application/json",
             })
@@ -823,7 +812,6 @@ export class KadaService implements IClient {
         let options_ : any = {
             observe: "response",
             responseType: "blob",
-            withCredentials: true,
             headers: new HttpHeaders({
             })
         };
@@ -880,7 +868,6 @@ export class KadaService implements IClient {
         let options_ : any = {
             observe: "response",
             responseType: "blob",
-            withCredentials: true,
             headers: new HttpHeaders({
                 "Accept": "text/plain"
             })
@@ -939,7 +926,6 @@ export class KadaService implements IClient {
         let options_ : any = {
             observe: "response",
             responseType: "blob",
-            withCredentials: true,
             headers: new HttpHeaders({
                 "Accept": "text/plain"
             })
@@ -991,7 +977,6 @@ export class KadaService implements IClient {
         let options_ : any = {
             observe: "response",
             responseType: "blob",
-            withCredentials: true,
             headers: new HttpHeaders({
                 "Accept": "text/plain"
             })
@@ -1051,7 +1036,6 @@ export class KadaService implements IClient {
             body: content_,
             observe: "response",
             responseType: "blob",
-            withCredentials: true,
             headers: new HttpHeaders({
                 "Content-Type": "application/json",
                 "Accept": "text/plain"
@@ -1112,7 +1096,6 @@ export class KadaService implements IClient {
         let options_ : any = {
             observe: "response",
             responseType: "blob",
-            withCredentials: true,
             headers: new HttpHeaders({
                 "Accept": "text/plain"
             })
@@ -1204,6 +1187,8 @@ export interface IAuthResponse {
 }
 
 export class ClientDto implements IClientDto {
+    id?: string;
+    identifiant?: string | undefined;
     name?: string | undefined;
     lastName?: string | undefined;
     phoneNumber?: string | undefined;
@@ -1222,6 +1207,8 @@ export class ClientDto implements IClientDto {
 
     init(_data?: any) {
         if (_data) {
+            this.id = _data["id"];
+            this.identifiant = _data["identifiant"];
             this.name = _data["name"];
             this.lastName = _data["lastName"];
             this.phoneNumber = _data["phoneNumber"];
@@ -1240,6 +1227,8 @@ export class ClientDto implements IClientDto {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["identifiant"] = this.identifiant;
         data["name"] = this.name;
         data["lastName"] = this.lastName;
         data["phoneNumber"] = this.phoneNumber;
@@ -1251,6 +1240,8 @@ export class ClientDto implements IClientDto {
 }
 
 export interface IClientDto {
+    id?: string;
+    identifiant?: string | undefined;
     name?: string | undefined;
     lastName?: string | undefined;
     phoneNumber?: string | undefined;

@@ -37,12 +37,18 @@ import { UsersModule } from '../modules/users/users.module';
 import { AuthModule } from '../modules/auth/auth.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NotificationComponent } from './components/notification/notification.component';
-import { ToastrModule } from 'ngx-toastr';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { UsersRoutingModule } from '../modules/users/users-routing.module';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import {MatExpansionModule} from '@angular/material/expansion';
-import {MatMenuModule} from '@angular/material/menu';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableResponsiveModule } from './global/mat-table-responsive/mat-table-responsive.module';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatMenuModule } from '@angular/material/menu';
+import { KadaService } from './services/kada.service';
+
+
 @NgModule({
   declarations: [
     FooterComponent,
@@ -80,7 +86,18 @@ import {MatMenuModule} from '@angular/material/menu';
     MatSnackBarModule,
     AuthModule,
     FormsModule,
-    ToastrModule.forRoot(),    
+    UsersRoutingModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatTableResponsiveModule,
+    ReactiveFormsModule,
+    MatDividerModule,
+    DragDropModule,
+    MatDialogModule,
+    MatMenuModule,
+    ToastrModule.forRoot(),
+    
   ],
   exports:[
     SpinnerComponent,
@@ -94,20 +111,43 @@ import {MatMenuModule} from '@angular/material/menu';
     FullComponent,
     AppBlankComponent,
     NotificationComponent,
-    ReactiveFormsModule,
+    CommonModule,
+    BrowserModule,
+    MatButtonModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+    MatProgressSpinnerModule,
+    RouterModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    MatBadgeModule,
+    MatTooltipModule,
+    MatCardModule,
+    MatGridListModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSlideToggleModule,
+    MatCheckboxModule,
+    MatSnackBarModule,
+    AuthModule,
     FormsModule,
+    UsersRoutingModule,
     MatTableModule,
     MatPaginatorModule,
-    MatFormFieldModule,
+    MatSortModule,
+    MatTableResponsiveModule,
+    ReactiveFormsModule,
+    MatDividerModule,
     DragDropModule,
-    MatInputModule,
-    MatIconModule,
     MatDialogModule,
-    MatExpansionModule,
-    MatProgressSpinnerModule,
+    MatSlideToggleModule,
     MatMenuModule,
-    MatButtonModule,
   ],
-  providers: [],
+  providers: [
+    KadaService,
+    ToastrService
+  ],
 })
 export class SharedModule { }

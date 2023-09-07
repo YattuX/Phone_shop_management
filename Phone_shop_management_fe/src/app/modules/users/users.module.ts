@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ListUsersComponent } from './components/list-users/list-users.component';
+import { ListUsersComponent } from './components/list-users.component';
 import { UsersRoutingModule } from './users-routing.module';
 import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -16,7 +16,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { AddUserDialog } from './components/add-user/add-user.component';
+import { AddUserDialog } from './components/user.dialog';
 import { MatDialogModule } from '@angular/material/dialog';
 
 
@@ -25,21 +25,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 
   imports: [
     CommonModule,
-    UsersRoutingModule,
-    MatTableModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatTableResponsiveModule,
-    MatIconModule,
-    ReactiveFormsModule,
-    MatButtonModule,
-    MatCardModule,
-    MatDividerModule,
     SharedModule,
-    DragDropModule,
-    MatDialogModule
   ]
   ,
   declarations: [
