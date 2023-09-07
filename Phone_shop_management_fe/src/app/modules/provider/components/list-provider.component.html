@@ -1,0 +1,79 @@
+<app-breadcrumb></app-breadcrumb>
+
+<div class="content mat-elevation-z2">
+    <form [formGroup]="searchForm" class="flex justify-center mb-6 border border-gray-300 rounded-md  py-4 flex-wrap">
+        <mat-form-field class="w-full md:w-[45%] md:mr-2">
+            <input matInput placeholder="Identifiant" formControlName="identifiant">
+        </mat-form-field>
+        <mat-form-field class="w-full md:w-[45%] md:mr-2">
+            <input matInput placeholder="Nom" formControlName="lastName">
+        </mat-form-field>
+        <mat-form-field class="w-full md:w-[45%] md:mr-2">
+            <input matInput placeholder="Prénom" formControlName="name">
+        </mat-form-field>
+        <mat-form-field class="w-full md:w-[45%] md:mr-2">
+            <input matInput placeholder="Email" formControlName="email">
+        </mat-form-field>
+        <mat-form-field class="w-full md:w-[90%] md:mr-2">
+            <input matInput placeholder="Numéro whatsapp" formControlName="whatsappNumber">
+        </mat-form-field>
+    </form>
+    <div align="end" class="mt-5">
+        <button class="mb-4 button-primary" (click)="openDialog('add',{})">+ Ajouter</button>
+    </div>
+    <mat-table [dataSource]="pageRows" matSort cdkDropList cdkDropListOrientation="horizontal"
+        (cdkDropListDropped)="drop($event)">
+
+        <!-- lastName Column -->
+        <ng-container matColumnDef="lastName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header cdkDrag>Nom</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.lastName}} </mat-cell>
+        </ng-container>
+
+        <!-- identifiant Column -->
+        <ng-container matColumnDef="identifiant">
+            <mat-header-cell *matHeaderCellDef mat-sort-header cdkDrag>Identifiant</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.identifiant}} </mat-cell>
+        </ng-container>
+
+        <!-- name Column -->
+        <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header cdkDrag>Prénom</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+        </ng-container>
+
+        <!-- email Column -->
+        <ng-container matColumnDef="email">
+            <mat-header-cell *matHeaderCellDef mat-sort-header cdkDrag>Email</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.email}} </mat-cell>
+        </ng-container>
+
+        <!-- whatsappNumber Column -->
+        <ng-container matColumnDef="whatsappNumber">
+            <mat-header-cell *matHeaderCellDef mat-sort-header cdkDrag>Numero whatsapp</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.whatsappNumber}} </mat-cell>
+        </ng-container>
+
+        <!-- action Column -->
+        <ng-container matColumnDef="action">
+            <mat-header-cell *matHeaderCellDef mat-sort-header cdkDrag></mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <button mat-stroked-button [matMenuTriggerFor]="menu" color="primary">Action</button>
+                <mat-menu #menu="matMenu">
+                    <span mat-menu-item (click)="openDialog('edit',row)">
+                        Modifier
+                    </span>
+                    <span mat-menu-item (click)="removeRows(row)">Supprimer</span>
+                </mat-menu>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;">
+        </mat-row>
+    </mat-table>
+
+    <mat-paginator [length]="total" [pageSize]="pageSize"
+        (page)="onChangePage({pageSize: $event.pageSize, pageOffset: $event.pageIndex})"></mat-paginator>
+
+</div>

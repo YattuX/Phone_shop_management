@@ -1,10 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ListProviderComponent } from './components/list-provider/list-provider.component';
+import { ListProviderComponent } from './components/list-provider.component';
 
 const routes: Routes = [
-    { path: '', component: ListProviderComponent },
-    // ... Autres routes spécifiques au module "Clients"
+    { 
+        path: '', 
+        component: ListProviderComponent ,
+        data: { 
+            title: 'Liste des Fournisseurs'
+        } 
+    },
 ];
 
 @NgModule({

@@ -13,16 +13,100 @@ import { Injectable, Inject, Optional } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
+export const API_BASE_URL = environment.baseUrl;
 
-@Injectable()
-export class Client {
+export interface IClient {
+    /**
+     * @param username (optional) 
+     * @param password (optional) 
+     * @return Success
+     */
+    login(username: string | undefined, password: string | undefined): Observable<AuthResponse>;
+    /**
+     * @return Success
+     */
+    register(firstName: string, lastName: string, email: string, phoneNumber: string, userName: string, role: string, password: string): Observable<RegistrationResponse>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    getClientListPage(body: SearchDTO | undefined): Observable<ClientDtoSearchResult>;
+    /**
+     * @return Success
+     */
+    getClient(id: string): Observable<ClientDto>;
+    /**
+     * @param body (optional) 
+     * @return Created
+     */
+    createClient(body: CreateClientCommand | undefined): Observable<void>;
+    /**
+     * @param body (optional) 
+     * @return No Content
+     */
+    updateClient(id: string, body: UpdateClientCommand | undefined): Observable<void>;
+    /**
+     * @return No Content
+     */
+    deleteClient(id: string): Observable<void>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    getFournisseurListPage(body: SearchDTO | undefined): Observable<FournisseurDtoSearchResult>;
+    /**
+     * @return Success
+     */
+    getFournisseur(id: string): Observable<FournisseurDto>;
+    /**
+     * @param body (optional) 
+     * @return Created
+     */
+    createFournisseur(body: CreateFournisseurCommand | undefined): Observable<void>;
+    /**
+     * @param body (optional) 
+     * @return No Content
+     */
+    updateFournisseur(body: UpdateFournisseurCommand | undefined): Observable<void>;
+    /**
+     * @return No Content
+     */
+    deleteFournisseur(id: string): Observable<void>;
+    /**
+     * @return Success
+     */
+    users(): Observable<UserModel[]>;
+    /**
+     * @return Success
+     */
+    user(id: string): Observable<UserModel>;
+    /**
+     * @return Success
+     */
+    rolesAll(): Observable<RoleModel[]>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    add(body: CreateRoleModel | undefined): Observable<string>;
+    /**
+     * @param roleId (optional) 
+     * @return Success
+     */
+    roles(roleId: string | undefined, id: string): Observable<string>;
+}
+
+@Injectable({
+    providedIn: 'root'
+  })
+export class KadaService implements IClient {
     private http: HttpClient;
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
     constructor(@Inject(HttpClient) http: HttpClient,) {
         this.http = http;
-        this.baseUrl = environment.baseUrl;
+        this.baseUrl = API_BASE_URL;
     }
 
     /**
@@ -1380,6 +1464,7 @@ export interface ICreateRoleModel {
 }
 
 export class FournisseurDto implements IFournisseurDto {
+    id?: string;
     name?: string | undefined;
     lastName?: string | undefined;
     email?: string | undefined;
@@ -1397,6 +1482,7 @@ export class FournisseurDto implements IFournisseurDto {
 
     init(_data?: any) {
         if (_data) {
+            this.id = _data["id"];
             this.name = _data["name"];
             this.lastName = _data["lastName"];
             this.email = _data["email"];
@@ -1414,6 +1500,7 @@ export class FournisseurDto implements IFournisseurDto {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
         data["name"] = this.name;
         data["lastName"] = this.lastName;
         data["email"] = this.email;
@@ -1424,6 +1511,7 @@ export class FournisseurDto implements IFournisseurDto {
 }
 
 export interface IFournisseurDto {
+    id?: string;
     name?: string | undefined;
     lastName?: string | undefined;
     email?: string | undefined;
