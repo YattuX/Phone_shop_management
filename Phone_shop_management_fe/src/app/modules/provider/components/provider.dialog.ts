@@ -12,8 +12,8 @@ export class ProviderDialog {
     form: FormGroup = new FormGroup({
         lastName: new FormControl(null, [Validators.required, Validators.maxLength(100), Validators.minLength(2)]),
         name: new FormControl(null, [Validators.required, Validators.maxLength(100)]),
-        email: new FormControl(null, [Validators.required, Validators.email, Validators.maxLength(100)]),
-        whatsappNumber: new FormControl(null, [Validators.required, Validators.maxLength(9)]),
+        email: new FormControl(null, [Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+[a-zA-Z]{1,}\.+[a-zA-Z]{2,}$'), Validators.maxLength(100)]),
+        whatsappNumber: new FormControl(null, [Validators.maxLength(20)]),
     });
 
     constructor(
@@ -35,6 +35,8 @@ export class ProviderDialog {
     save() {
         if (this.form.valid) {
             this.showSpinner = true;
+            console.log(this.form.value);
+            return
             if (this.data?.action === 'add') {
                 this._kadaService.createFournisseur({ ...this.form.value })
                     .subscribe({

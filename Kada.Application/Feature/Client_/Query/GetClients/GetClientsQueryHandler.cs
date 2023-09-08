@@ -78,6 +78,9 @@ namespace Kada.Application.Feature.Client_.Query.GetClients
                     case "identifiant":
                         clientQuery = _clientRepository.FilterQuery(clientQuery, x => x.Identifiant.Contains(filter[key]));
                         break;
+                    case "phoneNumber":
+                        clientQuery = _clientRepository.FilterQuery(clientQuery, x => x.PhoneNumber.Contains(filter[key]));
+                        break;
                 }
             }
             return clientQuery;

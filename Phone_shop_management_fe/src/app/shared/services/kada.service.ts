@@ -17,16 +17,6 @@ export const API_BASE_URL = environment.baseUrl;
 
 export interface IClient {
     /**
-     * @param username (optional) 
-     * @param password (optional) 
-     * @return Success
-     */
-    login(username: string | undefined, password: string | undefined): Observable<AuthResponse>;
-    /**
-     * @return Success
-     */
-    register(firstName: string, lastName: string, email: string, phoneNumber: string, userName: string, role: string, password: string): Observable<RegistrationResponse>;
-    /**
      * @param body (optional) 
      * @return Success
      */
@@ -75,25 +65,26 @@ export interface IClient {
     /**
      * @return Success
      */
-    users(): Observable<UserModel[]>;
+    getUserListPage(): Observable<UserModel[]>;
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getUser(id: string | undefined): Observable<UserModel>;
     /**
      * @return Success
      */
-    user(id: string): Observable<UserModel>;
-    /**
-     * @return Success
-     */
-    rolesAll(): Observable<RoleModel[]>;
+    getRoleListPage(): Observable<RoleModel[]>;
     /**
      * @param body (optional) 
      * @return Success
      */
-    add(body: CreateRoleModel | undefined): Observable<string>;
+    createRole(body: CreateRoleModel | undefined): Observable<string>;
     /**
      * @param roleId (optional) 
      * @return Success
      */
-    roles(roleId: string | undefined, id: string): Observable<string>;
+    deleteRole(roleId: string | undefined): Observable<string>;
 }
 
 @Injectable({
@@ -107,146 +98,6 @@ export class KadaService implements IClient {
     constructor(@Inject(HttpClient) http: HttpClient,) {
         this.http = http;
         this.baseUrl = API_BASE_URL;
-    }
-
-    /**
-     * @param username (optional) 
-     * @param password (optional) 
-     * @return Success
-     */
-    login(username: string | undefined, password: string | undefined): Observable<AuthResponse> {
-        let url_ = this.baseUrl + "/login?";
-        if (username === null)
-            throw new Error("The parameter 'username' cannot be null.");
-        else if (username !== undefined)
-            url_ += "Username=" + encodeURIComponent("" + username) + "&";
-        if (password === null)
-            throw new Error("The parameter 'password' cannot be null.");
-        else if (password !== undefined)
-            url_ += "Password=" + encodeURIComponent("" + password) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processLogin(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processLogin(<any>response_);
-                } catch (e) {
-                    return <Observable<AuthResponse>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<AuthResponse>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processLogin(response: HttpResponseBase): Observable<AuthResponse> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = AuthResponse.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<AuthResponse>(<any>null);
-    }
-
-    /**
-     * @return Success
-     */
-    register(firstName: string, lastName: string, email: string, phoneNumber: string, userName: string, role: string, password: string): Observable<RegistrationResponse> {
-        let url_ = this.baseUrl + "/register?";
-        if (firstName === undefined || firstName === null)
-            throw new Error("The parameter 'firstName' must be defined and cannot be null.");
-        else
-            url_ += "FirstName=" + encodeURIComponent("" + firstName) + "&";
-        if (lastName === undefined || lastName === null)
-            throw new Error("The parameter 'lastName' must be defined and cannot be null.");
-        else
-            url_ += "LastName=" + encodeURIComponent("" + lastName) + "&";
-        if (email === undefined || email === null)
-            throw new Error("The parameter 'email' must be defined and cannot be null.");
-        else
-            url_ += "Email=" + encodeURIComponent("" + email) + "&";
-        if (phoneNumber === undefined || phoneNumber === null)
-            throw new Error("The parameter 'phoneNumber' must be defined and cannot be null.");
-        else
-            url_ += "PhoneNumber=" + encodeURIComponent("" + phoneNumber) + "&";
-        if (userName === undefined || userName === null)
-            throw new Error("The parameter 'userName' must be defined and cannot be null.");
-        else
-            url_ += "UserName=" + encodeURIComponent("" + userName) + "&";
-        if (role === undefined || role === null)
-            throw new Error("The parameter 'role' must be defined and cannot be null.");
-        else
-            url_ += "Role=" + encodeURIComponent("" + role) + "&";
-        if (password === undefined || password === null)
-            throw new Error("The parameter 'password' must be defined and cannot be null.");
-        else
-            url_ += "Password=" + encodeURIComponent("" + password) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processRegister(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processRegister(<any>response_);
-                } catch (e) {
-                    return <Observable<RegistrationResponse>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<RegistrationResponse>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processRegister(response: HttpResponseBase): Observable<RegistrationResponse> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = RegistrationResponse.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<RegistrationResponse>(<any>null);
     }
 
     /**
@@ -861,8 +712,8 @@ export class KadaService implements IClient {
     /**
      * @return Success
      */
-    users(): Observable<UserModel[]> {
-        let url_ = this.baseUrl + "/api/User/GetUserListPage/users";
+    getUserListPage(): Observable<UserModel[]> {
+        let url_ = this.baseUrl + "/api/User/GetUserListPage";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -874,11 +725,11 @@ export class KadaService implements IClient {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processUsers(response_);
+            return this.processGetUserListPage(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processUsers(<any>response_);
+                    return this.processGetUserListPage(<any>response_);
                 } catch (e) {
                     return <Observable<UserModel[]>><any>_observableThrow(e);
                 }
@@ -887,7 +738,7 @@ export class KadaService implements IClient {
         }));
     }
 
-    protected processUsers(response: HttpResponseBase): Observable<UserModel[]> {
+    protected processGetUserListPage(response: HttpResponseBase): Observable<UserModel[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -914,13 +765,15 @@ export class KadaService implements IClient {
     }
 
     /**
+     * @param id (optional) 
      * @return Success
      */
-    user(id: string): Observable<UserModel> {
-        let url_ = this.baseUrl + "/api/User/GetUser/user/{id}";
-        if (id === undefined || id === null)
-            throw new Error("The parameter 'id' must be defined.");
-        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+    getUser(id: string | undefined): Observable<UserModel> {
+        let url_ = this.baseUrl + "/api/User/GetUser?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -932,11 +785,11 @@ export class KadaService implements IClient {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processUser(response_);
+            return this.processGetUser(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processUser(<any>response_);
+                    return this.processGetUser(<any>response_);
                 } catch (e) {
                     return <Observable<UserModel>><any>_observableThrow(e);
                 }
@@ -945,7 +798,7 @@ export class KadaService implements IClient {
         }));
     }
 
-    protected processUser(response: HttpResponseBase): Observable<UserModel> {
+    protected processGetUser(response: HttpResponseBase): Observable<UserModel> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -970,8 +823,8 @@ export class KadaService implements IClient {
     /**
      * @return Success
      */
-    rolesAll(): Observable<RoleModel[]> {
-        let url_ = this.baseUrl + "/api/User/GetRoleListPage/roles";
+    getRoleListPage(): Observable<RoleModel[]> {
+        let url_ = this.baseUrl + "/api/User/GetRoleListPage";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -983,11 +836,11 @@ export class KadaService implements IClient {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processRolesAll(response_);
+            return this.processGetRoleListPage(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processRolesAll(<any>response_);
+                    return this.processGetRoleListPage(<any>response_);
                 } catch (e) {
                     return <Observable<RoleModel[]>><any>_observableThrow(e);
                 }
@@ -996,7 +849,7 @@ export class KadaService implements IClient {
         }));
     }
 
-    protected processRolesAll(response: HttpResponseBase): Observable<RoleModel[]> {
+    protected processGetRoleListPage(response: HttpResponseBase): Observable<RoleModel[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -1026,8 +879,8 @@ export class KadaService implements IClient {
      * @param body (optional) 
      * @return Success
      */
-    add(body: CreateRoleModel | undefined): Observable<string> {
-        let url_ = this.baseUrl + "/api/User/CreateRole/roles/add";
+    createRole(body: CreateRoleModel | undefined): Observable<string> {
+        let url_ = this.baseUrl + "/api/User/CreateRole";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -1043,11 +896,11 @@ export class KadaService implements IClient {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processAdd(response_);
+            return this.processCreateRole(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processAdd(<any>response_);
+                    return this.processCreateRole(<any>response_);
                 } catch (e) {
                     return <Observable<string>><any>_observableThrow(e);
                 }
@@ -1056,7 +909,7 @@ export class KadaService implements IClient {
         }));
     }
 
-    protected processAdd(response: HttpResponseBase): Observable<string> {
+    protected processCreateRole(response: HttpResponseBase): Observable<string> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -1082,11 +935,8 @@ export class KadaService implements IClient {
      * @param roleId (optional) 
      * @return Success
      */
-    roles(roleId: string | undefined, id: string): Observable<string> {
-        let url_ = this.baseUrl + "/api/User/DeleteRole/roles/{id}?";
-        if (id === undefined || id === null)
-            throw new Error("The parameter 'id' must be defined.");
-        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+    deleteRole(roleId: string | undefined): Observable<string> {
+        let url_ = this.baseUrl + "/api/User/DeleteRole?";
         if (roleId === null)
             throw new Error("The parameter 'roleId' cannot be null.");
         else if (roleId !== undefined)
@@ -1102,11 +952,11 @@ export class KadaService implements IClient {
         };
 
         return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processRoles(response_);
+            return this.processDeleteRole(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processRoles(<any>response_);
+                    return this.processDeleteRole(<any>response_);
                 } catch (e) {
                     return <Observable<string>><any>_observableThrow(e);
                 }
@@ -1115,7 +965,7 @@ export class KadaService implements IClient {
         }));
     }
 
-    protected processRoles(response: HttpResponseBase): Observable<string> {
+    protected processDeleteRole(response: HttpResponseBase): Observable<string> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -1136,82 +986,6 @@ export class KadaService implements IClient {
         }
         return _observableOf<string>(<any>null);
     }
-}
-
-export class AuthResponse implements IAuthResponse {
-    id?: string | undefined;
-    firstName?: string | undefined;
-    lastName?: string | undefined;
-    identifiant?: string | undefined;
-    userName?: string | undefined;
-    email?: string | undefined;
-    role?: string[] | undefined;
-    token?: string | undefined;
-    dateTokenExpiration?: Date;
-
-    constructor(data?: IAuthResponse) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.id = _data["id"];
-            this.firstName = _data["firstName"];
-            this.lastName = _data["lastName"];
-            this.identifiant = _data["identifiant"];
-            this.userName = _data["userName"];
-            this.email = _data["email"];
-            if (Array.isArray(_data["role"])) {
-                this.role = [] as any;
-                for (let item of _data["role"])
-                    this.role!.push(item);
-            }
-            this.token = _data["token"];
-            this.dateTokenExpiration = _data["dateTokenExpiration"] ? new Date(_data["dateTokenExpiration"].toString()) : <any>undefined;
-        }
-    }
-
-    static fromJS(data: any): AuthResponse {
-        data = typeof data === 'object' ? data : {};
-        let result = new AuthResponse();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["firstName"] = this.firstName;
-        data["lastName"] = this.lastName;
-        data["identifiant"] = this.identifiant;
-        data["userName"] = this.userName;
-        data["email"] = this.email;
-        if (Array.isArray(this.role)) {
-            data["role"] = [];
-            for (let item of this.role)
-                data["role"].push(item);
-        }
-        data["token"] = this.token;
-        data["dateTokenExpiration"] = this.dateTokenExpiration ? this.dateTokenExpiration.toISOString() : <any>undefined;
-        return data; 
-    }
-}
-
-export interface IAuthResponse {
-    id?: string | undefined;
-    firstName?: string | undefined;
-    lastName?: string | undefined;
-    identifiant?: string | undefined;
-    userName?: string | undefined;
-    email?: string | undefined;
-    role?: string[] | undefined;
-    token?: string | undefined;
-    dateTokenExpiration?: Date;
 }
 
 export class ClientDto implements IClientDto {
@@ -1646,42 +1420,6 @@ export interface IProblemDetails {
     instance?: string | undefined;
 }
 
-export class RegistrationResponse implements IRegistrationResponse {
-    userId?: string | undefined;
-
-    constructor(data?: IRegistrationResponse) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.userId = _data["userId"];
-        }
-    }
-
-    static fromJS(data: any): RegistrationResponse {
-        data = typeof data === 'object' ? data : {};
-        let result = new RegistrationResponse();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["userId"] = this.userId;
-        return data; 
-    }
-}
-
-export interface IRegistrationResponse {
-    userId?: string | undefined;
-}
-
 export class RoleModel implements IRoleModel {
     id?: string | undefined;
     name?: string | undefined;
@@ -1904,6 +1642,7 @@ export class UserModel implements IUserModel {
     email?: string | undefined;
     firstname?: string | undefined;
     lastname?: string | undefined;
+    roles?: string[] | undefined;
 
     constructor(data?: IUserModel) {
         if (data) {
@@ -1921,6 +1660,11 @@ export class UserModel implements IUserModel {
             this.email = _data["email"];
             this.firstname = _data["firstname"];
             this.lastname = _data["lastname"];
+            if (Array.isArray(_data["roles"])) {
+                this.roles = [] as any;
+                for (let item of _data["roles"])
+                    this.roles!.push(item);
+            }
         }
     }
 
@@ -1938,6 +1682,11 @@ export class UserModel implements IUserModel {
         data["email"] = this.email;
         data["firstname"] = this.firstname;
         data["lastname"] = this.lastname;
+        if (Array.isArray(this.roles)) {
+            data["roles"] = [];
+            for (let item of this.roles)
+                data["roles"].push(item);
+        }
         return data; 
     }
 }
@@ -1948,6 +1697,7 @@ export interface IUserModel {
     email?: string | undefined;
     firstname?: string | undefined;
     lastname?: string | undefined;
+    roles?: string[] | undefined;
 }
 
 export class ApiException extends Error {

@@ -12,7 +12,7 @@ export abstract class BaseTableComponent extends BaseReactiveComponent {
     pageRows = [];
     searchForm!: FormGroup;
     defaultSearchFormValue = {};
-
+    loading = false;
     constructor(
         protected _cd: ChangeDetectorRef,
         protected _formBuilder: FormBuilder,
@@ -27,6 +27,7 @@ export abstract class BaseTableComponent extends BaseReactiveComponent {
     }
 
     protected onChangePage(pageInfo: { pageSize?: number, pageOffset?: number }) {
+        this.loading = true;
         this.pageSize = pageInfo.pageSize as number;
         this.pageOffset = pageInfo.pageOffset as number;
         
@@ -38,11 +39,19 @@ export abstract class BaseTableComponent extends BaseReactiveComponent {
             pageSize: this.pageSize,
             pageIndex: this.pageOffset,
         }, this._sortBy());
-        this._search(criteria).pipe(takeUntil(this.$ngOnDestroyed)).subscribe((data: any) => {
-            this.total = data['totalCount'];
-            this.pageRows = data["results"];
-            this.pageOffset = data["page"];
-            this._cd.markForCheck();
+        this._search(criteria).pipe(takeUntil(this.$ngOnDestroyed)).subscribe({
+            next:(data: any) => {
+                this.total = data['totalCount'];
+                this.pageRows = data["results"];
+                this.pageOffset = data["page"];
+                this._cd.markForCheck();
+            },
+            error:(err)=>{
+                this.loading = false;
+            },
+            complete:()=>{
+                this.loading = false;
+            }
         });
     }
 

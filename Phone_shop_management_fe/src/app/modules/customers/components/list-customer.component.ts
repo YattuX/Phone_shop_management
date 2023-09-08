@@ -6,7 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { Observable, combineLatest, from, of, startWith } from 'rxjs';
+import { Observable, combineLatest, debounceTime, distinctUntilChanged, from, of, startWith, takeUntil } from 'rxjs';
 import { InfoDialog } from 'src/app/shared/components/dialogs/info/info.dialog';
 import { BaseTableComponent } from 'src/app/shared/components/table/base-table.component';
 import { UserService } from 'src/app/shared/services/user.service';
@@ -22,7 +22,6 @@ export class ListCustomerComponent extends BaseTableComponent {
   displayedColumns = ['id','identifiant', 'firstname', 'lastname', 'telephone','whatsapp','adress','action' ];
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
   title: string = 'Liste des clients'
-    
     constructor(
       protected _userService: UserService,
       protected _kadaService: KadaService,
@@ -42,14 +41,20 @@ export class ListCustomerComponent extends BaseTableComponent {
 
     override ngOnInit(): void {
       combineLatest([
-        this.searchForm.get('lastName')?.valueChanges.pipe(startWith(this.searchForm.get('lastName')?.value)),
-        this.searchForm.get('name')?.valueChanges.pipe(startWith(this.searchForm.get('name')?.value)),
-        this.searchForm.get('identifiant')?.valueChanges.pipe(startWith(this.searchForm.get('identifiant')?.value))
-      ]).subscribe(([lastName, name, identifiant]) => {
+        this.searchForm.get('lastName')?.valueChanges.pipe(debounceTime(800),distinctUntilChanged(),startWith(this.searchForm.get('lastName')?.value)),
+        this.searchForm.get('name')?.valueChanges.pipe(debounceTime(800),distinctUntilChanged(),startWith(this.searchForm.get('name')?.value)),
+        this.searchForm.get('identifiant')?.valueChanges.pipe(debounceTime(800),distinctUntilChanged(),startWith(this.searchForm.get('identifiant')?.value)),
+        this.searchForm.get('phoneNumber')?.valueChanges.pipe(debounceTime(800),distinctUntilChanged(),startWith(this.searchForm.get('phoneNumber')?.value)),
+        this.searchForm.get('whatsappNumber')?.valueChanges.pipe(debounceTime(800),distinctUntilChanged(),startWith(this.searchForm.get('whatsappNumber')?.value)),
+        this.searchForm.get('adress')?.valueChanges.pipe(debounceTime(800),distinctUntilChanged(),startWith(this.searchForm.get('adress')?.value)),
+      ]).pipe(takeUntil(this.$ngOnDestroyed)).subscribe(([lastName, name, identifiant,phoneNumber,whatsappNumber,adress]) => {
         this.searchForm.patchValue({
           lastName,
           name,
-          identifiant
+          identifiant,
+          phoneNumber,
+          whatsappNumber,
+          adress
         }, { emitEvent: false });
         super.triggerSearch();
       });
@@ -62,6 +67,9 @@ export class ListCustomerComponent extends BaseTableComponent {
         lastName: null,
         name: null,
         identifiant: null,
+        phoneNumber:null,
+        whatsappNumber:null,
+        adress:null,
       });
     }
 

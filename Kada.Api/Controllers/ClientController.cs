@@ -38,7 +38,7 @@ namespace Kada.Api.Controllers
         }
 
         // GET api/<ClientController>/5
-  /*      [HttpGet("{id}")]
+        [HttpGet("{id}")]
         public async Task<ClientDto> GetClient(Guid id)
         {
             try
@@ -101,6 +101,6 @@ namespace Kada.Api.Controllers
 
                 throw;
             }
-        }*/
+        }
     }
 }

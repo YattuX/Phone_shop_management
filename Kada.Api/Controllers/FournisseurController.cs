@@ -23,7 +23,7 @@ namespace Kada.Api.Controllers
             _mediator = mediator;
         }
         // GET: api/<FournisseurController>
-/*        [HttpPost]
+       [HttpPost]
         public async Task<SearchResult<FournisseurDto>> GetFournisseurListPage([FromBody] SearchDTO search)
         {
             try
@@ -104,6 +104,6 @@ namespace Kada.Api.Controllers
 
                 throw;
             }
-        }*/
+        }
     }
 }
