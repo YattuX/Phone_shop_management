@@ -38,20 +38,26 @@ namespace Kada.Identity.Services
                 Email = utilisateur.Email,
                 Id = utilisateur.Id,
                 Firstname = utilisateur.FirstName,
-                Lastname = utilisateur.LastName
+                Lastname = utilisateur.LastName,
+                Roles = await _userManager.GetRolesAsync(utilisateur)
             };
         }
 
         public async Task<List<UserModel>> GetUtilisateurs()
         {
             var utilisateurs = await _userManager.Users.ToListAsync();
-            return utilisateurs.Select(q => new UserModel
+            var userModels = utilisateurs?.Select(async q => new UserModel
             {
                 Id = q.Id,
                 Email = q.Email,
                 Firstname = q.FirstName,
-                Lastname = q.LastName
+                Lastname = q.LastName,
+                Roles = await _userManager.GetRolesAsync(q)
             }).ToList();
+
+            var usersWithRoles = await Task.WhenAll(userModels);
+
+            return usersWithRoles.ToList();
         }
 
         public async Task<List<RoleModel>> GetRoles()

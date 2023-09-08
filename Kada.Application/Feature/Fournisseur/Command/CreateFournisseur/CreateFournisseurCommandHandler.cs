@@ -17,7 +17,7 @@ namespace Kada.Application.Feature.Fournisseur.Command.CreateFournisseur
         }
         public async Task<Guid> Handle(CreateFournisseurCommand request, CancellationToken cancellationToken)
         {
-            var validator = new CreateFournisseurCommandValidator();
+            var validator = new CreateFournisseurCommandValidator(_fournisseurRepository);
             var resultValidator = await validator.ValidateAsync(request);
             if (resultValidator.Errors.Any())
             {

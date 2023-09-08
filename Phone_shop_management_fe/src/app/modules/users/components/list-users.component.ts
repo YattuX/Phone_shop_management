@@ -40,7 +40,7 @@ export class ListUsersComponent extends BaseTableComponent {
     super.triggerSearch();
   }
   protected _search(criteria: any): Observable<any> {
-    return this._userService.GetUserListPage()
+    return this._userService.getUserListPage()
   }
 
 
