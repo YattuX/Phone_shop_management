@@ -17,6 +17,7 @@ namespace Kada.Identity.Services
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly JwtSettings _jwtSettings;
+        private string expDateToken;
 
         public AuthService(UserManager<ApplicationUser> userManager,
             IOptions<JwtSettings> jwtSettings,
@@ -48,9 +49,14 @@ namespace Kada.Identity.Services
             var response = new AuthResponse
             {
                 Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Role = await _userManager.GetRolesAsync(user),
                 Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
                 Email = user.Email,
-                UserName = user.UserName
+                UserName = user.UserName,
+                Identifiant= user.Identifiant,
+                DateTokenExpiration = jwtSecurityToken.ValidTo,
             };
 
             return response;

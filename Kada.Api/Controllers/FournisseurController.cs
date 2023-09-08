@@ -23,19 +23,35 @@ namespace Kada.Api.Controllers
             _mediator = mediator;
         }
         // GET: api/<FournisseurController>
-        [HttpPost]
+/*        [HttpPost]
         public async Task<SearchResult<FournisseurDto>> GetFournisseurListPage([FromBody] SearchDTO search)
         {
-            var Fournisseurs = await _mediator.Send(new GetFournisseurQuery() { Search = search });
-            return Fournisseurs;
+            try
+            {
+                var Fournisseurs = await _mediator.Send(new GetFournisseurQuery() { Search = search });
+                return Fournisseurs;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         // GET api/<FournisseurController>/5
         [HttpGet("{id}")]
         public async Task<FournisseurDto> GetFournisseur(Guid id)
         {
-            var fournisseur = await _mediator.Send(new GetFournisseurDetailsQuery() { Id = id });
-            return fournisseur;
+            try
+            {
+                var fournisseur = await _mediator.Send(new GetFournisseurDetailsQuery() { Id = id });
+                return fournisseur;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         // POST api/<FournisseurController>
@@ -57,8 +73,17 @@ namespace Kada.Api.Controllers
         [ProducesDefaultResponseType]
         public async Task<ActionResult> UpdateFournisseur(UpdateFournisseurCommand request)
         {
-            await _mediator.Send(request);
-            return NoContent();
+            try
+            {
+                await _mediator.Send(request);
+                return NoContent();
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         // DELETE api/<FournisseurController>/5
@@ -68,8 +93,17 @@ namespace Kada.Api.Controllers
         [ProducesDefaultResponseType]
         public async Task<ActionResult> DeleteFournisseur(Guid id)
         {
-            await _mediator.Send(new DeleteFournisseurCommand() { Id = id });
-            return NoContent();
-        }
+            try
+            {
+                await _mediator.Send(new DeleteFournisseurCommand() { Id = id });
+                return NoContent();
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }*/
     }
 }
