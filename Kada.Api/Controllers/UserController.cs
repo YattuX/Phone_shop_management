@@ -20,7 +20,7 @@ namespace Kada.Api.Controllers
             this._userService = userService;
         }
 
-        [HttpGet("users")]
+        [HttpGet]
         public async Task<List<UserModel>> GetUserListPage()
         {
             try
@@ -33,7 +33,7 @@ namespace Kada.Api.Controllers
             }
         }
 
-        [HttpGet("user/{id}")]
+        [HttpGet]
         public async Task<UserModel> GetUser(string id)
         {
             try
@@ -46,7 +46,7 @@ namespace Kada.Api.Controllers
             }
         }
 
-        [HttpGet("roles")]
+        [HttpGet]
         public async Task<List<RoleModel>> GetRoleListPage()
         {
             try
@@ -59,7 +59,7 @@ namespace Kada.Api.Controllers
             }
         }
 
-        [HttpPost("roles/add")]
+        [HttpPost]
         public async Task<string> CreateRole(CreateRoleModel role)
         {
             try
@@ -72,7 +72,7 @@ namespace Kada.Api.Controllers
             }
         }
 
-        [HttpDelete("roles/{id}")]
+        [HttpDelete]
         public async Task<string> DeleteRole(string roleId)
         {
             try

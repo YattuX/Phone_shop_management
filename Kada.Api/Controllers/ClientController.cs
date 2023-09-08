@@ -25,16 +25,32 @@ namespace Kada.Api.Controllers
         [HttpPost]
         public async Task<SearchResult<ClientDto>> GetClientListPage([FromBody] SearchDTO search_)
         {
-            var clients = await _mediator.Send(new GetClientsQuery() { Search = search_ });
-            return clients;
+            try
+            {
+                var clients = await _mediator.Send(new GetClientsQuery() { Search = search_ });
+                return clients;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         // GET api/<ClientController>/5
-        [HttpGet("{id}")]
+  /*      [HttpGet("{id}")]
         public async Task<ClientDto> GetClient(Guid id)
         {
-            var client = await _mediator.Send(new GetClientDetailsQuery() { Id = id });
-            return client;
+            try
+            {
+                var client = await _mediator.Send(new GetClientDetailsQuery() { Id = id });
+                return client;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         // POST api/<ClientController>
@@ -44,8 +60,16 @@ namespace Kada.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> CreateClient([FromBody] CreateClientCommand request)
         {
-            var response = await _mediator.Send(request);
-            return CreatedAtAction(nameof(CreateClient), new { id = response });
+            try
+            {
+                var response = await _mediator.Send(request);
+                return CreatedAtAction(nameof(CreateClient), new { id = response });
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         // PUT api/<ClientController>/5
@@ -67,8 +91,16 @@ namespace Kada.Api.Controllers
         [ProducesDefaultResponseType]
         public async Task<ActionResult> DeleteClient(Guid id)
         {
-            await _mediator.Send(new DeleteClientCommand() { Id = id });
-            return NoContent();
-        }
+            try
+            {
+                await _mediator.Send(new DeleteClientCommand() { Id = id });
+                return NoContent();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }*/
     }
 }
