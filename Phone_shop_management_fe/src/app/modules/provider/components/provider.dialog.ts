@@ -12,8 +12,8 @@ export class ProviderDialog {
     form: FormGroup = new FormGroup({
         lastName: new FormControl(null, [Validators.required, Validators.maxLength(100), Validators.minLength(2)]),
         name: new FormControl(null, [Validators.required, Validators.maxLength(100)]),
-        email: new FormControl(null, [Validators.required, Validators.email, Validators.maxLength(100)]),
-        whatsappNumber: new FormControl(null, [Validators.required, Validators.maxLength(9)]),
+        email: new FormControl(null, [Validators.email, Validators.maxLength(100)]),
+        whatsappNumber: new FormControl(null, [Validators.maxLength(20)]),
     });
 
     constructor(

@@ -6,7 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { Observable, combineLatest, debounceTime, distinctUntilChanged, startWith } from 'rxjs';
+import { Observable, combineLatest, debounceTime, distinctUntilChanged, startWith,takeUntil } from 'rxjs';
 import { BaseTableComponent } from 'src/app/shared/components/table/base-table.component';
 import { FournisseurDto, KadaService } from 'src/app/shared/services/kada.service';
 import { ProviderDialog } from './provider.dialog';
@@ -39,7 +39,7 @@ export class ListProviderComponent extends BaseTableComponent implements OnInit 
 
 
   override ngOnInit() {
-    combineLatest(
+    combineLatest([
       this.searchForm.get('lastName')!.valueChanges
         .pipe(
           debounceTime(800),
@@ -70,7 +70,7 @@ export class ListProviderComponent extends BaseTableComponent implements OnInit 
           distinctUntilChanged(),
           startWith(this.searchForm.get('identifiant')!.value)
         ),
-    )
+    ]).pipe(takeUntil(this.$ngOnDestroyed))
       .subscribe((
         [
           lastName,

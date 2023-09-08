@@ -48,6 +48,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
 import { KadaService } from './services/kada.service';
 import {MatTabsModule} from '@angular/material/tabs';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -144,7 +145,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatDialogModule,
     MatSlideToggleModule,
     MatMenuModule,
-    MatTabsModule
+    MatTabsModule,
+    MatProgressBarModule
   ],
   providers: [
     KadaService,

@@ -81,6 +81,9 @@ namespace Kada.Application.Feature.Fournisseur.Query.GetFournisseur
                     case "identifiant":
                         fournisseurQuery = _fournisseurRepository.FilterQuery(fournisseurQuery, x => x.Identifiant.StartsWith(filter[key]));
                         break;
+                    case "email":
+                        fournisseurQuery = _fournisseurRepository.FilterQuery(fournisseurQuery, x=> x.Email.Contains(filter[key]));
+                        break;
                 }
             }
             return fournisseurQuery;
