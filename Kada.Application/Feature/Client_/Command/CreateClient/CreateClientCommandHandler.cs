@@ -23,7 +23,7 @@ namespace Kada.Application.Feature.Client_.Command.CreateClient
         }
         public async Task<Guid> Handle(CreateClientCommand request, CancellationToken cancellationToken)
         {
-            var validator = new CreateClientCommandValidator();
+            var validator = new CreateClientCommandValidator(_clientRepository);
             var resultValidator = await validator.ValidateAsync(request);
             if(resultValidator.Errors.Any())
             {

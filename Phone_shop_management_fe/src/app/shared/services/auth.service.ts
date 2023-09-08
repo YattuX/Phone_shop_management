@@ -47,12 +47,12 @@ export class AuthService implements IClient {
         this._user.removeCurrentUser();
       }
 
-    /**
+     /**
      * @param username (optional) 
      * @param password (optional) 
      * @return Success
      */
-    login(username: string | undefined, password: string | undefined): Observable<AuthResponse> {
+     login(username: string | undefined, password: string | undefined): Observable<AuthResponse> {
         let url_ = this.baseUrl + "/login?";
         if (username === null)
             throw new Error("The parameter 'username' cannot be null.");
@@ -67,7 +67,6 @@ export class AuthService implements IClient {
         let options_ : any = {
             observe: "response",
             responseType: "blob",
-            withCredentials: true,
             headers: new HttpHeaders({
                 "Accept": "text/plain"
             })
@@ -147,7 +146,6 @@ export class AuthService implements IClient {
         let options_ : any = {
             observe: "response",
             responseType: "blob",
-            withCredentials: true,
             headers: new HttpHeaders({
                 "Accept": "text/plain"
             })
@@ -192,9 +190,14 @@ export class AuthService implements IClient {
 
 export class AuthResponse implements IAuthResponse {
     id?: string | undefined;
+    firstName?: string | undefined;
+    lastName?: string | undefined;
+    identifiant?: string | undefined;
     userName?: string | undefined;
     email?: string | undefined;
+    role?: string[] | undefined;
     token?: string | undefined;
+    dateTokenExpiration?: Date;
 
     constructor(data?: IAuthResponse) {
         if (data) {
@@ -208,9 +211,18 @@ export class AuthResponse implements IAuthResponse {
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
+            this.firstName = _data["firstName"];
+            this.lastName = _data["lastName"];
+            this.identifiant = _data["identifiant"];
             this.userName = _data["userName"];
             this.email = _data["email"];
+            if (Array.isArray(_data["role"])) {
+                this.role = [] as any;
+                for (let item of _data["role"])
+                    this.role!.push(item);
+            }
             this.token = _data["token"];
+            this.dateTokenExpiration = _data["dateTokenExpiration"] ? new Date(_data["dateTokenExpiration"].toString()) : <any>undefined;
         }
     }
 
@@ -224,18 +236,32 @@ export class AuthResponse implements IAuthResponse {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
+        data["firstName"] = this.firstName;
+        data["lastName"] = this.lastName;
+        data["identifiant"] = this.identifiant;
         data["userName"] = this.userName;
         data["email"] = this.email;
+        if (Array.isArray(this.role)) {
+            data["role"] = [];
+            for (let item of this.role)
+                data["role"].push(item);
+        }
         data["token"] = this.token;
+        data["dateTokenExpiration"] = this.dateTokenExpiration ? this.dateTokenExpiration.toISOString() : <any>undefined;
         return data; 
     }
 }
 
 export interface IAuthResponse {
     id?: string | undefined;
+    firstName?: string | undefined;
+    lastName?: string | undefined;
+    identifiant?: string | undefined;
     userName?: string | undefined;
     email?: string | undefined;
+    role?: string[] | undefined;
     token?: string | undefined;
+    dateTokenExpiration?: Date;
 }
 
 export class RegistrationResponse implements IRegistrationResponse {

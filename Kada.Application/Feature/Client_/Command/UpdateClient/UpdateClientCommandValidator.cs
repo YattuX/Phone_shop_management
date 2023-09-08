@@ -16,9 +16,6 @@ namespace Kada.Application.Feature.Client_.Command.UpdateClient
         {
             _clientRepository = clientRepository;
 
-            RuleFor(p => p.Id)
-                .NotNull()
-                .MustAsync(ClientExist);
             RuleFor(p => p.Name)
                 .NotEmpty()
                 .NotNull()
@@ -30,11 +27,13 @@ namespace Kada.Application.Feature.Client_.Command.UpdateClient
             RuleFor(p => p.PhoneNumber)
                 .NotEmpty()
                 .NotNull()
-                .MaximumLength(9).WithMessage("{PropertyName} must be fewer than 9 characters");
+                .MustAsync(doesPhoneNumberExist).WithMessage("This phone number already exist")
+                .MaximumLength(20).WithMessage("{PropertyName} must be fewer than 9 characters");
             RuleFor(p => p.WhatsappNumber)
                 .NotEmpty()
                 .NotNull()
-                .MaximumLength(9).WithMessage("{PropertyName} must be fewer than 9 characters");
+                .MustAsync(doesWhatsappNumberExist).WithMessage("This whatsapp number already exist")
+                .MaximumLength(20).WithMessage("{PropertyName} must be fewer than 9 characters");
             RuleFor(p => p.Adress)
                .NotEmpty()
                .NotNull()
@@ -44,6 +43,14 @@ namespace Kada.Application.Feature.Client_.Command.UpdateClient
         public async Task<bool> ClientExist(Guid id , CancellationToken token)
         {
             return await _clientRepository.ExistsAsync(x => x.Id == id);
+        }
+        public async Task<bool> doesPhoneNumberExist(string phoneNumber, CancellationToken token)
+        {
+            return await _clientRepository.ExistsAsync(x => x.PhoneNumber == phoneNumber);
+        }
+        public async Task<bool> doesWhatsappNumberExist(string whatsappNumber, CancellationToken token)
+        {
+            return await _clientRepository.ExistsAsync(x => x.WhatsappNumber == whatsappNumber);
         }
     }
 }
