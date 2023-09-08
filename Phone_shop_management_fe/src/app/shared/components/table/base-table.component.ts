@@ -39,12 +39,19 @@ export abstract class BaseTableComponent extends BaseReactiveComponent {
             pageSize: this.pageSize,
             pageIndex: this.pageOffset,
         }, this._sortBy());
-        this._search(criteria).pipe(takeUntil(this.$ngOnDestroyed)).subscribe((data: any) => {
-            this.total = data['totalCount'];
-            this.pageRows = data["results"];
-            this.pageOffset = data["page"];
-            this._cd.markForCheck();
-            this.loading = false;
+        this._search(criteria).pipe(takeUntil(this.$ngOnDestroyed)).subscribe({
+            next:(data: any) => {
+                this.total = data['totalCount'];
+                this.pageRows = data["results"];
+                this.pageOffset = data["page"];
+                this._cd.markForCheck();
+            },
+            error:(err)=>{
+                this.loading = false;
+            },
+            complete:()=>{
+                this.loading = false;
+            }
         });
     }
 

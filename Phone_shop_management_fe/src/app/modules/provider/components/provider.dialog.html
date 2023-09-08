@@ -44,7 +44,7 @@
         <!-- Email -->
         <mat-form-field appearance="fill" class="w-full md:w-[48%] mr-2">
             <mat-label>Email</mat-label>
-            <input matInput placeholder="exemple@gmail.com" #inputEmail formControlName="email" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+[a-zA-Z]{1,}\.+[a-zA-Z]{2,}$">
+            <input matInput placeholder="exemple@gmail.com" #inputEmail formControlName="email">
             <mat-hint align="end">{{inputEmail.value.length}}/100</mat-hint>
             <mat-error *ngIf="form.controls['email'].errors && 
                     form.controls['email'].errors['required'] && 
