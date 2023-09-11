@@ -4,20 +4,21 @@ import { ListCustomerComponent } from './components/list-customer.component';
 import { CustomerDialog } from './components/customer.dialog';
 import { CustomerRoutingModule } from './customer-routing.module';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatInputModule } from '@angular/material/input';
+import { CustomerTabComponent } from './components/customer-tab.component';
 
 
 
 @NgModule({
   declarations: [
     ListCustomerComponent,
-    CustomerDialog
+    CustomerDialog,
+    CustomerTabComponent
   ],
   imports: [
     CommonModule,
     CustomerRoutingModule,
     SharedModule,
+    
   ]
 })
 export class CustomerModule { }

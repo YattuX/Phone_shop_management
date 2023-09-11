@@ -3,12 +3,17 @@ import { RouterModule, Routes } from '@angular/router';
 import { ListProviderComponent } from './components/list-provider.component';
 
 const routes: Routes = [
-    { 
-        path: '', 
-        component: ListProviderComponent ,
-        data: { 
-            title: 'Liste des Fournisseurs'
-        } 
+    {
+        path: '',
+        children: [
+            {
+                path: '',
+                component: ListProviderComponent,
+                data: {
+                    title: 'Liste des Fournisseurs'
+                }
+            },
+        ]
     },
 ];
 

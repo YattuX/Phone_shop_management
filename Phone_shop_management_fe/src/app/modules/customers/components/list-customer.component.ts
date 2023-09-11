@@ -1,12 +1,10 @@
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { moveItemInArray } from '@angular/cdk/drag-drop';
+import { ChangeDetectorRef, Component, Input, Output } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
-import { Observable, combineLatest, debounceTime, distinctUntilChanged, from, of, startWith, takeUntil } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, combineLatest, debounceTime, distinctUntilChanged, startWith, takeUntil } from 'rxjs';
 import { InfoDialog } from 'src/app/shared/components/dialogs/info/info.dialog';
 import { BaseTableComponent } from 'src/app/shared/components/table/base-table.component';
 import { UserService } from 'src/app/shared/services/user.service';
@@ -21,7 +19,8 @@ import { ToastrService } from 'ngx-toastr';
 export class ListCustomerComponent extends BaseTableComponent {
   displayedColumns = ['id','identifiant', 'firstname', 'lastname', 'telephone','whatsapp','adress','action' ];
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
-  title: string = 'Liste des clients'
+  title: string = 'Liste des clients';
+  isClientEnGros: boolean;
     constructor(
       protected _userService: UserService,
       protected _kadaService: KadaService,
@@ -29,10 +28,13 @@ export class ListCustomerComponent extends BaseTableComponent {
       protected override _formBuilder: FormBuilder,
       protected override  _router: Router,
       private _dialog: MatDialog,
-      private _toastr:ToastrService
+      private _toastr:ToastrService,
+      private _activatedRoute:ActivatedRoute
     ) {
       super(_cd, _formBuilder, _router);
       this._createSearchForm();
+      this.isClientEnGros = this._activatedRoute.snapshot.routeConfig?.data?.['isClientEnGros'];
+      this.searchForm.controls['isClientEnGros'].patchValue(`${this.isClientEnGros}`,{ emitEvent: false });
     }
 
     protected override _search(criteria: any): Observable<any> {
@@ -70,6 +72,7 @@ export class ListCustomerComponent extends BaseTableComponent {
         phoneNumber:null,
         whatsappNumber:null,
         adress:null,
+        isClientEnGros:null
       });
     }
 
