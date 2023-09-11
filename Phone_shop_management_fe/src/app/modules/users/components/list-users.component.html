@@ -1,7 +1,24 @@
+<app-breadcrumb></app-breadcrumb>
 
-<app-breadcrumb Title="'test'"></app-breadcrumb>
+<mat-divider></mat-divider>
+<mat-toolbar class="content-toolbar flex flex-wrap justify-between items-center"
+    style="height: fit-content !important; padding:5px 10px;">
+    <div class="flex">
+        <mat-icon class="cursor-pointer text-white" title="retour">reply</mat-icon>
+    </div>
+
+    <div class="flex">
+        <button class="flex button items-center bg-white text-black shadow-xl" (click)="openDialog('add',{})">
+            + Ajouter
+        </button>
+    </div>
+</mat-toolbar>
+
+<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+
 <div class="content mat-elevation-z2">
-    <form [formGroup]="searchForm" class="flex flex-wrap justify-start mb-6 border border-gray-300 rounded-md pl-5 py-4 ">
+    <form [formGroup]="searchForm"
+        class="flex flex-wrap justify-start mb-6 border border-gray-300 rounded-md pl-5 py-4 ">
         <mat-form-field class="w-full md:w-[45%] md:mr-2">
             <input matInput placeholder="Nom" formControlName="lastName">
         </mat-form-field>
@@ -12,33 +29,31 @@
             <input matInput placeholder="Identifiant" formControlName="identifiant">
         </mat-form-field>
     </form>
-    <div align="end" >
-        <button class="mb-4 button-primary"  (click)="openDialog()" >+ Ajouter</button>
-    </div>
+    
     <mat-table [dataSource]="pageRows" matSort cdkDropList cdkDropListOrientation="horizontal"
-    (cdkDropListDropped)="drop($event)">
+        (cdkDropListDropped)="drop($event)">
 
         <!-- ID Column -->
         <ng-container matColumnDef="id">
-            <mat-header-cell *matHeaderCellDef  mat-sort-header cdkDrag>#</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header cdkDrag>#</mat-header-cell>
             <mat-cell *matCellDef="let row;let index=index"> {{index+1}} </mat-cell>
         </ng-container>
 
         <!-- username Column -->
         <ng-container matColumnDef="username">
-            <mat-header-cell *matHeaderCellDef  mat-sort-header cdkDrag>Nom D'utilisateur</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header cdkDrag>Nom D'utilisateur</mat-header-cell>
             <mat-cell *matCellDef="let row"> {{row.username}} </mat-cell>
         </ng-container>
 
         <!-- email Column -->
         <ng-container matColumnDef="email">
-            <mat-header-cell *matHeaderCellDef  mat-sort-header cdkDrag>Email</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header cdkDrag>Email</mat-header-cell>
             <mat-cell *matCellDef="let row"> {{row.email}} </mat-cell>
         </ng-container>
 
         <!-- firstname Column -->
         <ng-container matColumnDef="firstname">
-            <mat-header-cell *matHeaderCellDef  mat-sort-header cdkDrag>Prénom</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header cdkDrag>Prénom</mat-header-cell>
             <mat-cell *matCellDef="let row"> {{row.firstname}} </mat-cell>
         </ng-container>
 
@@ -48,15 +63,13 @@
             <mat-cell *matCellDef="let row"> {{row.lastname}} </mat-cell>
         </ng-container>
 
+        
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;">
         </mat-row>
     </mat-table>
 
-    <mat-paginator 
-    [length]="pageRows.length"
-    [pageSize]="pageSize" 
-    [pageIndex]="pageOffset / pageSize"
-    (page)="onChangePage($event)"></mat-paginator>
+    <mat-paginator [length]="total" [pageSize]="pageSize"
+        (page)="onChangePage({pageSize: $event.pageSize, pageOffset: $event.pageIndex})"></mat-paginator>
 
 </div>

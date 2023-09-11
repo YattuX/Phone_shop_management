@@ -1,4 +1,6 @@
 ﻿using Kada.Application.Contracts.Identity;
+using Kada.Application.DTOs;
+using Kada.Application.DTOs.Search;
 using Kada.Application.Models.Identity;
 using Kada.Identity.Models;
 using Microsoft.AspNetCore.Http;
@@ -43,21 +45,32 @@ namespace Kada.Identity.Services
             };
         }
 
-        public async Task<List<UserModel>> GetUtilisateurs()
+        public async Task<SearchResult<UserModel>> GetUtilisateursListPageAsync(int pageIndex, int pageSize, Dictionary<string, string> filters)
         {
-            var utilisateurs = await _userManager.Users.ToListAsync();
-            var userModels = utilisateurs?.Select(async q => new UserModel
+            var filteredRequest = GetFilteredQuery(filters);
+            var utilisateurs = (pageIndex == -1) ? filteredRequest.ToList() : filteredRequest.Skip(pageIndex * pageSize).Take(pageSize).ToList();
+            
+            List<UserModel> usersWithRoles = new();
+
+            foreach (var utilisateur in utilisateurs)
             {
-                Id = q.Id,
-                Email = q.Email,
-                Firstname = q.FirstName,
-                Lastname = q.LastName,
-                Roles = await _userManager.GetRolesAsync(q)
-            }).ToList();
+                var roles = await _userManager.GetRolesAsync(utilisateur);
+                usersWithRoles.Add(new UserModel {
+                    Id = utilisateur.Id,
+                    Email = utilisateur.Email,
+                    Firstname = utilisateur.FirstName,
+                    Lastname = utilisateur.LastName,
+                    Roles = roles
+                });
+            }
 
-            var usersWithRoles = await Task.WhenAll(userModels);
-
-            return usersWithRoles.ToList();
+            return new SearchResult<UserModel>
+            {
+                Page = pageIndex,
+                CountPerPage = pageSize,
+                TotalCount = filteredRequest.Count(),
+                Results = usersWithRoles
+            };
         }
 
         public async Task<List<RoleModel>> GetRoles()
@@ -89,5 +102,36 @@ namespace Kada.Identity.Services
             var result = await _roleManager.DeleteAsync(role);
             return result.ToString();
         }
+
+        public IQueryable<ApplicationUser> GetFilteredQuery(Dictionary<string, string> filter)
+        {
+            IQueryable<ApplicationUser> userQuery = _userManager.Users;
+
+            foreach (var key in filter.Keys)
+            {
+                if (string.IsNullOrEmpty(filter[key]))
+                {
+                    continue;
+                }
+
+                switch (key)
+                {
+                    case "email":
+                        userQuery = userQuery.Where(x => x.Email.Contains(filter[key]));
+                        break;
+                    case "firstname":
+                        userQuery = userQuery.Where(x => x.FirstName.Contains(filter[key]));
+                        break;
+                    case "lastname":
+                        userQuery = userQuery.Where(x => x.LastName.Contains(filter[key]));
+                        break;
+                    case "phoneNumber":
+                        userQuery = userQuery.Where(x=> x.PhoneNumber.Contains(filter[key]));
+                        break;
+                }
+            }
+            return userQuery;
+        }
+
     }
 }

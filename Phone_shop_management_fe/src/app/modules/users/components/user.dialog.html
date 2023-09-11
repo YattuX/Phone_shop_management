@@ -1,30 +1,137 @@
 <div class="headerDialog">
-    <h2 mat-dialog-title >Ajout d'un Utilisateur</h2>
-    <mat-icon class="cursor-pointer" (click)="dialogRef.close()">close</mat-icon>
+  <h2 mat-dialog-title>{{data?.title}}</h2>
+  <mat-icon class="cursor-pointer" (click)="dialogRef.close()"
+    [ngClass]="{'dialog-disabled': showSpinner}">close</mat-icon>
 </div>
-<mat-dialog-content class="mat-typography">
-        <mat-form-field appearance="fill" class="w-full">
-          <mat-label>Fill form field</mat-label>
-          <input matInput placeholder="Placeholder">
-          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-          <mat-hint>Hint</mat-hint>
-        </mat-form-field>
-      
-        <mat-form-field appearance="outline" class="w-full">
-          <mat-label>Outline form field</mat-label>
-          <input matInput placeholder="Placeholder">
-          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-          <mat-hint>Hint</mat-hint>
-        </mat-form-field>
+<mat-dialog-content class="mat-typography" [ngClass]="{'dialog-disabled': showSpinner}">
+  <div class="absolute inset-1/2 z-50 shadow" *ngIf="showSpinner">
+    <mat-spinner [diameter]="80"></mat-spinner>
+  </div>
+  <form [formGroup]="form">
+    <!-- lastName -->
+    <mat-form-field class="w-full md:w-[48%] mr-2">
+      <mat-label>Nom</mat-label>
+      <input matInput placeholder="Nom" #inputLastName formControlName="lastName">
+      <mat-hint align="end">{{inputLastName.value.length}}/100</mat-hint>
+      <mat-error *ngIf="form.controls['lastName'].errors && 
+                  form.controls['lastName'].errors['required'] && 
+                  form.controls['lastName'].touched">Le nom est Obligatoire</mat-error>
+      <mat-error *ngIf="form.controls['lastName'].errors && 
+                  form.controls['lastName'].errors['maxlength'] && 
+                  form.controls['lastName'].touched">Le nom ne doit pas dépasser
+        {{form.controls['lastName'].errors['maxlength']['requiredLength']}} caractères</mat-error>
+      <mat-error *ngIf="form.controls['lastName'].errors && 
+                  form.controls['lastName'].errors['minlength'] && 
+                  form.controls['lastName'].touched">Le nom doit avoir au moins
+        {{form.controls['lastName'].errors['minlength']['requiredLength']}} caractères</mat-error>
+    </mat-form-field>
+
+    <!-- firstName -->
+    <mat-form-field appearance="fill" class="w-full md:w-[48%] mr-2">
+      <mat-label>Prénom</mat-label>
+      <input matInput placeholder="Prénom" #inputfirstName formControlName="firstName">
+      <mat-hint align="end">{{inputfirstName.value.length}}/100</mat-hint>
+      <mat-error *ngIf="form.controls['firstName'].errors && 
+                  form.controls['firstName'].errors['required'] && 
+                  form.controls['firstName'].touched">Le Prénom est Obligatoire</mat-error>
+      <mat-error *ngIf="form.controls['firstName'].errors && 
+                  form.controls['firstName'].errors['maxlength'] && 
+                  form.controls['firstName'].touched">Le Prénom ne doit pas dépasser
+        {{form.controls['firstName'].errors['maxlength']['requiredLength']}} caractères</mat-error>
+    </mat-form-field>
+
+    <!-- userName -->
+    <mat-form-field appearance="fill" class="w-full md:w-[48%] mr-2">
+      <mat-label>Nom d'utilisateur</mat-label>
+      <input matInput placeholder="Nom d'utilisateur" #inputuserName formControlName="userName">
+      <mat-hint align="end">{{inputuserName.value.length}}/100</mat-hint>
+      <mat-error *ngIf="form.controls['userName'].errors && 
+                  form.controls['userName'].errors['required'] && 
+                  form.controls['userName'].touched">Le nom d'utilisateur est Obligatoire</mat-error>
+      <mat-error *ngIf="form.controls['userName'].errors && 
+                  form.controls['userName'].errors['maxlength'] && 
+                  form.controls['userName'].touched">Le nom d'utilisateur ne doit pas dépasser
+        {{form.controls['userName'].errors['maxlength']['requiredLength']}} caractères</mat-error>
+    </mat-form-field>
+
+    <!-- Email -->
+    <mat-form-field appearance="fill" class="w-full md:w-[48%] mr-2">
+      <mat-label>Email</mat-label>
+      <input matInput placeholder="exemple@gmail.com" #inputEmail formControlName="email">
+      <mat-hint align="end">{{inputEmail.value.length}}/100</mat-hint>
+      <mat-error *ngIf="form.controls['email'].errors && 
+                  form.controls['email'].errors['required'] && 
+                  form.controls['email'].touched">L'email est Obligatoire</mat-error>
+      <mat-error *ngIf="form.controls['email'].errors && 
+                  form.controls['email'].errors['maxlength'] && 
+                  form.controls['email'].touched">L'email ne doit pas dépasser
+        {{form.controls['email'].errors['maxlength']['requiredLength']}} caractères</mat-error>
+      <mat-error *ngIf="form.controls['email'].errors && 
+                  (form.controls['email'].errors['email'] || form.controls['email'].errors['pattern']) && 
+                  form.controls['email'].touched">L'email est invalide</mat-error>
+    </mat-form-field>
+
+    <!-- Phone number -->
+    <mat-form-field appearance="fill" class="w-full md:w-[48%] mr-2">
+      <mat-label>Numéro</mat-label>
+      <input matInput placeholder="620000000" #inputPhone formControlName="phoneNumber" pattern="[0-9]{9,}">
+      <mat-error *ngIf="form.controls['phoneNumber'].errors && 
+                  form.controls['phoneNumber'].errors['required'] && 
+                  form.controls['phoneNumber'].touched">Le numéro est Obligatoire</mat-error>
+      <mat-error *ngIf="form.controls['phoneNumber'].errors && 
+                  form.controls['phoneNumber'].errors['maxlength'] && 
+                  form.controls['phoneNumber'].touched">Le numéro ne doit pas dépasser
+        {{form.controls['phoneNumber'].errors['maxlength']['requiredLength']}} caractères</mat-error>
+      <mat-error *ngIf="form.controls['phoneNumber'].errors && 
+                  form.controls['phoneNumber'].errors['pattern'] && 
+                  form.controls['phoneNumber'].touched">Le numéro ne doit avoir au moins
+        9 caractères</mat-error>
+    </mat-form-field>
+
+    <!-- role -->
+    <mat-form-field class="w-full md:w-[48%] mr-2">
+      <mat-label>Rôle</mat-label>
+      <mat-select formControlName="role">
+        <mat-option *ngFor="let userRole of userRoles$|async" [value]="userRole.name">
+          {{userRole.normalizedName}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- password -->
+    <mat-form-field class="w-full md:w-[48%] mr-2">
+      <mat-label>Mot de passe</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Cacher le mot de passe'"
+        [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      <mat-hint>EX:ab@123</mat-hint>
+      <mat-error *ngIf="form.controls['password'].errors && 
+                  form.controls['password'].errors['required'] && 
+                  form.controls['password'].touched">Le mot de passe est Obligatoire</mat-error>
+      <mat-error *ngIf="form.controls['password'].errors && 
+                  (form.controls['password'].errors['pattern'] || form.controls['password'].errors['minlength']) && 
+                  form.controls['password'].touched">Le mot de passe doit avoir au moins 6 caractères dont une lettre
+        minuscule, une lettre majuscule, un chiffre et un caractère spécial.</mat-error>
+    </mat-form-field>
+
+    <!-- confirmPassword -->
+    <mat-form-field class="w-full md:w-[48%] mr-2">
+      <mat-label>Confirmation du mot de passe</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'" formControlName="confirmPassword"
+        [pattern]="form.controls['password'].value">
+    </mat-form-field>
+  </form>
 </mat-dialog-content>
 
-<mat-dialog-actions align="end" >
+<mat-dialog-actions align="end" [ngClass]="{'dialog-disabled': showSpinner}">
   <div class="space-x-3 px-4">
-    <button class="button text-black shadow-xl"  (click)="dialogRef.close()">
-        Annuler
+    <button class="button text-black shadow-xl" (click)="dialogRef.close()">
+      Annuler
     </button>
-    <button class="button-primary mr-4 drop-shadow-lg">
-        Ajouter
+    <button class="button-primary mr-4 drop-shadow-lg" (click)="save()">
+      {{data?.action =='add'?'Ajouter':'Modifier'}}
     </button>
   </div>
 </mat-dialog-actions>

@@ -6,7 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { Observable, from, of } from 'rxjs';
+import { Observable, combineLatest, debounceTime, distinctUntilChanged, from, of, startWith, takeUntil } from 'rxjs';
 import { InfoDialog } from 'src/app/shared/components/dialogs/info/info.dialog';
 import { BaseTableComponent } from 'src/app/shared/components/table/base-table.component';
 import { UserService } from 'src/app/shared/services/user.service';
@@ -35,12 +35,44 @@ export class ListUsersComponent extends BaseTableComponent {
     this._createSearchForm();
   }
 
-
   override ngOnInit() {
-    super.triggerSearch();
+    combineLatest([
+      this.searchForm.get('firstName')!.valueChanges
+        .pipe(
+          debounceTime(800),
+          distinctUntilChanged(),
+          startWith(this.searchForm.get('firstName')!.value)
+        ),
+      this.searchForm.get('lastName')!.valueChanges
+        .pipe(
+          debounceTime(800),
+          distinctUntilChanged(),
+          startWith(this.searchForm.get('lastName')!.value)
+        ),
+      this.searchForm.get('identifiant')!.valueChanges
+        .pipe(
+          debounceTime(800),
+          distinctUntilChanged(),
+          startWith(this.searchForm.get('identifiant')!.value)
+        ),
+    ]).pipe(takeUntil(this.$ngOnDestroyed))
+      .subscribe((
+        [
+          firstName,
+          lastName,
+          identifiant,
+        ]) => {
+        this.searchForm.patchValue({
+          firstName,
+          lastName,
+          identifiant,
+        }, { emitEvent: false });
+        this.triggerSearch();
+      });
   }
+
   protected _search(criteria: any): Observable<any> {
-    return this._userService.getUserListPage()
+    return this._userService.getUserListPage(criteria);
   }
 
 
@@ -52,9 +84,17 @@ export class ListUsersComponent extends BaseTableComponent {
     });
   }
 
-  openDialog() {
+  openDialog(action:string,row:any) {
+    row['action']=action;
+    row['title']=(action=='add'?'Ajout d\'un Utilisateur':`Modification de l'Utilisateur ${row.firstName} ${row.lastName}`);
     this._dialog.open(AddUserDialog, {
-      data: {},
+      data: row,
+      disableClose: true,
+      width:'900px'
+    }).afterClosed().subscribe(response => {
+      if (response) {
+        this.triggerSearch();
+      }
     })
   }
 
