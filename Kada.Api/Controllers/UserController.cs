@@ -48,6 +48,37 @@ namespace Kada.Api.Controllers
             }
         }
 
+        [HttpPut]
+        public async Task<UserModelUpdate> UpdateUser(UserModelUpdate userModel)
+        {
+            if (userModel == null) BadRequest("L'utilisateur ne peut etre null");
+            try
+            {
+                return await _userService.UpdateUser(userModel);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            } 
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteUser(Guid id)
+        {
+            try
+            {
+                var isDeleted = await _userService.DeleteUserAsync(id);
+                if (!isDeleted) return BadRequest(false);
+                return Ok(true);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            } 
+        }
+
         [HttpGet]
         public async Task<List<RoleModel>> GetRoleListPage()
         {

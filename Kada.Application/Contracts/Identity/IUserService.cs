@@ -11,6 +11,8 @@ public interface IUserService
         Task<List<RoleModel>> GetRoles();
         Task<string> CreateRole(CreateRoleModel role);
         Task<string> DeleteRole(string roleId);
+        Task<UserModelUpdate> UpdateUser(UserModelUpdate model);
+        Task<bool> DeleteUserAsync(Guid id);
         public string UserId { get; }
     }
 

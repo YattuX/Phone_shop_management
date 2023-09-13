@@ -27,7 +27,7 @@ namespace Kada.Application.Models.Identity
         public string UserName { get; set; }
 
         [Required]
-        public string Role { get; set; }
+        public string[] Roles { get; set; }
 
         [Required]
         [MinLength(6)]

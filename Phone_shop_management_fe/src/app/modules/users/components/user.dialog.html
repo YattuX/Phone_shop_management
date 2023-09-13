@@ -91,37 +91,38 @@
     <!-- role -->
     <mat-form-field class="w-full md:w-[48%] mr-2">
       <mat-label>Rôle</mat-label>
-      <mat-select formControlName="role">
-        <mat-option *ngFor="let userRole of userRoles$|async" [value]="userRole.name">
-          {{userRole.normalizedName}}
+      <mat-select formControlName="role" multiple>
+        <mat-option *ngFor="let userRole of userRoles$|async" [value]="userRole.normalizedName">
+          {{userRole.name}}
         </mat-option>
       </mat-select>
     </mat-form-field>
-
-    <!-- password -->
-    <mat-form-field class="w-full md:w-[48%] mr-2">
-      <mat-label>Mot de passe</mat-label>
-      <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
-      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Cacher le mot de passe'"
-        [attr.aria-pressed]="hide">
-        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-      </button>
-      <mat-hint>EX:ab@123</mat-hint>
-      <mat-error *ngIf="form.controls['password'].errors && 
+    <ng-container *ngIf="data?.action==='add'">
+      <!-- password -->
+      <mat-form-field class="w-full md:w-[48%] mr-2">
+        <mat-label>Mot de passe</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Cacher le mot de passe'"
+          [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-hint>EX:ab@123</mat-hint>
+        <mat-error *ngIf="form.controls['password'].errors && 
                   form.controls['password'].errors['required'] && 
                   form.controls['password'].touched">Le mot de passe est Obligatoire</mat-error>
-      <mat-error *ngIf="form.controls['password'].errors && 
+        <mat-error *ngIf="form.controls['password'].errors && 
                   (form.controls['password'].errors['pattern'] || form.controls['password'].errors['minlength']) && 
                   form.controls['password'].touched">Le mot de passe doit avoir au moins 6 caractères dont une lettre
-        minuscule, une lettre majuscule, un chiffre et un caractère spécial.</mat-error>
-    </mat-form-field>
+          minuscule, une lettre majuscule, un chiffre et un caractère spécial.</mat-error>
+      </mat-form-field>
 
-    <!-- confirmPassword -->
-    <mat-form-field class="w-full md:w-[48%] mr-2">
-      <mat-label>Confirmation du mot de passe</mat-label>
-      <input matInput [type]="hide ? 'password' : 'text'" formControlName="confirmPassword"
-        [pattern]="form.controls['password'].value">
-    </mat-form-field>
+      <!-- confirmPassword -->
+      <mat-form-field class="w-full md:w-[48%] mr-2">
+        <mat-label>Confirmation du mot de passe</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" formControlName="confirmPassword"
+          [pattern]="form.controls['password'].value">
+      </mat-form-field>
+    </ng-container>
   </form>
 </mat-dialog-content>
 

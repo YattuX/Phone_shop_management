@@ -11,6 +11,7 @@ import { InfoDialog } from 'src/app/shared/components/dialogs/info/info.dialog';
 import { BaseTableComponent } from 'src/app/shared/components/table/base-table.component';
 import { UserService } from 'src/app/shared/services/user.service';
 import { AddUserDialog } from './user.dialog';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-list-users',
@@ -18,7 +19,7 @@ import { AddUserDialog } from './user.dialog';
   styleUrls: ['./list-users.component.scss']
 })
 export class ListUsersComponent extends BaseTableComponent {
-  displayedColumns = ['id', 'email', 'firstname', 'lastname'];
+  displayedColumns = ['id', 'lastname','firstname','email','phone','role','action'];
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -29,7 +30,8 @@ export class ListUsersComponent extends BaseTableComponent {
     protected override _cd: ChangeDetectorRef,
     protected override _formBuilder: FormBuilder,
     protected override _router: Router,
-    private _dialog: MatDialog
+    private _dialog: MatDialog,
+    private _toastr:ToastrService,
   ) {
     super(_cd, _formBuilder, _router);
     this._createSearchForm();
@@ -37,35 +39,43 @@ export class ListUsersComponent extends BaseTableComponent {
 
   override ngOnInit() {
     combineLatest([
-      this.searchForm.get('firstName')!.valueChanges
+      this.searchForm.get('email')!.valueChanges
         .pipe(
           debounceTime(800),
           distinctUntilChanged(),
-          startWith(this.searchForm.get('firstName')!.value)
+          startWith(this.searchForm.get('email')!.value)
         ),
-      this.searchForm.get('lastName')!.valueChanges
+      this.searchForm.get('firstname')!.valueChanges
         .pipe(
           debounceTime(800),
           distinctUntilChanged(),
-          startWith(this.searchForm.get('lastName')!.value)
+          startWith(this.searchForm.get('firstname')!.value)
         ),
-      this.searchForm.get('identifiant')!.valueChanges
+      this.searchForm.get('lastname')!.valueChanges
         .pipe(
           debounceTime(800),
           distinctUntilChanged(),
-          startWith(this.searchForm.get('identifiant')!.value)
+          startWith(this.searchForm.get('lastname')!.value)
+        ),
+      this.searchForm.get('phoneNumber')!.valueChanges
+        .pipe(
+          debounceTime(800),
+          distinctUntilChanged(),
+          startWith(this.searchForm.get('phoneNumber')!.value)
         ),
     ]).pipe(takeUntil(this.$ngOnDestroyed))
       .subscribe((
         [
-          firstName,
-          lastName,
-          identifiant,
+          email,
+          firstname,
+          lastname,
+          phoneNumber
         ]) => {
         this.searchForm.patchValue({
-          firstName,
-          lastName,
-          identifiant,
+          email,
+          firstname,
+          lastname,
+          phoneNumber
         }, { emitEvent: false });
         this.triggerSearch();
       });
@@ -78,15 +88,16 @@ export class ListUsersComponent extends BaseTableComponent {
 
   protected override _createSearchForm() {
     this.searchForm = this._formBuilder.group({
-      firstName: null,
-      lastName: null,
-      identifiant: null,
+      email: null,
+      firstname: null,
+      lastname: null,
+      phoneNumber:null
     });
   }
 
   openDialog(action:string,row:any) {
     row['action']=action;
-    row['title']=(action=='add'?'Ajout d\'un Utilisateur':`Modification de l'Utilisateur ${row.firstName} ${row.lastName}`);
+    row['title']=(action=='add'?'Ajout d\'un Utilisateur':`Modification de l'Utilisateur ${row.firstname} ${row.lastname}`);
     this._dialog.open(AddUserDialog, {
       data: row,
       disableClose: true,
@@ -94,6 +105,32 @@ export class ListUsersComponent extends BaseTableComponent {
     }).afterClosed().subscribe(response => {
       if (response) {
         this.triggerSearch();
+      }
+    })
+  }
+
+  removeRows(row: any) {
+    this._dialog.open(InfoDialog, {
+      data: {
+        title: `Supression de l'Utilisateur ${row.firstname} ${row.lastname}`,
+        type: "warn",
+        message: "Êtes-vous sûr de vouloir supprimer cet utilisateur?",
+        cancelAction: "Non",
+        valideAction: "Oui, je suis sûr",
+      },
+      width:'800px'
+    }).afterClosed().subscribe((res)=>{
+      if(res){
+        this._userService.deleteUser(row.id!)
+        .subscribe({
+          next:()=>{
+            this._toastr.success("Client supprimé avec succès!");
+            this.triggerSearch();
+          },
+          error:(err)=>{
+            this._toastr.error(`Erreur! Veuillez réessayer!`)
+          }
+        })
       }
     })
   }

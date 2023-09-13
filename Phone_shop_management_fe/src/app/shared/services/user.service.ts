@@ -151,6 +151,114 @@ export class UserService {
     }
 
     /**
+     * @param body (optional) 
+     * @return Success
+     */
+    updateUser(body: UserModelUpdate | undefined): Observable<UserModelUpdate> {
+        let url_ = this.baseUrl + "/api/User/UpdateUser";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUpdateUser(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUpdateUser(<any>response_);
+                } catch (e) {
+                    return <Observable<UserModelUpdate>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<UserModelUpdate>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processUpdateUser(response: HttpResponseBase): Observable<UserModelUpdate> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = UserModelUpdate.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<UserModelUpdate>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    deleteUser(id: string | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/User/DeleteUser?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteUser(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteUser(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeleteUser(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
      * @return Success
      */
     getRoleListPage(): Observable<RoleModel[]> {
@@ -362,6 +470,46 @@ export interface ICreateRoleModel {
     concurrencyStamp?: string | undefined;
 }
 
+export class RoleInfo implements IRoleInfo {
+    name?: string | undefined;
+    normalizedName?: string | undefined;
+
+    constructor(data?: IRoleInfo) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.name = _data["name"];
+            this.normalizedName = _data["normalizedName"];
+        }
+    }
+
+    static fromJS(data: any): RoleInfo {
+        data = typeof data === 'object' ? data : {};
+        let result = new RoleInfo();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["normalizedName"] = this.normalizedName;
+        return data; 
+    }
+}
+
+export interface IRoleInfo {
+    name?: string | undefined;
+    normalizedName?: string | undefined;
+}
+
 export class RoleModel implements IRoleModel {
     id?: string | undefined;
     name?: string | undefined;
@@ -472,7 +620,8 @@ export class UserModel implements IUserModel {
     email?: string | undefined;
     firstname?: string | undefined;
     lastname?: string | undefined;
-    roles?: string[] | undefined;
+    phoneNumber?: string | undefined;
+    roles?: RoleInfo[] | undefined;
 
     constructor(data?: IUserModel) {
         if (data) {
@@ -490,10 +639,11 @@ export class UserModel implements IUserModel {
             this.email = _data["email"];
             this.firstname = _data["firstname"];
             this.lastname = _data["lastname"];
+            this.phoneNumber = _data["phoneNumber"];
             if (Array.isArray(_data["roles"])) {
                 this.roles = [] as any;
                 for (let item of _data["roles"])
-                    this.roles!.push(item);
+                    this.roles!.push(RoleInfo.fromJS(item));
             }
         }
     }
@@ -512,10 +662,11 @@ export class UserModel implements IUserModel {
         data["email"] = this.email;
         data["firstname"] = this.firstname;
         data["lastname"] = this.lastname;
+        data["phoneNumber"] = this.phoneNumber;
         if (Array.isArray(this.roles)) {
             data["roles"] = [];
             for (let item of this.roles)
-                data["roles"].push(item);
+                data["roles"].push(item.toJSON());
         }
         return data; 
     }
@@ -527,7 +678,8 @@ export interface IUserModel {
     email?: string | undefined;
     firstname?: string | undefined;
     lastname?: string | undefined;
-    roles?: string[] | undefined;
+    phoneNumber?: string | undefined;
+    roles?: RoleInfo[] | undefined;
 }
 
 export class UserModelSearchResult implements IUserModelSearchResult {
@@ -584,6 +736,74 @@ export interface IUserModelSearchResult {
     totalCount?: number;
     countPerPage?: number;
     page?: number;
+}
+
+export class UserModelUpdate implements IUserModelUpdate {
+    id?: string | undefined;
+    username?: string | undefined;
+    email?: string | undefined;
+    firstname?: string | undefined;
+    lastname?: string | undefined;
+    phoneNumber?: string | undefined;
+    roles?: string[] | undefined;
+
+    constructor(data?: IUserModelUpdate) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.username = _data["username"];
+            this.email = _data["email"];
+            this.firstname = _data["firstname"];
+            this.lastname = _data["lastname"];
+            this.phoneNumber = _data["phoneNumber"];
+            if (Array.isArray(_data["roles"])) {
+                this.roles = [] as any;
+                for (let item of _data["roles"])
+                    this.roles!.push(item);
+            }
+        }
+    }
+
+    static fromJS(data: any): UserModelUpdate {
+        data = typeof data === 'object' ? data : {};
+        let result = new UserModelUpdate();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["username"] = this.username;
+        data["email"] = this.email;
+        data["firstname"] = this.firstname;
+        data["lastname"] = this.lastname;
+        data["phoneNumber"] = this.phoneNumber;
+        if (Array.isArray(this.roles)) {
+            data["roles"] = [];
+            for (let item of this.roles)
+                data["roles"].push(item);
+        }
+        return data; 
+    }
+}
+
+export interface IUserModelUpdate {
+    id?: string | undefined;
+    username?: string | undefined;
+    email?: string | undefined;
+    firstname?: string | undefined;
+    lastname?: string | undefined;
+    phoneNumber?: string | undefined;
+    roles?: string[] | undefined;
 }
 
 export class ApiException extends Error {
