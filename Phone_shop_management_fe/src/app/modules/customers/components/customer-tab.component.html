@@ -1,0 +1,23 @@
+<app-breadcrumb></app-breadcrumb>
+<mat-divider></mat-divider>
+<mat-toolbar class="content-toolbar flex flex-wrap justify-between items-center"
+    style="height: fit-content !important; padding:5px 10px;">
+    <div class="flex">
+        <mat-icon class="cursor-pointer text-white" title="retour">reply</mat-icon>
+    </div>
+
+    <div class="flex">
+        <button class="flex button items-center bg-white text-black shadow-xl" (click)="openDialog('add',{})">
+            + Ajouter
+        </button>
+    </div>
+</mat-toolbar>
+<nav mat-tab-nav-bar [tabPanel]="tabPanel" class="py-3">
+    <a mat-tab-link [routerLink]="'/customer/'+link.path"  *ngFor="let link of tabRoutes" (click)="activeLink = link.path" [active]="activeLink == link.path">
+        {{link.data?.['title']}} </a>
+</nav>
+
+<mat-tab-nav-panel #tabPanel>
+    <router-outlet>
+    </router-outlet>
+</mat-tab-nav-panel>

@@ -1,6 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { BreadcrumbNavigationComponent } from './breadcrumb-navigation/breadcrumb-navigation.component'
-import { ActivatedRoute } from '@angular/router';
+import { Component, Input } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-breadcrumb',
   templateUrl: './breadcrumb.component.html',
@@ -8,14 +7,28 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./breadcrumb.css'],
 })
 export class AppBreadcrumbComponent {
-@Input() Title : string = ''
+  @Input() Title: string = ''
 
-constructor(
-  private _activatedRoute : ActivatedRoute
-){
-}
+  constructor(
+    private _activatedRoute: ActivatedRoute,
+    private _router: Router,
+  ) { }
 
   ngOnInit(): void {
-    this.Title = this._activatedRoute.snapshot.routeConfig?.data?.['title']
+    this._router.events
+      .pipe()
+      .subscribe(() => {
+        const route = this.getLastChild(this._activatedRoute);
+        this.Title = route.snapshot.data['title'];
+      })
+
+  }
+
+  private getLastChild(route: ActivatedRoute): ActivatedRoute {
+    let lastChild = route;
+    while (lastChild.firstChild) {
+      lastChild = lastChild.firstChild;
+    }
+    return lastChild;
   }
 }
