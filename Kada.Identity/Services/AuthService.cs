@@ -67,20 +67,32 @@ namespace Kada.Identity.Services
         {
             var typeRoleIdentifiant = string.Empty;
 
-            switch (request.Role)
+            if (request.Roles.Length > 1)
             {
-                case "Vendeur":
-                    typeRoleIdentifiant = "Vend-";
-                    break;
-                case "Technicien":
-                    typeRoleIdentifiant = "Tech-";
-                    break;
-                case "Administrateur":
-                    typeRoleIdentifiant = "Adm-";
-                    break;
-                default:
-                    typeRoleIdentifiant = "Err";
-                    break;
+                typeRoleIdentifiant = "Many-";
+            }
+            else if (request.Roles.Length == 1)
+            {
+                string role = request.Roles[0];
+                switch (role)
+                {
+                    case "Vendeur":
+                        typeRoleIdentifiant = "Vend-";
+                        break;
+                    case "Technicien":
+                        typeRoleIdentifiant = "Tech-";
+                        break;
+                    case "Administrateur":
+                        typeRoleIdentifiant = "Adm-";
+                        break;
+                    default:
+                        typeRoleIdentifiant = "Err";
+                        break;
+                }
+            }
+            else
+            {
+                typeRoleIdentifiant = "Err";
             }
 
             var user = new ApplicationUser
@@ -97,7 +109,7 @@ namespace Kada.Identity.Services
 
             if (result.Succeeded)
             {
-                await _userManager.AddToRoleAsync(user, request.Role);
+                await _userManager.AddToRolesAsync(user, request.Roles);
                 return new RegistrationResponse() { UserId = user.Id };
             }
             else

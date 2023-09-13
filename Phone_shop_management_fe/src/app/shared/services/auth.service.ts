@@ -31,7 +31,7 @@ export interface IClient {
 @Injectable({
     providedIn: 'root'
   })
-export class AuthService implements IClient {
+export class AuthService {
     private http: HttpClient;
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
@@ -52,7 +52,7 @@ export class AuthService implements IClient {
      * @param password (optional) 
      * @return Success
      */
-     login(username: string | undefined, password: string | undefined): Observable<AuthResponse> {
+    login(username: string | undefined, password: string | undefined): Observable<AuthResponse> {
         let url_ = this.baseUrl + "/login?";
         if (username === null)
             throw new Error("The parameter 'username' cannot be null.");
@@ -111,7 +111,7 @@ export class AuthService implements IClient {
     /**
      * @return Success
      */
-    register(firstName: string, lastName: string, email: string, phoneNumber: string, userName: string, role: string, password: string): Observable<RegistrationResponse> {
+    register(firstName: string, lastName: string, email: string, phoneNumber: string, userName: string, roles: string[], password: string): Observable<RegistrationResponse> {
         let url_ = this.baseUrl + "/register?";
         if (firstName === undefined || firstName === null)
             throw new Error("The parameter 'firstName' must be defined and cannot be null.");
@@ -133,10 +133,10 @@ export class AuthService implements IClient {
             throw new Error("The parameter 'userName' must be defined and cannot be null.");
         else
             url_ += "UserName=" + encodeURIComponent("" + userName) + "&";
-        if (role === undefined || role === null)
-            throw new Error("The parameter 'role' must be defined and cannot be null.");
+        if (roles === undefined || roles === null)
+            throw new Error("The parameter 'roles' must be defined and cannot be null.");
         else
-            url_ += "Role=" + encodeURIComponent("" + role) + "&";
+            roles && roles.forEach(item => { url_ += "Roles=" + encodeURIComponent("" + item) + "&"; });
         if (password === undefined || password === null)
             throw new Error("The parameter 'password' must be defined and cannot be null.");
         else
