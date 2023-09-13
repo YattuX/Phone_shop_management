@@ -49,6 +49,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { KadaService } from './services/kada.service';
 import {MatTabsModule} from '@angular/material/tabs';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -146,7 +147,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatSlideToggleModule,
     MatMenuModule,
     MatTabsModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatSelectModule
   ],
   providers: [
     KadaService,

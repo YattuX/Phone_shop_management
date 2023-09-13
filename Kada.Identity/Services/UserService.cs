@@ -1,15 +1,11 @@
 ﻿using Kada.Application.Contracts.Identity;
+using Kada.Application.DTOs.Search;
 using Kada.Application.Models.Identity;
 using Kada.Identity.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Kada.Identity.Services
 {
@@ -39,25 +35,101 @@ namespace Kada.Identity.Services
                 Id = utilisateur.Id,
                 Firstname = utilisateur.FirstName,
                 Lastname = utilisateur.LastName,
-                Roles = await _userManager.GetRolesAsync(utilisateur)
+                Roles = await GetRoleInfos(utilisateur),
+                PhoneNumber = utilisateur.PhoneNumber,
+                Username = utilisateur.UserName,
             };
         }
 
-        public async Task<List<UserModel>> GetUtilisateurs()
+        public async Task<UserModelUpdate> UpdateUser(UserModelUpdate model)
         {
-            var utilisateurs = await _userManager.Users.ToListAsync();
-            var userModels = utilisateurs?.Select(async q => new UserModel
+            var user =  _userManager.FindByIdAsync(model.Id).Result;
+            if(user == null)
             {
-                Id = q.Id,
-                Email = q.Email,
-                Firstname = q.FirstName,
-                Lastname = q.LastName,
-                Roles = await _userManager.GetRolesAsync(q)
-            }).ToList();
+                return null;
+            }
+            user.Email = model.Email;
+            user.PhoneNumber = model.PhoneNumber;
+            user.FirstName = model.Firstname;
+            user.LastName = model.Lastname;
+            user.UserName = model.Username;
 
-            var usersWithRoles = await Task.WhenAll(userModels);
+            try
+            {
+                var result = await _userManager.UpdateAsync(user);
+                if (result.Succeeded)
+                {
+                    var rolesUser = await _userManager.GetRolesAsync(user);
+                    var normalizedRolesUser = await _roleManager.Roles
+                    .Where(role => rolesUser.Contains(role.Name))
+                    .Select(role => role.NormalizedName)
+                    .ToListAsync();
 
-            return usersWithRoles.ToList();
+                    var rolesToRemove = normalizedRolesUser.Except(model.Roles).ToList();
+
+                    if (rolesToRemove.Any())
+                    {
+                        var resultat = await _userManager.RemoveFromRolesAsync(user, rolesToRemove);
+                    }
+
+                    var rolesToAdd = model.Roles.Except(normalizedRolesUser).ToList();
+                    if (rolesToAdd.Any())
+                    {
+                        var roles = await _userManager.AddToRolesAsync(user, rolesToAdd);
+                        if (roles.Succeeded)
+                        {
+                            return model;
+                        }
+                    }
+                }
+                return null;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public async Task<SearchResult<UserModel>> GetUtilisateursListPageAsync(int pageIndex, int pageSize, Dictionary<string, string> filters)
+        {
+            var filteredRequest = GetFilteredQuery(filters);
+            var utilisateurs = (pageIndex == -1) ? filteredRequest.ToList() : filteredRequest.Skip(pageIndex * pageSize).Take(pageSize).ToList();
+            
+            List<UserModel> usersWithRoles = new();
+
+            foreach (var utilisateur in utilisateurs)
+            {
+                var rolesInfo = await GetRoleInfos(utilisateur);
+
+                usersWithRoles.Add(new UserModel {
+                    Id = utilisateur.Id,
+                    Email = utilisateur.Email,
+                    Firstname = utilisateur.FirstName,
+                    Lastname = utilisateur.LastName,
+                    Roles = rolesInfo,
+                    PhoneNumber = utilisateur.PhoneNumber,
+                    Username = utilisateur.UserName
+                });
+            }
+
+            return new SearchResult<UserModel>
+            {
+                Page = pageIndex,
+                CountPerPage = pageSize,
+                TotalCount = filteredRequest.Count(),
+                Results = usersWithRoles
+            };
+        }
+
+        public async Task<bool> DeleteUserAsync(Guid id)
+        {
+            var user =await  _userManager.Users.Where(user => user.Id == id.ToString()).FirstOrDefaultAsync();
+            if(user == null)
+            {
+                return false;
+            }
+            await _userManager.DeleteAsync(user);
+            return true;
         }
 
         public async Task<List<RoleModel>> GetRoles()
@@ -88,6 +160,50 @@ namespace Kada.Identity.Services
             var role = await _roleManager.FindByIdAsync(roleId);
             var result = await _roleManager.DeleteAsync(role);
             return result.ToString();
+        }
+
+        public IQueryable<ApplicationUser> GetFilteredQuery(Dictionary<string, string> filter)
+        {
+            IQueryable<ApplicationUser> userQuery = _userManager.Users;
+
+            foreach (var key in filter.Keys)
+            {
+                if (string.IsNullOrEmpty(filter[key]))
+                {
+                    continue;
+                }
+
+                switch (key)
+                {
+                    case "email":
+                        userQuery = userQuery.Where(x => x.Email.Contains(filter[key]));
+                        break;
+                    case "firstname":
+                        userQuery = userQuery.Where(x => x.FirstName.Contains(filter[key]));
+                        break;
+                    case "lastname":
+                        userQuery = userQuery.Where(x => x.LastName.Contains(filter[key]));
+                        break;
+                    case "phoneNumber":
+                        userQuery = userQuery.Where(x=> x.PhoneNumber.Contains(filter[key]));
+                        break;
+                }
+            }
+            return userQuery;
+        }
+        
+        private async Task<List<RoleInfo>> GetRoleInfos(ApplicationUser user)
+        {
+            var roles = await _userManager.GetRolesAsync(user);
+
+            var rolesInfo = await _roleManager.Roles
+                .Where(role => roles.Contains(role.Name))
+                .Select(role => new RoleInfo
+                {
+                    Name = role.Name,
+                    NormalizedName = role.NormalizedName
+                }).ToListAsync();
+            return rolesInfo;
         }
     }
 }

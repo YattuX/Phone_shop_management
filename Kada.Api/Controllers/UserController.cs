@@ -1,5 +1,6 @@
 ﻿using HR.LeaveManagement.Application.Contracts.Identity;
 using Kada.Application.Contracts.Identity;
+using Kada.Application.DTOs.Search;
 using Kada.Application.Models.Identity;
 using Kada.Identity.Models;
 using Microsoft.AspNetCore.Http;
@@ -20,12 +21,13 @@ namespace Kada.Api.Controllers
             this._userService = userService;
         }
 
-        [HttpGet]
-        public async Task<List<UserModel>> GetUserListPage()
+        // GET: api/<ClientController>
+        [HttpPost]
+        public async Task<SearchResult<UserModel>> GetUserListPage([FromBody] SearchDTO search_)
         {
             try
             {
-                return await _userService.GetUtilisateurs();
+                return await _userService.GetUtilisateursListPageAsync(search_.PageIndex, search_.PageSize, search_.Filters);
             }
             catch (Exception)
             {
@@ -44,6 +46,37 @@ namespace Kada.Api.Controllers
             {
                 throw;
             }
+        }
+
+        [HttpPut]
+        public async Task<UserModelUpdate> UpdateUser(UserModelUpdate userModel)
+        {
+            if (userModel == null) BadRequest("L'utilisateur ne peut etre null");
+            try
+            {
+                return await _userService.UpdateUser(userModel);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            } 
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteUser(Guid id)
+        {
+            try
+            {
+                var isDeleted = await _userService.DeleteUserAsync(id);
+                if (!isDeleted) return BadRequest(false);
+                return Ok(true);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            } 
         }
 
         [HttpGet]
