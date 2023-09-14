@@ -100,11 +100,11 @@ export class KadaService implements IClient {
         this.baseUrl = API_BASE_URL;
     }
 
-    /**
+     /**
      * @param body (optional) 
      * @return Success
      */
-    getClientListPage(body: SearchDTO | undefined): Observable<ClientDtoSearchResult> {
+     getClientListPage(body: SearchDTO | undefined): Observable<ClientDtoSearchResult> {
         let url_ = this.baseUrl + "/api/Client/GetClientListPage";
         url_ = url_.replace(/[?&]$/, "");
 

@@ -2,7 +2,7 @@ import { Component, Optional, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
-import { KadaService } from 'src/app/shared/services/kada.service';
+import { ClientDto, KadaService } from 'src/app/shared/services/kada.service';
 
 @Component({
   selector: 'app-add-customer',
@@ -21,10 +21,10 @@ export class CustomerDialog {
     this.form = this._formBuilder.group({
       name: [data?.name, [Validators.required, Validators.maxLength(100), Validators.minLength(2)]],
       lastName: [data?.lastName, [Validators.required, Validators.maxLength(100), Validators.minLength(2)]],
-      phoneNumber: [data?.phoneNumber, Validators.maxLength(20)],
-      whatsappNumber: [data?.whatsappNumber, Validators.maxLength(20)],
+      phoneNumber: [data?.phoneNumber??'', Validators.maxLength(20)],
+      whatsappNumber: [data?.whatsappNumber??'', Validators.maxLength(20)],
       adress: [data?.adress, [Validators.required, Validators.maxLength(100), Validators.minLength(2)]],
-      isClientEnGros: [data?.isClientEnGros],
+      isClientEnGros: [data?.isClientEnGros??false],
     })
   }
 
@@ -32,7 +32,9 @@ export class CustomerDialog {
     if (this.form.valid) {
       this.showSpinner = true;
       if (this.data?.action === 'add') {
-        this._kadaService.createClient({ ...this.form.value })
+        const data = { ...this.form.value } as ClientDto;
+        console.log(data)
+        this._kadaService.createClient(data)
           .subscribe({
             next: (response) => {
               this.dialogRef.close(true);
