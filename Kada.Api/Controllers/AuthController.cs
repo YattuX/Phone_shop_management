@@ -13,7 +13,7 @@ namespace Kada.Api.Controllers
             this._authenticationService = authenticationService;
         }
 
-        /*[HttpPost("login")]
+        [HttpPost("login")]
         public async Task<ActionResult<AuthResponse>> Login(AuthRequest request)
         {
             return Ok(await _authenticationService.Login(request));
@@ -23,6 +23,6 @@ namespace Kada.Api.Controllers
         public async Task<ActionResult<RegistrationResponse>> Register(RegistrationRequest request)
         {
             return Ok(await _authenticationService.Register(request));
-        }*/
+        }
     }
 }

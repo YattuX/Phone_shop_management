@@ -34,9 +34,6 @@ export class ProviderDialog {
 
     save() {
         if (this.form.valid) {
-            this.showSpinner = true;
-            console.log(this.form.value);
-            return
             if (this.data?.action === 'add') {
                 this._kadaService.createFournisseur({ ...this.form.value })
                     .subscribe({
