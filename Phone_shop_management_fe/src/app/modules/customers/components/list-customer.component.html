@@ -1,19 +1,3 @@
-<!-- <app-breadcrumb [Title]="title"></app-breadcrumb>
-<mat-divider></mat-divider>
-<mat-toolbar class="content-toolbar flex flex-wrap justify-between items-center"
-    style="height: fit-content !important; padding:5px 10px;">
-    <div class="flex">
-        <mat-icon class="cursor-pointer text-white" title="retour">reply</mat-icon>
-    </div>
-
-    <div class="flex">
-        <button class="flex button items-center bg-white text-black shadow-xl" (click)="openDialog('add',{})">
-            + Ajouter
-        </button>
-    </div>
-</mat-toolbar> -->
-<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
-
 <div class="content mat-elevation-z2">
     <form [formGroup]="searchForm" class="flex flex-wrap justify-center mb-6 border border-gray-300 rounded-md pt-4 ">
         <mat-form-field class="w-full md:w-[45%] md:mr-2">
@@ -90,9 +74,12 @@
                 </mat-menu>
             </mat-cell>
         </ng-container>
-        <div *matNoDataRow class="text-lg text-center p-2"> 
-            Aucune donnée trouvée
-        </div>
+        <ng-container *matNoDataRow> 
+            <div *ngIf="!loading" class="text-lg text-center p-2">
+                Aucune donnée trouvée
+            </div>
+            <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+        </ng-container>
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;">
         </mat-row>
