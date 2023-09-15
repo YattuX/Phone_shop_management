@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, EventEmitter } from "@angular/core";
 import { customerRoutes } from "../customer-routing.module";
 import { CustomerDialog } from "./customer.dialog";
 import { MatDialog } from "@angular/material/dialog";
@@ -11,12 +11,16 @@ import { Router } from "@angular/router";
 export class CustomerTabComponent {
     tabRoutes = customerRoutes;
     activeLink = '';
+    title: string = 'Liste des clients';
+    change: EventEmitter<boolean> = new EventEmitter();
+    isClientEnGros: boolean = false;
     constructor(
         private _dialog: MatDialog,
         private _router: Router,
-    ) { 
-        this.activeLink = location.pathname.split('/')[2];        
+    ) {
+        this.activeLink = location.pathname.split('/')[2];
     }
+
     openDialog(action: string, row: any) {
         row['action'] = action;
         row['title'] = (action == 'add' ? 'Ajout d\'un client' : `Modification du client ${row.name} ${row.lastName}`);
@@ -24,10 +28,16 @@ export class CustomerTabComponent {
             data: row,
             disableClose: true,
             width: '900px'
-        }).afterClosed().subscribe(response => {            
+        }).afterClosed().subscribe(response => {
             if (response) {
-                this._router.navigateByUrl('/customer');
+                this.change.emit(true);
             }
         })
     }
+
+    clientChange(val: boolean) {
+        this.isClientEnGros = val;
+    }
+
+
 }

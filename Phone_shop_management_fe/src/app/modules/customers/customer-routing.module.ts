@@ -6,29 +6,14 @@ import { CustomerTabComponent } from './components/customer-tab.component';
  const routes: Routes = [
     {
         path: '',
-        component:CustomerTabComponent,//<= le parent
         children: [
             {
                 path:'',
-                redirectTo:'list',
-                pathMatch:'full',
-            },
-            {
-                path: 'list',
-                component: ListCustomerComponent,
+                component:CustomerTabComponent,
                 data: {
                     title: "Liste des clients",
-                    isClientEnGros:false
                 }
             },
-            {
-                path:'wholesale',
-                component:ListCustomerComponent,
-                data:{
-                    title:"Liste des clients en gros",
-                    isClientEnGros:true
-                }
-            }
         ]
     },
 ];
