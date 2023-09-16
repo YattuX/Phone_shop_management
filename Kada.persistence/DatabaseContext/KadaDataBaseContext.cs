@@ -1,13 +1,7 @@
-﻿using HR.LeaveManagement.Application.Contracts.Identity;
-using Kada.Application.Contracts.Identity;
+﻿using Kada.Application.Contracts.Identity;
 using Kada.Domain;
 using Kada.Domain.Common;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Kada.persistence.DatabaseContext
 {
@@ -21,6 +15,7 @@ namespace Kada.persistence.DatabaseContext
 
         public DbSet<Client> Client { get; set; }
         public DbSet<Fournisseur> Fournisseur { get; set; }
+        public DbSet<TypeArticle> TypeArticle { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
