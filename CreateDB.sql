@@ -134,6 +134,10 @@ CREATE TABLE Type (
 CREATE TABLE TypeArticle (
     Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
     Name NVARCHAR(255),
+    DateCreated DateTime,
+    CreatedBy VARCHAR(255),
+    DateModified DateTime,
+    ModifiedBy VARCHAR(255),
     PRIMARY KEY (Id)
 );
 
