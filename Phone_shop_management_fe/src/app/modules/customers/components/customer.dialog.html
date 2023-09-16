@@ -1,5 +1,5 @@
 <div class="headerDialog">
-  <h2 mat-dialog-title>Ajout d'un Utilisateur</h2>
+  <h2 mat-dialog-title>{{data.title}}</h2>
   <mat-icon [ngClass]="{'dialog-disabled': showSpinner}" class="cursor-pointer" (click)="dialogRef.close()">close</mat-icon>
 </div>
 <mat-dialog-content [ngClass]="{'dialog-disabled': showSpinner}" class="mat-typography">
@@ -93,7 +93,7 @@
       Annuler
     </button>
     <button (click)="save()" class="button-primary mr-4 drop-shadow-lg">
-      Ajouter
+      {{data.action=='add'?'Ajouter':'Modifier'}}
     </button>
   </div>
 </mat-dialog-actions>
