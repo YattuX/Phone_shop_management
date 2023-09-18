@@ -16,6 +16,7 @@ namespace Kada.persistence.DatabaseContext
         public DbSet<Client> Client { get; set; }
         public DbSet<Fournisseur> Fournisseur { get; set; }
         public DbSet<TypeArticle> TypeArticle { get; set; }
+        public DbSet<Type_> Type_ { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
