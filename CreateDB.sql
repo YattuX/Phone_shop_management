@@ -81,20 +81,32 @@ CREATE TABLE Article (
 
 CREATE TABLE Couleur (
     Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
-    Name NVARCHAR(255),
-    PRIMARY KEY (Id)
+    [Name] NVARCHAR(255),
+    DateCreated DateTime,
+    CreatedBy VARCHAR(255),
+    DateModified DateTime,
+    ModifiedBy VARCHAR(255),
+    PRIMARY KEY (Id),
 );
 
 CREATE TABLE Etat (
     Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
     Content NVARCHAR(MAX),
-    PRIMARY KEY (Id)
+    DateCreated DateTime,
+    CreatedBy VARCHAR(255),
+    DateModified DateTime,
+    ModifiedBy VARCHAR(255),
+    PRIMARY KEY (Id),
 );
 
 CREATE TABLE Marque (
     Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
-    Name NVARCHAR(255),
+    [Name] NVARCHAR(255),
     TypeArticleId UNIQUEIDENTIFIER,
+    DateCreated DateTime,
+    CreatedBy VARCHAR(255),
+    DateModified DateTime,
+    ModifiedBy VARCHAR(255),
     FOREIGN KEY (TypeArticleId) REFERENCES TypeArticle(Id),
     PRIMARY KEY (Id)
 );
@@ -110,24 +122,41 @@ CREATE TABLE Model (
 CREATE TABLE Particularite (
 Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
     Content NVARCHAR(MAX),
-    PRIMARY KEY (Id)
+    DateCreated DateTime,
+    CreatedBy VARCHAR(255),
+    DateModified DateTime,
+    ModifiedBy VARCHAR(255),
+    PRIMARY KEY (Id),
 );
 
 CREATE TABLE Processeurs (
     Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
     Content NVARCHAR(MAX),
-    PRIMARY KEY (Id)
+    DateCreated DateTime,
+    CreatedBy VARCHAR(255),
+    DateModified DateTime,
+    ModifiedBy VARCHAR(255),
+    PRIMARY KEY (Id),
 );
 
 CREATE TABLE Stockage (
     Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
-    Name NVARCHAR(255),
-    PRIMARY KEY (Id)
+    [Name] NVARCHAR(255),
+    DateCreated DateTime,
+    CreatedBy VARCHAR(255),
+    DateModified DateTime,
+    ModifiedBy VARCHAR(255),
+    PRIMARY KEY (Id),
 );
 
-CREATE TABLE Type (
+CREATE TABLE Type_ (
     Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
     Content NVARCHAR(255),
+    PRIMARY KEY (Id),
+    DateCreated DateTime,
+    CreatedBy VARCHAR(255),
+    DateModified DateTime,
+    ModifiedBy VARCHAR(255),
     PRIMARY KEY (Id)
 );
 

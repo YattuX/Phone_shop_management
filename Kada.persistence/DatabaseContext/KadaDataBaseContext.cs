@@ -17,6 +17,11 @@ namespace Kada.persistence.DatabaseContext
         public DbSet<Fournisseur> Fournisseur { get; set; }
         public DbSet<TypeArticle> TypeArticle { get; set; }
         public DbSet<Type_> Type_ { get; set; }
+        public DbSet<Stockage> Stockage { get; set; }
+        public DbSet<Particularite> Particularite { get; set; }
+        public DbSet<Etat> Etat { get; set; }
+        public DbSet<Couleur> Couleur { get; set; }
+        public DbSet<Marque> Marque { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
