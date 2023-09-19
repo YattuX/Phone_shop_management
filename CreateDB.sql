@@ -111,11 +111,15 @@ CREATE TABLE Marque (
     PRIMARY KEY (Id)
 );
 
-CREATE TABLE Model (
+CREATE TABLE Modele (
     Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
-    Name NVARCHAR(255),
+    [Name] NVARCHAR(255),
     MarqueId UNIQUEIDENTIFIER,
     FOREIGN KEY (MarqueId) REFERENCES Marque(Id),
+    DateCreated DateTime,
+    CreatedBy VARCHAR(255),
+    DateModified DateTime,
+    ModifiedBy VARCHAR(255),
     PRIMARY KEY (Id)
 );
 

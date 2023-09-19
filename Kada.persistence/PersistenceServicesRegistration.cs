@@ -26,6 +26,7 @@ namespace Kada.persistence
             services.AddScoped<IEtatRepository, EtatRepository>();
             services.AddScoped<ICouleurRepository, CouleurRepository>();
             services.AddScoped<IMarqueRepository, MarqueRepository>();
+            services.AddScoped<IModelRepository, ModelRepository>();
 
             return services;
         }

@@ -22,6 +22,7 @@ namespace Kada.persistence.DatabaseContext
         public DbSet<Etat> Etat { get; set; }
         public DbSet<Couleur> Couleur { get; set; }
         public DbSet<Marque> Marque { get; set; }
+        public DbSet<Model> Modele { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
