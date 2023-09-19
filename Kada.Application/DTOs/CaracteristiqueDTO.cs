@@ -1,9 +1,8 @@
-﻿using Kada.Domain.Common;
-
-namespace Kada.Domain
+﻿namespace Kada.Application.DTOs
 {
-    public class Caracteristique : BaseEntity
+    public class CaracteristiqueDTO
     {
+        public Guid Id { get; set; }
         public bool HasStockage { get; set; }
         public bool HasCouleur { get; set; }
         public bool HasNombreDeSim { get; set; }
@@ -16,10 +15,10 @@ namespace Kada.Domain
         public bool HasQualite { get; set; }
         public bool HasType { get; set; }
         public bool HasCapacite { get; set; }
-        public bool HasCaracteristic{ get; set; }
+        public bool HasCaracteristic { get; set; }
         public bool HasPuissance { get; set; }
         public bool HasCamera { get; set; }
         public Guid ModelId { get; set; }
-        public Model Model { get; set; }
+        public string? ModelName { get; set; }
     }
 }

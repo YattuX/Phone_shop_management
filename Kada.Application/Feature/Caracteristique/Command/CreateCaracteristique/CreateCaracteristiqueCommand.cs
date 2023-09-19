@@ -1,8 +1,8 @@
-﻿using Kada.Domain.Common;
+﻿using MediatR;
 
-namespace Kada.Domain
+namespace Kada.Application.Feature.Caracteristique.Command.CreateCaracteristique
 {
-    public class Caracteristique : BaseEntity
+    public class CreateCaracteristiqueCommand:IRequest<Guid>
     {
         public bool HasStockage { get; set; }
         public bool HasCouleur { get; set; }
@@ -16,10 +16,9 @@ namespace Kada.Domain
         public bool HasQualite { get; set; }
         public bool HasType { get; set; }
         public bool HasCapacite { get; set; }
-        public bool HasCaracteristic{ get; set; }
+        public bool HasCaracteristic { get; set; }
         public bool HasPuissance { get; set; }
         public bool HasCamera { get; set; }
         public Guid ModelId { get; set; }
-        public Model Model { get; set; }
     }
 }

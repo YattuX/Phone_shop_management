@@ -30,27 +30,30 @@ CREATE TABLE Fournisseur (
 
 CREATE TABLE Caracteristique
 (
-    Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
-    Marque BIT DEFAULT 0,
-    Modele BIT DEFAULT 0,
-    Stockage BIT DEFAULT 0,
-    Couleur BIT DEFAULT 0,
-    NombreDeSim BIT DEFAULT 0,
-    Imei BIT DEFAULT 0,
-    Particularite BIT DEFAULT 0,
-    Etat BIT DEFAULT 0,
-    Processeurs BIT DEFAULT 0,
-    TailleEcran BIT DEFAULT 0,
-    Ram BIT DEFAULT 0,
-    Nom BIT DEFAULT 0,
-    Qualite BIT DEFAULT 0,
-    Position BIT DEFAULT 0,
-    Type BIT DEFAULT 0,
-    Capacite BIT DEFAULT 0,
-    Caracteristic BIT DEFAULT 0,
-    Puissance BIT DEFAULT 0,
-    PRIMARY KEY (Id)
+    Id UNIQUEIDENTIFIER PRIMARY KEY,
+    DateCreated DATETIME,
+    CreatedBy NVARCHAR(MAX),
+    DateModified DATETIME,
+    ModifiedBy NVARCHAR(MAX),
+    HasStockage BIT,
+    HasCouleur BIT,
+    HasNombreDeSim BIT,
+    HasImei BIT,
+    HasParticularite BIT,
+    HasEtat BIT,
+    HasProcesseurs BIT,
+    HasTailleEcran BIT,
+    HasRam BIT,
+    HasQualite BIT,
+    HasType BIT,
+    HasCapacite BIT,
+    HasCaracteristic BIT,
+    HasPuissance BIT,
+    HasCamera BIT,
+    ModelId UNIQUEIDENTIFIER,
+    FOREIGN KEY (ModelId) REFERENCES Modele(Id)
 );
+
 
 CREATE TABLE Article (
     Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
