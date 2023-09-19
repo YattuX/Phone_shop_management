@@ -5,3 +5,11 @@
   .active div {
     @apply text-white;
   }
+
+  .p0{
+    @apply px-[16px] !important
+  }
+
+  .nobox-shadow{
+    box-shadow: none !important;
+  }

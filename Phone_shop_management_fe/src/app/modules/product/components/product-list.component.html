@@ -1,0 +1,35 @@
+<app-breadcrumb [Title]="title"></app-breadcrumb>
+<mat-divider></mat-divider>
+<mat-toolbar class="content-toolbar flex flex-wrap justify-between items-center"
+    style="height: fit-content !important; padding:5px 10px;">
+    <div class="flex">
+        <mat-icon class="cursor-pointer text-white" title="retour">reply</mat-icon>
+    </div>
+
+    <div class="flex">
+        <button 
+        (click)="addArticle()"
+        class="flex button items-center bg-white text-black shadow-xl">
+            + Ajouter
+        </button>
+    </div>
+</mat-toolbar>
+<mat-tab-nav-panel>
+    <mat-tab-group>
+        <mat-tab label="Telephone">
+            <ng-template matTabContent>
+                <div>List des telephones</div>
+            </ng-template>
+        </mat-tab>
+        <mat-tab label="Tablette">
+            <ng-template matTabContent>
+                <div>Liste des tablettes</div>
+            </ng-template>
+        </mat-tab>
+        <mat-tab  label="Ordinateur">
+            <ng-template matTabContent>
+                <div>Liste des Ordinateur</div>
+            </ng-template>
+        </mat-tab>
+    </mat-tab-group>
+</mat-tab-nav-panel>
