@@ -1,11 +1,31 @@
-<mat-card>
-</mat-card>
-<mat-nav-list>
-    <ng-container *ngFor="let menuItem of menuItems">
-        <mat-list-item [routerLink]="menuItem.link" routerLinkActive="active">
-            <mat-icon matListItemIcon>{{ menuItem.icon }}</mat-icon>
-            <div matListItemTitle>{{ menuItem.title }}</div>
-        </mat-list-item>
-        <mat-divider *ngIf="menuItem.divider"></mat-divider>
-    </ng-container>
-</mat-nav-list>
+      <mat-nav-list >
+        <ng-container *ngFor="let menuItem of menuItems">
+          <ng-container *ngIf="!menuItem.submenu; else submenu">
+            <mat-list-item [routerLink]="menuItem.link" routerLinkActive="active">
+                <div class="flex space-x-4">
+                    <mat-icon matListIcon>{{ menuItem.icon }}</mat-icon>
+                    <div matLine>{{ menuItem.title }}</div>
+                </div>
+            </mat-list-item>
+            <mat-divider *ngIf="menuItem.divider"></mat-divider>
+          </ng-container>
+          <ng-template #submenu>
+            <mat-expansion-panel  class="nobox-shadow">
+              <mat-expansion-panel-header class="p0">
+                <mat-icon matPrefix>{{ menuItem.icon }}</mat-icon>
+                <div class="ml-4">
+                    {{ menuItem.title }}
+                </div>
+              </mat-expansion-panel-header>
+                  <mat-list-item *ngFor="let subItem of menuItem.submenu" [routerLink]="subItem.link" routerLinkActive="active">
+                      <div class=" text-gray-600" matLine>- {{ subItem.title }}</div>
+                  </mat-list-item>
+            </mat-expansion-panel>
+          </ng-template>
+        </ng-container>
+      </mat-nav-list>
+
+
+
+
+

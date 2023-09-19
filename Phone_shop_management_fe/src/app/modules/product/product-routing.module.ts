@@ -1,13 +1,34 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ProductListComponent } from './components/product-list/product-list.component';
+import { ProductListComponent } from './components/product-list.component';
 
 const routes: Routes = [
     {
-        path: '', 
+        path: 'appareil', 
         component: ProductListComponent,
         data: { 
             title: 'Liste des articles'
+        } 
+    },
+    {
+        path: 'piece', 
+        component: ProductListComponent,
+        data: { 
+            title: 'Liste des pièces'
+        } 
+    },
+    {
+        path: 'accessoir', 
+        component: ProductListComponent,
+        data: { 
+            title: 'Liste des accessoirs'
+        } 
+    },
+    {
+        path: 'materiel', 
+        component: ProductListComponent,
+        data: { 
+            title: 'Liste matériels'
         } 
     }
 ];

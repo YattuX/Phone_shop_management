@@ -50,6 +50,8 @@ import { KadaService } from './services/kada.service';
 import {MatTabsModule} from '@angular/material/tabs';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -99,7 +101,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatDialogModule,
     MatMenuModule,
     ToastrModule.forRoot(),
-    
+    MatStepperModule,
+    MatExpansionModule
   ],
   exports:[
     SpinnerComponent,
@@ -148,7 +151,9 @@ import { MatSelectModule } from '@angular/material/select';
     MatMenuModule,
     MatTabsModule,
     MatProgressBarModule,
-    MatSelectModule
+    MatSelectModule,
+    MatStepperModule,
+    MatExpansionModule
   ],
   providers: [
     KadaService,
