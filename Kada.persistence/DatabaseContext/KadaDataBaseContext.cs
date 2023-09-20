@@ -24,6 +24,7 @@ namespace Kada.persistence.DatabaseContext
         public DbSet<Marque> Marque { get; set; }
         public DbSet<Model> Modele { get; set; }
         public DbSet<Caracteristique> Caracteristique { get; set; }
+        public DbSet<Article> Article { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

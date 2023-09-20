@@ -13,8 +13,8 @@ namespace Kada.Domain
         public Stockage Stockage { get; set; }
         public Guid CouleurId { get; set; }
         public Couleur Couleur { get; set; }
-        public bool NombreDeSim { get; set; }
-        public bool Imei { get; set; }
+        public int NombreDeSim { get; set; }
+        public string Imei { get; set; }
         public Guid ParticulariteId { get; set; }
         public Particularite Particularite { get; set; }
         public Guid EtatId { get; set; }
@@ -28,7 +28,8 @@ namespace Kada.Domain
         public Guid TypeId { get; set; }
         public Type Type { get; set; }
         public string Capacite { get; set; }
-        public string Caracteristique { get; set; }
+        public Guid CaracteristiqueId { get; set; }
+        public Caracteristique Caracteristique { get; set; }
         public string Puissance { get; set; }
     }
 }

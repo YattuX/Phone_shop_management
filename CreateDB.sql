@@ -56,11 +56,15 @@ CREATE TABLE Caracteristique
 
 
 CREATE TABLE Article (
-    Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
+    Id UNIQUEIDENTIFIER PRIMARY KEY,
+    DateCreated DATETIME,
+    CreatedBy NVARCHAR(255),
+    DateModified DATETIME,
+    ModifiedBy NVARCHAR(255),
     StockageId UNIQUEIDENTIFIER,
     CouleurId UNIQUEIDENTIFIER,
-    NombreDeSim BIT,
-    Imei BIT,
+    NombreDeSim INT,
+    Imei NVARCHAR(255),
     ParticulariteId UNIQUEIDENTIFIER,
     EtatId UNIQUEIDENTIFIER,
     Processeurs NVARCHAR(255),
@@ -71,15 +75,16 @@ CREATE TABLE Article (
     Position NVARCHAR(255),
     TypeId UNIQUEIDENTIFIER,
     Capacite NVARCHAR(255),
-    Caracteristique NVARCHAR(MAX),
+    CaracteristiqueId UNIQUEIDENTIFIER,
     Puissance NVARCHAR(255),
-    PRIMARY KEY (Id),
     FOREIGN KEY (StockageId) REFERENCES Stockage(Id),
     FOREIGN KEY (CouleurId) REFERENCES Couleur(Id),
-    FOREIGN KEY (ParticulariteId) REFERENCES Particularite(Content),
+    FOREIGN KEY (ParticulariteId) REFERENCES Particularite(Id),
     FOREIGN KEY (EtatId) REFERENCES Etat(Id),
-    FOREIGN KEY (TypeId) REFERENCES Type(Id)
+    FOREIGN KEY (TypeId) REFERENCES Type(Id),
+    FOREIGN KEY (CaracteristiqueId) REFERENCES Caracteristique(Id)
 );
+
 
 
 CREATE TABLE Couleur (
