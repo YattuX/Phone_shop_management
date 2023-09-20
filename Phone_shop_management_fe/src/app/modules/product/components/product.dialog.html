@@ -1,0 +1,54 @@
+<div class="headerDialog">
+    <h2 mat-dialog-title>Ajouter un article</h2>
+    <mat-icon [ngClass]="{'dialog-disabled': showSpinner}" class="cursor-pointer" (click)="dialogRef.close()">close</mat-icon>
+  </div>
+  <mat-dialog-content [ngClass]="{'dialog-disabled': showSpinner}" class="mat-typography">
+    <mat-stepper labelPosition="bottom" #stepper>
+      <mat-step>
+        <form>
+          <ng-template matStepLabel>Fill out your name</ng-template>
+          <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step  optional>
+        <form >
+          <ng-template matStepLabel>Fill out your address</ng-template>
+          <mat-form-field>
+            <mat-label>Address</mat-label>
+            <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                   required>
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        <p>You are now done.</p>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button (click)="stepper.reset()">Reset</button>
+        </div>
+      </mat-step>
+    </mat-stepper>
+    
+  </mat-dialog-content>
+  
+  <mat-dialog-actions >
+    <div class="space-x-3 px-4">
+      <button [ngClass]="{'dialog-disabled': showSpinner}" class="button text-black shadow-xl" (click)="dialogRef.close()">
+        Annuler
+      </button>
+      <button [ngClass]="{'dialog-disabled': showSpinner}" class="button-primary mr-4 drop-shadow-lg">
+        Ajouter
+      </button>
+    </div>
+  </mat-dialog-actions>

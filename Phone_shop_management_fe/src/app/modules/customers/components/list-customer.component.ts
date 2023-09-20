@@ -53,7 +53,6 @@ export class ListCustomerComponent extends BaseTableComponent {
     if(changes['isClientEnGros']){
       this.searchForm.controls['isClientEnGros'].patchValue(`${this.isClientEnGros}`, { emitEvent: false });
       this.triggerSearch();
-      console.log(this.isClientEnGros)
     }
   }
 

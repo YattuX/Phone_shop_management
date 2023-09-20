@@ -2,6 +2,7 @@ export interface MenuItems {
   title: string;
   icon: string;
   link: string;
+  submenu?:any[]
   divider?: boolean;
 }
 
