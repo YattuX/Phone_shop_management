@@ -6,5 +6,6 @@ namespace Kada.Application.Feature.Couleur.Command.UpdateCouleur
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
+        public string? CodeCouleur { get; set; }
     }
 }

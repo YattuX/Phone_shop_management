@@ -43,14 +43,15 @@ namespace Kada.Application.Feature.Article.Query.GetArticle
                     Processeurs = article.Processeurs,
                     TailleEcran = article.TailleEcran,
                     Ram = article.Ram,
-                    Nom = article.Nom,
                     Qualite = article.Qualite,
                     Position = article.Position,
                     TypeId = article.TypeId,
-                    TypeContent = article.Type?.Name,
+                    TypeContent = article.Type?.Content,
                     Capacite = article.Capacite,
                     Puissance = article.Puissance,
-                    modele = article.Caracteristique.Model.Name
+                    modele = article.Caracteristique.Model.Name,
+                    CaracteristiqueId = article.CaracteristiqueId,
+                    Camera = article.Camera,
                 });
             }
 
@@ -65,7 +66,7 @@ namespace Kada.Application.Feature.Article.Query.GetArticle
 
         public IQueryable<Domain.Article> GetFilteredQuery(Dictionary<string, string> filter)
         {
-            var articles = _articleRepository.GetQuery();
+            var articles = _articleRepository.GetQuery("Caracteristique.Model,Stockage,Couleur,Particularite,Etat,Type");
 
             foreach (var key in filter.Keys)
             {
@@ -75,9 +76,6 @@ namespace Kada.Application.Feature.Article.Query.GetArticle
                 }
                 switch (key)
                 {
-                    case "nom":
-                        articles = _articleRepository.FilterQuery(articles, x => x.Nom.ToLower().Contains(filter[key].ToLower()));
-                        break;
                     case "caracteristique":
                         articles = _articleRepository.FilterQuery(articles, x => x.CaracteristiqueId.Equals(filter[key]));
                         break;
@@ -119,6 +117,9 @@ namespace Kada.Application.Feature.Article.Query.GetArticle
                         break;
                     case "puissance":
                         articles = _articleRepository.FilterQuery(articles, x => x.Puissance.ToLower().Contains(filter[key].ToLower()));
+                        break;
+                    case "camera":
+                        articles = _articleRepository.FilterQuery(articles, x => x.Camera.ToLower().Contains(filter[key].ToLower()));
                         break;
                     case "model":
                         articles = _articleRepository.FilterQuery(articles, x => x.Caracteristique.Model.Id.Equals(filter[key]));

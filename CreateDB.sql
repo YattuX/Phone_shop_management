@@ -54,47 +54,49 @@ CREATE TABLE Caracteristique
     FOREIGN KEY (ModelId) REFERENCES Modele(Id)
 );
 
-
-CREATE TABLE Article (
-    Id UNIQUEIDENTIFIER PRIMARY KEY,
-    DateCreated DATETIME,
-    CreatedBy NVARCHAR(255),
-    DateModified DATETIME,
-    ModifiedBy NVARCHAR(255),
-    StockageId UNIQUEIDENTIFIER,
-    CouleurId UNIQUEIDENTIFIER,
-    NombreDeSim INT,
-    Imei NVARCHAR(255),
-    ParticulariteId UNIQUEIDENTIFIER,
-    EtatId UNIQUEIDENTIFIER,
-    Processeurs NVARCHAR(255),
-    TailleEcran NVARCHAR(255),
-    Ram NVARCHAR(255),
-    Nom NVARCHAR(255),
-    Qualite NVARCHAR(255),
-    Position NVARCHAR(255),
-    TypeId UNIQUEIDENTIFIER,
-    Capacite NVARCHAR(255),
-    CaracteristiqueId UNIQUEIDENTIFIER,
-    Puissance NVARCHAR(255),
-    FOREIGN KEY (StockageId) REFERENCES Stockage(Id),
-    FOREIGN KEY (CouleurId) REFERENCES Couleur(Id),
-    FOREIGN KEY (ParticulariteId) REFERENCES Particularite(Id),
-    FOREIGN KEY (EtatId) REFERENCES Etat(Id),
-    FOREIGN KEY (TypeId) REFERENCES Type(Id),
-    FOREIGN KEY (CaracteristiqueId) REFERENCES Caracteristique(Id)
+CREATE TABLE [dbo].[Article] (
+    [Id]                UNIQUEIDENTIFIER NOT NULL,
+    [DateCreated]       DATETIME         NULL,
+    [CreatedBy]         NVARCHAR (255)   NULL,
+    [DateModified]      DATETIME         NULL,
+    [ModifiedBy]        NVARCHAR (255)   NULL,
+    [StockageId]        UNIQUEIDENTIFIER NULL,
+    [CouleurId]         UNIQUEIDENTIFIER NULL,
+    [NombreDeSim]       INT              NULL,
+    [Imei]              NVARCHAR (255)   NULL,
+    [Camera]            NVARCHAR (255)   NULL,
+    [ParticulariteId]   UNIQUEIDENTIFIER NULL,
+    [EtatId]            UNIQUEIDENTIFIER NULL,
+    [Processeurs]       NVARCHAR (255)   NULL,
+    [TailleEcran]       NVARCHAR (255)   NULL,
+    [Ram]               NVARCHAR (255)   NULL,
+    [Qualite]           NVARCHAR (255)   NULL,
+    [Position]          NVARCHAR (255)   NULL,
+    [TypeId]            UNIQUEIDENTIFIER NULL,
+    [Capacite]          NVARCHAR (255)   NULL,
+    [CaracteristiqueId] UNIQUEIDENTIFIER NULL,
+    [Puissance]         NVARCHAR (255)   NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC),
+    FOREIGN KEY ([StockageId]) REFERENCES [dbo].[Stockage] ([Id]),
+    FOREIGN KEY ([CouleurId]) REFERENCES [dbo].[Couleur] ([Id]),
+    FOREIGN KEY ([ParticulariteId]) REFERENCES [dbo].[Particularite] ([Id]),
+    FOREIGN KEY ([EtatId]) REFERENCES [dbo].[Etat] ([Id]),
+    FOREIGN KEY ([TypeId]) REFERENCES [dbo].[Type_] ([Id]),
+    FOREIGN KEY ([CaracteristiqueId]) REFERENCES [dbo].[Caracteristique] ([Id])
 );
 
 
 
-CREATE TABLE Couleur (
-    Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
-    [Name] NVARCHAR(255),
-    DateCreated DateTime,
-    CreatedBy VARCHAR(255),
-    DateModified DateTime,
-    ModifiedBy VARCHAR(255),
-    PRIMARY KEY (Id),
+
+CREATE TABLE [dbo].[Couleur] (
+    [Id]           UNIQUEIDENTIFIER DEFAULT (newid()) NOT NULL,
+    [Name]         NVARCHAR (255)   NULL,
+    [CodeCouleur]  NVARCHAR (255)   NULL,
+    [DateCreated]  DATETIME         NULL,
+    [CreatedBy]    VARCHAR (255)    NULL,
+    [DateModified] DATETIME         NULL,
+    [ModifiedBy]   VARCHAR (255)    NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 
 CREATE TABLE Etat (

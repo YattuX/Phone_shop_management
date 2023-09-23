@@ -10,5 +10,6 @@ namespace Kada.Domain
     public class Couleur : BaseEntity
     {
         public string Name { get; set; }
+        public string? CodeCouleur { get; set; }
     }
 }

@@ -26,6 +26,7 @@ namespace Kada.Application.Feature.Couleur.Command.UpdateCouleur
             var couleur = await _couleurRepository.GetByIdAsync(request.Id);
 
             couleur.Name = request.Name;
+            couleur.CodeCouleur = request.CodeCouleur;
             
             await _couleurRepository.UpdateAsync(couleur);
             return Unit.Value;

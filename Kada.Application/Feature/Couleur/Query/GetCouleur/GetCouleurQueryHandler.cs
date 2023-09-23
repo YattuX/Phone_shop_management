@@ -31,6 +31,7 @@ namespace Kada.Application.Feature.Couleur.Query.GetCouleur
                 {
                     Id = couleur.Id,
                     Name = couleur.Name,
+                    CodeCouleur = couleur.CodeCouleur,
                 });
             }
 
@@ -58,6 +59,9 @@ namespace Kada.Application.Feature.Couleur.Query.GetCouleur
                 {
                     case "name":
                         couleurs = _couleurRepository.FilterQuery(couleurs, x => x.Name.ToLower().Contains(filter[key].ToLower()));
+                        break;
+                    case "code":
+                        couleurs = _couleurRepository.FilterQuery(couleurs, x => x.CodeCouleur.ToLower().Contains(filter[key].ToLower()));
                         break;
                 }
             }
