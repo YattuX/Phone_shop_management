@@ -1,33 +1,25 @@
 ﻿using Kada.Domain.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Kada.Domain
 {
     public class Caracteristique : BaseEntity
     {
-        public bool Marque { get; set; }
-        public bool Modele { get; set; }
-        public bool Stockage { get; set; }
-        public bool Couleur { get; set; }
-        public bool NombreDeSim { get; set; }
-        public bool Imei { get; set; }
-        public bool Particularite { get; set; }
-        public bool Etat { get; set; }
-        public bool Processeurs { get; set; }
-        public bool TailleEcran { get; set; }
-        public bool Ram { get; set; }
-        public bool Nom { get; set; }
-        public bool Qualite { get; set; }
-        public bool Position { get; set; }
-        public bool Type { get; set; }
-        public bool Capacite { get; set; }
-        public bool Caracteristic{ get; set; }
-        public bool Puissance { get; set; }
+        public bool HasStockage { get; set; }
+        public bool HasCouleur { get; set; }
+        public bool HasNombreDeSim { get; set; }
+        public bool HasImei { get; set; }
+        public bool HasParticularite { get; set; }
+        public bool HasEtat { get; set; }
+        public bool HasProcesseurs { get; set; }
+        public bool HasTailleEcran { get; set; }
+        public bool HasRam { get; set; }
+        public bool HasQualite { get; set; }
+        public bool HasType { get; set; }
+        public bool HasCapacite { get; set; }
+        public bool HasCaracteristic{ get; set; }
+        public bool HasPuissance { get; set; }
+        public bool HasCamera { get; set; }
         public Guid ModelId { get; set; }
-        public Model? Model { get; set; }
+        public Model Model { get; set; }
     }
 }

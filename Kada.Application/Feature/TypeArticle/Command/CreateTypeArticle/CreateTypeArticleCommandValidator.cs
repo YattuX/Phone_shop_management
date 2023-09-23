@@ -14,7 +14,7 @@ namespace Kada.Application.Feature.TypeArticle.Command.CreateTypeArticle
                 .NotEmpty()
                 .NotNull()
                 .MaximumLength(50).WithMessage("{PropertyName} must be fewer than 50 characters")
-                .MustAsync(NameIsUnique);
+                .MustAsync(NameIsUnique).WithMessage("The {PropertyName} '{PropertyValue}' allready exist");
         }
 
         public async Task<bool> NameIsUnique(string Name, CancellationToken cancellationToken)

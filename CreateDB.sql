@@ -30,104 +30,147 @@ CREATE TABLE Fournisseur (
 
 CREATE TABLE Caracteristique
 (
-    Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
-    Marque BIT DEFAULT 0,
-    Modele BIT DEFAULT 0,
-    Stockage BIT DEFAULT 0,
-    Couleur BIT DEFAULT 0,
-    NombreDeSim BIT DEFAULT 0,
-    Imei BIT DEFAULT 0,
-    Particularite BIT DEFAULT 0,
-    Etat BIT DEFAULT 0,
-    Processeurs BIT DEFAULT 0,
-    TailleEcran BIT DEFAULT 0,
-    Ram BIT DEFAULT 0,
-    Nom BIT DEFAULT 0,
-    Qualite BIT DEFAULT 0,
-    Position BIT DEFAULT 0,
-    Type BIT DEFAULT 0,
-    Capacite BIT DEFAULT 0,
-    Caracteristic BIT DEFAULT 0,
-    Puissance BIT DEFAULT 0,
-    PRIMARY KEY (Id)
+    Id UNIQUEIDENTIFIER PRIMARY KEY,
+    DateCreated DATETIME,
+    CreatedBy NVARCHAR(MAX),
+    DateModified DATETIME,
+    ModifiedBy NVARCHAR(MAX),
+    HasStockage BIT,
+    HasCouleur BIT,
+    HasNombreDeSim BIT,
+    HasImei BIT,
+    HasParticularite BIT,
+    HasEtat BIT,
+    HasProcesseurs BIT,
+    HasTailleEcran BIT,
+    HasRam BIT,
+    HasQualite BIT,
+    HasType BIT,
+    HasCapacite BIT,
+    HasCaracteristic BIT,
+    HasPuissance BIT,
+    HasCamera BIT,
+    ModelId UNIQUEIDENTIFIER,
+    FOREIGN KEY (ModelId) REFERENCES Modele(Id)
 );
 
-CREATE TABLE Article (
-    Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
-    StockageId UNIQUEIDENTIFIER,
-    CouleurId UNIQUEIDENTIFIER,
-    NombreDeSim BIT,
-    Imei BIT,
-    ParticulariteId UNIQUEIDENTIFIER,
-    EtatId UNIQUEIDENTIFIER,
-    Processeurs NVARCHAR(255),
-    TailleEcran NVARCHAR(255),
-    Ram NVARCHAR(255),
-    Nom NVARCHAR(255),
-    Qualite NVARCHAR(255),
-    Position NVARCHAR(255),
-    TypeId UNIQUEIDENTIFIER,
-    Capacite NVARCHAR(255),
-    Caracteristique NVARCHAR(MAX),
-    Puissance NVARCHAR(255),
-    PRIMARY KEY (Id),
-    FOREIGN KEY (StockageId) REFERENCES Stockage(Id),
-    FOREIGN KEY (CouleurId) REFERENCES Couleur(Id),
-    FOREIGN KEY (ParticulariteId) REFERENCES Particularite(Content),
-    FOREIGN KEY (EtatId) REFERENCES Etat(Id),
-    FOREIGN KEY (TypeId) REFERENCES Type(Id)
+CREATE TABLE [dbo].[Article] (
+    [Id]                UNIQUEIDENTIFIER NOT NULL,
+    [DateCreated]       DATETIME         NULL,
+    [CreatedBy]         NVARCHAR (255)   NULL,
+    [DateModified]      DATETIME         NULL,
+    [ModifiedBy]        NVARCHAR (255)   NULL,
+    [StockageId]        UNIQUEIDENTIFIER NULL,
+    [CouleurId]         UNIQUEIDENTIFIER NULL,
+    [NombreDeSim]       INT              NULL,
+    [Imei]              NVARCHAR (255)   NULL,
+    [Camera]            NVARCHAR (255)   NULL,
+    [ParticulariteId]   UNIQUEIDENTIFIER NULL,
+    [EtatId]            UNIQUEIDENTIFIER NULL,
+    [Processeurs]       NVARCHAR (255)   NULL,
+    [TailleEcran]       NVARCHAR (255)   NULL,
+    [Ram]               NVARCHAR (255)   NULL,
+    [Qualite]           NVARCHAR (255)   NULL,
+    [Position]          NVARCHAR (255)   NULL,
+    [TypeId]            UNIQUEIDENTIFIER NULL,
+    [Capacite]          NVARCHAR (255)   NULL,
+    [CaracteristiqueId] UNIQUEIDENTIFIER NULL,
+    [Puissance]         NVARCHAR (255)   NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC),
+    FOREIGN KEY ([StockageId]) REFERENCES [dbo].[Stockage] ([Id]),
+    FOREIGN KEY ([CouleurId]) REFERENCES [dbo].[Couleur] ([Id]),
+    FOREIGN KEY ([ParticulariteId]) REFERENCES [dbo].[Particularite] ([Id]),
+    FOREIGN KEY ([EtatId]) REFERENCES [dbo].[Etat] ([Id]),
+    FOREIGN KEY ([TypeId]) REFERENCES [dbo].[Type_] ([Id]),
+    FOREIGN KEY ([CaracteristiqueId]) REFERENCES [dbo].[Caracteristique] ([Id])
 );
 
 
-CREATE TABLE Couleur (
-    Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
-    Name NVARCHAR(255),
-    PRIMARY KEY (Id)
+
+
+CREATE TABLE [dbo].[Couleur] (
+    [Id]           UNIQUEIDENTIFIER DEFAULT (newid()) NOT NULL,
+    [Name]         NVARCHAR (255)   NULL,
+    [CodeCouleur]  NVARCHAR (255)   NULL,
+    [DateCreated]  DATETIME         NULL,
+    [CreatedBy]    VARCHAR (255)    NULL,
+    [DateModified] DATETIME         NULL,
+    [ModifiedBy]   VARCHAR (255)    NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 
 CREATE TABLE Etat (
     Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
     Content NVARCHAR(MAX),
-    PRIMARY KEY (Id)
+    DateCreated DateTime,
+    CreatedBy VARCHAR(255),
+    DateModified DateTime,
+    ModifiedBy VARCHAR(255),
+    PRIMARY KEY (Id),
 );
 
 CREATE TABLE Marque (
     Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
-    Name NVARCHAR(255),
+    [Name] NVARCHAR(255),
     TypeArticleId UNIQUEIDENTIFIER,
+    DateCreated DateTime,
+    CreatedBy VARCHAR(255),
+    DateModified DateTime,
+    ModifiedBy VARCHAR(255),
     FOREIGN KEY (TypeArticleId) REFERENCES TypeArticle(Id),
     PRIMARY KEY (Id)
 );
 
-CREATE TABLE Model (
+CREATE TABLE Modele (
     Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
-    Name NVARCHAR(255),
+    [Name] NVARCHAR(255),
     MarqueId UNIQUEIDENTIFIER,
     FOREIGN KEY (MarqueId) REFERENCES Marque(Id),
+    DateCreated DateTime,
+    CreatedBy VARCHAR(255),
+    DateModified DateTime,
+    ModifiedBy VARCHAR(255),
     PRIMARY KEY (Id)
 );
 
 CREATE TABLE Particularite (
 Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
     Content NVARCHAR(MAX),
-    PRIMARY KEY (Id)
+    DateCreated DateTime,
+    CreatedBy VARCHAR(255),
+    DateModified DateTime,
+    ModifiedBy VARCHAR(255),
+    PRIMARY KEY (Id),
 );
 
 CREATE TABLE Processeurs (
     Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
     Content NVARCHAR(MAX),
-    PRIMARY KEY (Id)
+    DateCreated DateTime,
+    CreatedBy VARCHAR(255),
+    DateModified DateTime,
+    ModifiedBy VARCHAR(255),
+    PRIMARY KEY (Id),
 );
 
 CREATE TABLE Stockage (
     Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
-    Name NVARCHAR(255),
-    PRIMARY KEY (Id)
+    [Name] NVARCHAR(255),
+    DateCreated DateTime,
+    CreatedBy VARCHAR(255),
+    DateModified DateTime,
+    ModifiedBy VARCHAR(255),
+    PRIMARY KEY (Id),
 );
 
-CREATE TABLE Type (
+CREATE TABLE Type_ (
     Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
     Content NVARCHAR(255),
+    PRIMARY KEY (Id),
+    DateCreated DateTime,
+    CreatedBy VARCHAR(255),
+    DateModified DateTime,
+    ModifiedBy VARCHAR(255),
     PRIMARY KEY (Id)
 );
 

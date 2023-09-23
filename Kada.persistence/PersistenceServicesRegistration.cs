@@ -21,6 +21,14 @@ namespace Kada.persistence
             services.AddScoped<IFournisseurRepository, FournisseurRepository>();
             services.AddScoped<ITypeArticleRepository, TypeArticleRepository>();
             services.AddScoped<ITypeRepository, TypeRepository>();
+            services.AddScoped<IStockageRepository, StockageRepository>();
+            services.AddScoped<IParticulariteRepository, ParticulariteRepository>();
+            services.AddScoped<IEtatRepository, EtatRepository>();
+            services.AddScoped<ICouleurRepository, CouleurRepository>();
+            services.AddScoped<IMarqueRepository, MarqueRepository>();
+            services.AddScoped<IModelRepository, ModelRepository>();
+            services.AddScoped<ICaracteristiqueRepository, CaracteristiqueRepository>();
+            services.AddScoped<IArticleRepository, ArticleRepository>();
 
             return services;
         }
