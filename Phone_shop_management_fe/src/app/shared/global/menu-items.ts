@@ -16,5 +16,9 @@ export const MENU_ITEMS: MenuItems[] = [
     { title: "Ventes", icon: "add_shopping_cart", link: "sales", divider: true },
     { title: "Paiements", icon: "account_balance", link: "paiement", divider: true },
     { title: "Reparations", icon: "build", link: "repair", divider: true },
-    { title: "Configuration", icon: "settings", link: "config", divider: true }
+    {
+        title: "Configuration", icon: "settings", link: "config", divider: false, submenu: [
+            { title: "Type Article", icon: '', link: 'config/type_article', divider: false }
+        ]
+    }
 ];
