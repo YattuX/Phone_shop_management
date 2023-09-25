@@ -17,6 +17,7 @@ import { MatPaginatorIntl } from '@angular/material/paginator';
 import { CustomPaginatorIntl } from './shared/global/custom-paginator-intl';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './shared/interceptors/AuthInterceptors/auth-Interceptor';
+import { ConfigurationModule } from './modules/configuration/configuration.module';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { AuthInterceptor } from './shared/interceptors/AuthInterceptors/auth-Int
     BrowserAnimationsModule,
     UsersModule,
     CustomerModule,
-    ProviderModule
+    ProviderModule,
+    ConfigurationModule
   ],
  
   providers: [

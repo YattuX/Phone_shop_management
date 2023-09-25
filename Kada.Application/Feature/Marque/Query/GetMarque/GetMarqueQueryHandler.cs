@@ -62,7 +62,7 @@ namespace Kada.Application.Feature.Marque.Query.GetMarque
                         marques = _marqueRepository.FilterQuery(marques, x => x.Name.ToLower().Contains(filter[key].ToLower()));
                         break;
                     case "typeArticle":
-                        marques = _marqueRepository.FilterQuery(marques, x => x.TypeArticleId.Equals(filter[key]));
+                        marques = _marqueRepository.FilterQuery(marques, x => x.TypeArticleId.Equals(Guid.Parse(filter[key])));
                         break;
                 }
             }

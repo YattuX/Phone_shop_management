@@ -8,10 +8,12 @@ namespace Kada.Application.Feature.Model.Query.GetModel
     public class GetModelQueryHandler: IRequestHandler<GetModelQuery,SearchResult<ModelDTO>>
     {
         private readonly IModelRepository _modelRepository;
+        private readonly ICaracteristiqueRepository _caracteristiqueRepository;
 
-        public GetModelQueryHandler(IModelRepository modelRepository)
+        public GetModelQueryHandler(IModelRepository modelRepository, ICaracteristiqueRepository caracteristiqueRepository)
         {
             _modelRepository = modelRepository;
+            _caracteristiqueRepository = caracteristiqueRepository;
         }
 
         public async Task<SearchResult<ModelDTO>> Handle(GetModelQuery request, CancellationToken cancellationToken)
@@ -62,7 +64,11 @@ namespace Kada.Application.Feature.Model.Query.GetModel
                         models = _modelRepository.FilterQuery(models, x => x.Name.ToLower().Contains(filter[key].ToLower()));
                         break;
                     case "marque":
-                        models = _modelRepository.FilterQuery(models, x => x.MarqueId.Equals(filter[key]));
+                        models = _modelRepository.FilterQuery(models, x => x.MarqueId.Equals(Guid.Parse(filter[key])));
+                        break;
+                    case "notCaracteritique":
+                        var modelWithCaracteristiques = _caracteristiqueRepository.GetQuery().Select(v=>v.ModelId).ToList();
+                        models = _modelRepository.FilterQuery(models,x=> !modelWithCaracteristiques.Contains(x.Id));
                         break;
                 }
             }
