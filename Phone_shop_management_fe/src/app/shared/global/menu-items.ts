@@ -22,6 +22,7 @@ export const MENU_ITEMS: MenuItems[] = [
             { title: "Marque", icon: '', link: 'config/marque', divider: false },
             { title: "Modèle", icon: '', link: 'config/modele', divider: false },
             { title: "Caractéristique", icon: '', link: 'config/caracteristique', divider: false },
+            { title: "Couleur", icon: '', link: 'config/couleur', divider: false },
         ]
     }
 ];

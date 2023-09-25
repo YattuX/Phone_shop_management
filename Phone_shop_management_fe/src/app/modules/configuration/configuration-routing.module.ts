@@ -5,6 +5,7 @@ import { TypeArticleComponent } from './components/type-article/type-article.com
 import { MarqueComponent } from './components/marque/marque.component';
 import { ModeleComponent } from './components/modele/modele.component';
 import { CaracteristiqueComponent } from './components/caracteristique/caracteristique.component';
+import { CouleurComponent } from './components/couleur/couleur.component';
 
 const routes: Routes = [
     {
@@ -35,7 +36,14 @@ const routes: Routes = [
                 path:'caracteristique',
                 component:CaracteristiqueComponent,
                 data:{
-                    title:"CONFIGURATION>caractéristique"
+                    title:"CONFIGURATION> caractéristique"
+                }
+            },
+            {
+                path:'couleur',
+                component:CouleurComponent,
+                data:{
+                    title:"CONFIGURATION>Couleur"
                 }
             },
         ]

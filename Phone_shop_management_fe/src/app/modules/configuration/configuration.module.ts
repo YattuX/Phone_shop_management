@@ -11,6 +11,8 @@ import { ModeleComponent } from './components/modele/modele.component';
 import { ModeleDialog } from './components/modele/modele.dialog';
 import { CaracteristiqueComponent } from './components/caracteristique/caracteristique.component';
 import { CaracteristiqueDialog } from './components/caracteristique/caracteristique.dialog';
+import { CouleurComponent } from './components/couleur/couleur.component';
+import { CouleurDialog } from './components/couleur/couleur.dialog';
 
 
 
@@ -24,7 +26,9 @@ import { CaracteristiqueDialog } from './components/caracteristique/caracteristi
     ModeleComponent,
     ModeleDialog,
     CaracteristiqueComponent,
-    CaracteristiqueDialog
+    CaracteristiqueDialog,
+    CouleurComponent,
+    CouleurDialog
   ],
   imports: [
     CommonModule,

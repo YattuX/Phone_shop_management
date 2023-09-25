@@ -61,7 +61,6 @@ export class TypeArticleComponent extends BaseTableComponent {
 
   openDialog(action: string, row: any) {
     row['action'] = action;
-    console.log(action)
     row['title'] = (action == 'add' ? 'Ajout d\'un Type d\'article' : `Modification du Type d'article ${row.name}`);
     this._dialog.open(TypeArticleDialog, {
       data: row,

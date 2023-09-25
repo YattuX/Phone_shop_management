@@ -101,7 +101,6 @@ export class CaracteristiqueComponent extends BaseTableComponent {
 
   openDialog(action: string, row: any) {
     row['action'] = action;
-    console.log(action)
     row['title'] = (action == 'add' ? 'Ajout des Caracteristiques d\'un modèle' : `Caracteristiques du modèle ${row.modelName}`);
     this._dialog.open(CaracteristiqueDialog, {
       data: row,

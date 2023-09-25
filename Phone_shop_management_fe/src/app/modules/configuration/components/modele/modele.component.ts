@@ -70,7 +70,6 @@ export class ModeleComponent extends BaseTableComponent {
 
   openDialog(action: string, row: any) {
     row['action'] = action;
-    console.log(action)
     row['title'] = (action == 'add' ? 'Ajout d\'un Modèle' : `Modification du Modèle ${row.name}`);
     this._dialog.open(ModeleDialog, {
       data: row,
