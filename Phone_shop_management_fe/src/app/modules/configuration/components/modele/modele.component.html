@@ -1,0 +1,75 @@
+<app-breadcrumb></app-breadcrumb>
+<mat-divider></mat-divider>
+<mat-toolbar class="content-toolbar flex flex-wrap justify-between items-center"
+    style="height: fit-content !important; padding:5px 10px;">
+    <div class="flex">
+        <mat-icon class="cursor-pointer text-white" matTooltip="retour">reply</mat-icon>
+    </div>
+
+    <div class="flex">
+        <button class="flex button items-center bg-white text-black shadow-xl" (click)="openDialog('add',{})">
+            + Ajouter
+        </button>
+    </div>
+</mat-toolbar>
+<div class="content mat-elevation-z2">
+    <form [formGroup]="searchForm" class="flex flex-wrap mb-6 border justify-center border-gray-300 rounded-md pt-4 ">
+        <mat-form-field class="w-full md:w-[45%] md:mr-2">
+            <input matInput placeholder="Modèle" formControlName="name">
+        </mat-form-field>
+        <mat-form-field class="w-full md:w-[45%] md:mr-2">
+            <mat-select placeholder="Marque" formControlName="marque">
+                <mat-option [value]="null"></mat-option>
+                <mat-option *ngFor="let marque of marques" [value]="marque.id">{{marque.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </form>
+    <mat-table [dataSource]="pageRows" cdkDropList cdkDropListOrientation="horizontal"
+        (cdkDropListDropped)="drop($event)">
+
+        <!-- ID Column -->
+        <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef  cdkDrag>#</mat-header-cell>
+            <mat-cell *matCellDef="let row;let index=index"> {{index+1}} </mat-cell>
+        </ng-container>
+
+        <!-- firstname Column -->
+        <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef  cdkDrag>Modèle</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+        </ng-container>
+
+        <!-- marque Column -->
+        <ng-container matColumnDef="marque">
+            <mat-header-cell *matHeaderCellDef  cdkDrag>Marque</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.marqueName}} </mat-cell>
+        </ng-container>
+
+        <!-- action Column -->
+        <ng-container matColumnDef="action">
+            <mat-header-cell *matHeaderCellDef  cdkDrag></mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <button mat-stroked-button [matMenuTriggerFor]="menu" color="primary">Action</button>
+                <mat-menu #menu="matMenu">
+                    <span mat-menu-item (click)="openDialog('edit',row)">
+                        Modifier
+                    </span>
+                    <span mat-menu-item (click)="removeRows(row)">Supprimer</span>
+                </mat-menu>
+            </mat-cell>
+        </ng-container>
+        <ng-container *matNoDataRow> 
+            <div *ngIf="!loading" class="text-lg text-center p-2">
+                Aucune donnée trouvée
+            </div>
+            <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;">
+        </mat-row>
+    </mat-table>
+
+    <mat-paginator [length]="pageRows.length" [pageSize]="pageSize" [pageIndex]="pageOffset / pageSize"
+        (page)="onChangePage($event)"></mat-paginator>
+
+</div>

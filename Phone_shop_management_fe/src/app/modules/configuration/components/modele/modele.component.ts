@@ -6,21 +6,21 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, combineLatest, debounceTime, distinctUntilChanged, startWith, takeUntil } from 'rxjs';
-import { BaseTableComponent } from 'src/app/shared/components/table/base-table.component';
-import { KadaService, TypeArticleDTO, TypeArticleDTOSearchResult } from 'src/app/shared/services/kada.service';
-import { TypeArticleDialog } from './type-article.dialog';
 import { InfoDialog } from 'src/app/shared/components/dialogs/info/info.dialog';
+import { BaseTableComponent } from 'src/app/shared/components/table/base-table.component';
+import { KadaService, MarqueDTO, ModelDTOSearchResult } from 'src/app/shared/services/kada.service';
+import { SearchDTO } from 'src/app/shared/services/user.service';
+import { ModeleDialog } from './modele.dialog';
 
 @Component({
-  selector: 'app-type-article',
-  templateUrl: './type-article.component.html',
-  styleUrls: ['./type-article.component.scss']
+  selector: 'app-modele',
+  templateUrl: './modele.component.html',
+  styleUrls: ['./modele.component.scss']
 })
-export class TypeArticleComponent extends BaseTableComponent {
-
-  displayedColumns = ['id', 'name','action'];
+export class ModeleComponent extends BaseTableComponent {
+  displayedColumns = ['id', 'name', 'marque', 'action'];
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
-  title: string = 'Liste des Type Articles';
+  marques: MarqueDTO[];
 
   constructor(
     protected _kadaService: KadaService,
@@ -35,23 +35,32 @@ export class TypeArticleComponent extends BaseTableComponent {
   }
 
   override ngOnInit(): void {
+    this._kadaService.getMarqueListPage(SearchDTO.fromJS({
+      pageIndex: -1, filters: {}
+    })).subscribe(v => {
+      this.marques = v.results;
+    });
+
     combineLatest([
       this.searchForm.get('name')?.valueChanges.pipe(debounceTime(800), distinctUntilChanged(), startWith(this.searchForm.get('name')?.value)),
-     ]).pipe(takeUntil(this.$ngOnDestroyed)).subscribe(([name,]) => {
+      this.searchForm.get('marque')?.valueChanges.pipe(debounceTime(800), distinctUntilChanged(), startWith(this.searchForm.get('marque')?.value)),
+    ]).pipe(takeUntil(this.$ngOnDestroyed)).subscribe(([name, marque]) => {
       this.searchForm.patchValue({
         name,
+        marque
       }, { emitEvent: false });
       super.triggerSearch();
     });
   }
 
-  protected override _search(criteria: any): Observable<TypeArticleDTOSearchResult> {
-    return this._kadaService.getTypeArticleListPage(criteria);
+  protected override _search(criteria: any): Observable<ModelDTOSearchResult> {
+    return this._kadaService.getModelListPage(criteria);
   }
 
   protected override _createSearchForm() {
     this.searchForm = this._formBuilder.group({
       name: null,
+      marque: null
     });
   }
 
@@ -62,8 +71,8 @@ export class TypeArticleComponent extends BaseTableComponent {
   openDialog(action: string, row: any) {
     row['action'] = action;
     console.log(action)
-    row['title'] = (action == 'add' ? 'Ajout d\'un Type d\'article' : `Modification du Type d'article ${row.name}`);
-    this._dialog.open(TypeArticleDialog, {
+    row['title'] = (action == 'add' ? 'Ajout d\'un Modèle' : `Modification du Modèle ${row.name}`);
+    this._dialog.open(ModeleDialog, {
       data: row,
       disableClose: true,
       width: '900px'
@@ -75,22 +84,22 @@ export class TypeArticleComponent extends BaseTableComponent {
   }
 
 
-  removeRows(row: TypeArticleDTO) {
+  removeRows(row: MarqueDTO) {
     this._dialog.open(InfoDialog, {
       data: {
-        title: `Supression du Type d'article ${row.name}`,
+        title: `Supression du modèle ${row.name}`,
         type: "warn",
-        message: "Êtes-vous sûr de vouloir supprimer ce Type d'article?",
+        message: "Êtes-vous sûr de vouloir supprimer ce Modèle?",
         cancelAction: "Non",
         valideAction: "Oui, je suis sûr",
       },
       width: '900px'
     }).afterClosed().subscribe((res) => {
       if (res) {
-        this._kadaService.deleteTypeArticle(row.id!)
+        this._kadaService.deleteModel(row.id!)
           .subscribe({
             next: () => {
-              this._toastr.success("Type d'article supprimé avec succès!");
+              this._toastr.success("Modèle supprimé avec succès!");
               this.triggerSearch();
             },
             error: (err) => {

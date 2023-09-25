@@ -72,53 +72,68 @@ namespace Kada.Application.Feature.Caracteristique.Query.GetCaracteristique
                 switch (key)
                 {
                     case "hasStockage":
-                        caracteristiques = _caracteristiqueRepository.FilterQuery(caracteristiques, x => x.HasStockage == bool.Parse(filter[key]));
+                        bool hasStockage = bool.Parse(filter[key]);
+                        caracteristiques = _caracteristiqueRepository.FilterQuery(caracteristiques, x => x.HasStockage == hasStockage);
                         break;
                     case "hasCouleur":
-                        caracteristiques = _caracteristiqueRepository.FilterQuery(caracteristiques, x => x.HasCouleur == bool.Parse(filter[key]));
+                        bool hasCouleur = bool.Parse(filter[key]);
+                        caracteristiques = _caracteristiqueRepository.FilterQuery(caracteristiques, x => x.HasCouleur == hasCouleur);
                         break;
                     case "hasNombreDeSim":
-                        caracteristiques = _caracteristiqueRepository.FilterQuery(caracteristiques, x => x.HasNombreDeSim == bool.Parse(filter[key]));
+                        var hasNombreDeSim = bool.Parse(filter[key]);
+                        caracteristiques = _caracteristiqueRepository.FilterQuery(caracteristiques, x => x.HasNombreDeSim == hasNombreDeSim);
                         break;
                     case "hasImei":
-                        caracteristiques = _caracteristiqueRepository.FilterQuery(caracteristiques, x => x.HasImei == bool.Parse(filter[key]));
+                        bool hasImei = bool.Parse(filter[key]);
+                        caracteristiques = _caracteristiqueRepository.FilterQuery(caracteristiques, x => x.HasImei == hasImei);
                         break;
                     case "hasParticularite":
-                        caracteristiques = _caracteristiqueRepository.FilterQuery(caracteristiques, x => x.HasParticularite == bool.Parse(filter[key]));
+                        bool hasParticularite = bool.Parse(filter[key]);
+                        caracteristiques = _caracteristiqueRepository.FilterQuery(caracteristiques, x => x.HasParticularite == hasParticularite);
                         break;
                     case "hasEtat":
-                        caracteristiques = _caracteristiqueRepository.FilterQuery(caracteristiques, x => x.HasEtat == bool.Parse(filter[key]));
+                        var hasEtat = bool.Parse(filter[key]);
+                        caracteristiques = _caracteristiqueRepository.FilterQuery(caracteristiques, x => x.HasEtat == hasEtat);
                         break;
                     case "hasProcesseurs":
-                        caracteristiques = _caracteristiqueRepository.FilterQuery(caracteristiques, x => x.HasProcesseurs == bool.Parse(filter[key]));
+                        var hasProcesseurs = bool.Parse(filter[key]);
+                        caracteristiques = _caracteristiqueRepository.FilterQuery(caracteristiques, x => x.HasProcesseurs == hasProcesseurs);
                         break;
                     case "hasTailleEcran":
-                        caracteristiques = _caracteristiqueRepository.FilterQuery(caracteristiques, x => x.HasTailleEcran == bool.Parse(filter[key]));
+                        var hasTailleEcran = bool.Parse(filter[key]);
+                        caracteristiques = _caracteristiqueRepository.FilterQuery(caracteristiques, x => x.HasTailleEcran == hasTailleEcran);
                         break;
                     case "hasRam":
-                        caracteristiques = _caracteristiqueRepository.FilterQuery(caracteristiques, x => x.HasRam == bool.Parse(filter[key]));
+                        var hasRam = bool.Parse(filter[key]);
+                        caracteristiques = _caracteristiqueRepository.FilterQuery(caracteristiques, x => x.HasRam == hasRam);
                         break;
                     case "hasQualite":
-                        caracteristiques = _caracteristiqueRepository.FilterQuery(caracteristiques, x => x.HasQualite == bool.Parse(filter[key]));
+                        var hasQualite = bool.Parse(filter[key]);
+                        caracteristiques = _caracteristiqueRepository.FilterQuery(caracteristiques, x => x.HasQualite == hasQualite);
                         break;
                     case "hasType":
-                        caracteristiques = _caracteristiqueRepository.FilterQuery(caracteristiques, x => x.HasType == bool.Parse(filter[key]));
+                        var hasType = bool.Parse(filter[key]);
+                        caracteristiques = _caracteristiqueRepository.FilterQuery(caracteristiques, x => x.HasType == hasType);
                         break;
                     case "hasCapacite":
-                        caracteristiques = _caracteristiqueRepository.FilterQuery(caracteristiques, x => x.HasCapacite == bool.Parse(filter[key]));
+                        var hasCapacite = bool.Parse(filter[key]);
+                        caracteristiques = _caracteristiqueRepository.FilterQuery(caracteristiques, x => x.HasCapacite == hasCapacite);
                         break;
                     case "hasCaracteristic":
-                        caracteristiques = _caracteristiqueRepository.FilterQuery(caracteristiques, x => x.HasCaracteristic == bool.Parse(filter[key]));
+                        var val = bool.Parse(filter[key]);
+                        caracteristiques = _caracteristiqueRepository.FilterQuery(caracteristiques, x => x.HasCaracteristic == val);
                         break;
                     case "hasPuissance":
-                        caracteristiques = _caracteristiqueRepository.FilterQuery(caracteristiques, x => x.HasPuissance == bool.Parse(filter[key]));
+                        var hasPuissance = bool.Parse(filter[key]);
+                        caracteristiques = _caracteristiqueRepository.FilterQuery(caracteristiques, x => x.HasPuissance == hasPuissance);
                         break;
                     case "hasCamera":
-                        caracteristiques = _caracteristiqueRepository.FilterQuery(caracteristiques, x => x.HasCamera == bool.Parse(filter[key]));
+                        var hasCamera = bool.Parse(filter[key]);
+                        caracteristiques = _caracteristiqueRepository.FilterQuery(caracteristiques, x => x.HasCamera == hasCamera);
                         break;
                     
                     case "model":
-                        caracteristiques = _caracteristiqueRepository.FilterQuery(caracteristiques, x => x.ModelId.Equals(filter[key]));
+                        caracteristiques = _caracteristiqueRepository.FilterQuery(caracteristiques, x => x.ModelId.Equals(Guid.Parse(filter[key])));
                         break;
                 }
             }

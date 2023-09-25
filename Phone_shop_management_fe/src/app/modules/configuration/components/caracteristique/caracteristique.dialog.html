@@ -1,0 +1,83 @@
+<div class="headerDialog">
+  <h2 mat-dialog-title>{{data.title}}</h2>
+  <mat-icon [ngClass]="{'dialog-disabled': showSpinner}" class="cursor-pointer"
+    (click)="dialogRef.close()">close</mat-icon>
+</div>
+<mat-dialog-content [ngClass]="{'dialog-disabled': showSpinner}" class="mat-typography">
+  <div class="absolute inset-1/2 z-50 shadow" *ngIf="showSpinner">
+    <mat-spinner [diameter]="80"></mat-spinner>
+  </div>
+  <form [formGroup]="form">
+    <div class="md:flex md:space-x-2" *ngIf="data.action=='add'">
+      <mat-form-field class="w-full">
+        <mat-label>Modèle</mat-label>
+        <mat-select formControlName="modelId" placeholder="Modèle">
+          <mat-option *ngFor="let modele of modeles" [value]="modele.id">
+            {{modele.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.controls['modelId'].errors && 
+        form.controls['modelId'].errors['required'] && 
+        form.controls['modelId'].touched">Le modèle est Obligatoire</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="flex flex-wrap">
+      <div class="md:w-[20%]">
+        <mat-checkbox formControlName="hasStockage">A un Stockage</mat-checkbox>
+      </div>
+      <div class="md:w-[20%]">
+        <mat-checkbox formControlName="hasCouleur">A une Couleur</mat-checkbox>
+      </div>
+      <div class="md:w-[20%]">
+        <mat-checkbox formControlName="hasNombreDeSim">A une Carte Sim</mat-checkbox>
+      </div>
+      <div class="md:w-[20%]">
+        <mat-checkbox formControlName="hasImei">A un Imei</mat-checkbox>
+      </div>
+      <div class="md:w-[20%]">
+        <mat-checkbox formControlName="hasParticularite">A une Particularité</mat-checkbox>
+      </div>
+      <div class="md:w-[20%]">
+        <mat-checkbox formControlName="hasEtat">A un Etat</mat-checkbox>
+      </div>
+      <div class="md:w-[20%]">
+        <mat-checkbox formControlName="hasProcesseurs">A un Processeur</mat-checkbox>
+      </div>
+      <div class="md:w-[20%]">
+        <mat-checkbox formControlName="hasTailleEcran">A un Ecran</mat-checkbox>
+      </div>
+      <div class="md:w-[20%]">
+        <mat-checkbox formControlName="hasRam">A une Ram</mat-checkbox>
+      </div>
+      <div class="md:w-[20%]">
+        <mat-checkbox formControlName="hasQualite">A une Qualite</mat-checkbox>
+      </div>
+      <div class="md:w-[20%]">
+        <mat-checkbox formControlName="hasType">A un Type</mat-checkbox>
+      </div>
+      <div class="md:w-[20%]">
+        <mat-checkbox formControlName="hasCapacite">A une Capacité</mat-checkbox>
+      </div>
+      <div class="md:w-[20%]">
+        <mat-checkbox formControlName="hasCaracteristic">A une Caracteristique</mat-checkbox>
+      </div>
+      <div class="md:w-[20%]">
+        <mat-checkbox formControlName="hasPuissance">A une Puissance</mat-checkbox>
+      </div>
+      <div class="md:w-[20%]">
+        <mat-checkbox formControlName="hasCamera">A une Caméra</mat-checkbox>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions [ngClass]="{'dialog-disabled': showSpinner}" align="end">
+  <div class="space-x-3 px-4">
+    <button class="button text-black shadow-xl" (click)="dialogRef.close()">
+      Quitter
+    </button>
+    <button (click)="save()" class="button-primary mr-4 drop-shadow-lg">
+      {{data.action=='add'?'Ajouter':'Modifier'}}
+    </button>
+  </div>
+</mat-dialog-actions>

@@ -18,7 +18,10 @@ export const MENU_ITEMS: MenuItems[] = [
     { title: "Reparations", icon: "build", link: "repair", divider: true },
     {
         title: "Configuration", icon: "settings", link: "config", divider: false, submenu: [
-            { title: "Type Article", icon: '', link: 'config/type_article', divider: false }
+            { title: "Type Article", icon: '', link: 'config/type_article', divider: false },
+            { title: "Marque", icon: '', link: 'config/marque', divider: false },
+            { title: "Modèle", icon: '', link: 'config/modele', divider: false },
+            { title: "Caractéristique", icon: '', link: 'config/caracteristique', divider: false },
         ]
     }
 ];
