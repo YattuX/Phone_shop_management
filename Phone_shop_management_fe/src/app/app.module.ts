@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UsersModule } from './modules/users/users.module';
 import { CustomerModule } from './modules/customers/customer.module';
 import { ProviderModule } from './modules/provider/provider.module';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { CustomPaginatorIntl } from './shared/global/custom-paginator-intl';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -33,6 +34,7 @@ import { ConfigurationModule } from './modules/configuration/configuration.modul
     BrowserAnimationsModule,
     UsersModule,
     CustomerModule,
+    MatChipsModule,
     ProviderModule,
     ConfigurationModule
   ],

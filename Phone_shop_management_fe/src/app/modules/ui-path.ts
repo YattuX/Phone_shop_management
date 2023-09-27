@@ -25,6 +25,9 @@ export const UiPath = {
             moteur : 'products/piece/moteur',
             nape_et_palette : 'products/piece/nape_et_palette',
             vitre : 'products/piece/vitre',
+        },
+        addProduct: {
+            add: 'products/add-produit'
         }
     },
     }

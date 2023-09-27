@@ -21,6 +21,7 @@ import { NettoyageComponent } from './components/accessoir/nettoyage/nettoyage.c
 import { PochetteComponent } from './components/accessoir/pochette/pochette.component';
 import { PieceComponent } from './components/piece/piece.component.tab';
 import { AccessoirComponent } from './components/accessoir/accessoir.component.tab';
+import { AddProduct } from './components/addProduct';
 
 const routes: Routes = [
     {
@@ -36,7 +37,7 @@ const routes: Routes = [
         },
         children: [
             {
-                path : '',
+                path: '',
                 redirectTo: 'telephone',
                 pathMatch: 'full'
             },
@@ -60,9 +61,9 @@ const routes: Routes = [
         data: {
             title: 'Liste des pièces'
         },
-        children:[
+        children: [
             {
-                path : '',
+                path: '',
                 redirectTo: 'batterie',
                 pathMatch: 'full'
             },
@@ -79,7 +80,7 @@ const routes: Routes = [
                 component: CameraComponent
             },
             {
-                path:'ecran',
+                path: 'ecran',
                 component: EcranComponent
             },
             {
@@ -113,7 +114,7 @@ const routes: Routes = [
         },
         children: [
             {
-                path : '',
+                path: '',
                 redirectTo: 'anti_cass',
                 pathMatch: 'full'
             },
@@ -149,7 +150,14 @@ const routes: Routes = [
         data: {
             title: 'Liste matériels'
         }
-    }
+    },
+    {
+        path: 'add-produit',
+        component: AddProduct,
+        data: {
+            title: 'Liste matériels'
+        }
+    },
 ];
 
 @NgModule({

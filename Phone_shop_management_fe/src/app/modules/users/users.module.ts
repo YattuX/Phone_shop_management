@@ -18,20 +18,20 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { AddUserDialog } from './components/user.dialog';
 import { MatDialogModule } from '@angular/material/dialog';
+import { AutoCompleteComponent } from "../../shared/components/autocomplete/autocomplete.component";
 
 
 
 @NgModule({
-
-  imports: [
-    CommonModule,
-    SharedModule,
-  ]
-  ,
-  declarations: [
-    ListUsersComponent,
-    DataPropertyGetterPipe,
-    AddUserDialog,
-  ],
+    declarations: [
+        ListUsersComponent,
+        DataPropertyGetterPipe,
+        AddUserDialog,
+    ],
+    imports: [
+        CommonModule,
+        SharedModule,
+        AutoCompleteComponent
+    ]
 })
 export class UsersModule { }

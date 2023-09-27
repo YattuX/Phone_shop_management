@@ -73,6 +73,10 @@ mat-header-row * {
   width: 80%;
 }
 
+.mat-mdc-dialog-content {
+  padding-bottom: 0px !important;
+}
+
 .dialog-disabled {
   pointer-events: none; /* Désactive les événements de pointer (clics, survols, etc.) */
   opacity: 0.5;
@@ -115,3 +119,7 @@ mat-header-row * {
   background-color: #3752A3 !important;
 }
 /****************** End Toolbar ****************************/
+
+.mat-horizontal-content-container{
+  padding: 0 !important;
+}
