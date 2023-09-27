@@ -1,0 +1,256 @@
+<app-breadcrumb [Title]="title"></app-breadcrumb>
+<mat-divider></mat-divider>
+<mat-toolbar class="content-toolbar flex flex-wrap justify-evenly items-center"
+    style="height: fit-content !important; padding:5px 10px;">
+    <div class="flex">
+        <mat-icon class="cursor-pointer text-white" title="retour">reply</mat-icon>
+    </div>
+</mat-toolbar>
+    <mat-stepper labelPosition="bottom" #stepper>
+      <mat-step>
+        <form class="p-10">
+          <ng-template matStepLabel>Article</ng-template>
+          <div>
+            <mat-form-field class="w-full">
+              <mat-label>Type article</mat-label>
+              <input matInput placeholder="Entrez le nom de l'article" required>
+            </mat-form-field>
+          </div>
+            <div class="mb-[22px] flex justify-end">
+              <button  class="button-primary">
+                Suivant&nbsp; ->
+              </button>
+            </div>
+        </form>
+      </mat-step>
+
+      <mat-step>
+        <form class="p-10">
+          <ng-template matStepLabel>Marque</ng-template>
+          <div class="flex justify-evenly">
+            <mat-form-field class="w-[48%]">
+              <mat-label>Marque</mat-label>
+              <input matInput placeholder="Entrez le nom de la marque" required>
+            </mat-form-field>
+
+            <div class="w-[48%]">
+              <autocomplete placeholder="Type article*" [values]="marque" idField="id" valueField="name">
+              </autocomplete>
+            </div>
+          </div>
+
+            <div class="mb-[22px] flex justify-end">
+              <button  class="button-primary">
+                Suivant&nbsp; ->
+              </button>
+            </div>
+        </form>
+      </mat-step>
+      
+      <mat-step>
+        <form class="p-10">
+          <ng-template matStepLabel>Model</ng-template>
+          <div class="flex justify-evenly">
+            <mat-form-field class="w-[48%]">
+              <mat-label>Model</mat-label>
+              <input matInput placeholder="Entrez le nom du model" required>
+            </mat-form-field>
+
+            <div class="w-[48%]">
+              <autocomplete placeholder="Marque*" [values]="marque" idField="id" valueField="name">
+              </autocomplete>
+            </div>
+          </div>
+
+          <div class="mb-[22px] flex justify-end">
+            <button  class="button-primary">
+              Suivant&nbsp; ->
+            </button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step>
+        <form class="p-10">
+          <ng-template matStepLabel>Caractéristique</ng-template>
+          <div class="flex justify-evenly">
+            <mat-form-field class="w-[48%]">
+              <mat-label>Caractéristique</mat-label>
+              <input matInput placeholder="Entrez le nom de la Caractéristique" required>
+            </mat-form-field>
+
+            <div class="w-[48%]">
+              <autocomplete placeholder="Model*" [values]="marque" idField="id" valueField="name">
+              </autocomplete>
+            </div>
+          </div>
+
+          <div class="mb-[22px] flex justify-end">
+            <button  class="button-primary">
+              Suivant&nbsp; ->
+            </button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step>
+        <form class="p-10">
+          <ng-template matStepLabel>Produit</ng-template>
+          
+
+          <div class="flex justify-evenly">
+            <mat-form-field class="w-[48%]">
+              <mat-label>Processeur</mat-label>
+              <mat-select>
+                <mat-option>---</mat-option>
+                <mat-option value="valid">2GHz</mat-option>
+                <mat-option value="valid">2.4GHz</mat-option>
+                <mat-option value="valid">2.5GHz</mat-option>
+                <mat-option value="invalid">3GHz</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="w-[48%]">
+              <mat-label>Taille écran</mat-label>
+              <mat-select>
+                <mat-option>---</mat-option>
+                <mat-option value="valid">14</mat-option>
+                <mat-option value="valid">32</mat-option>
+                <mat-option value="valid">64</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="flex justify-evenly">
+            <mat-form-field class="w-[48%]">
+              <mat-label>Ram</mat-label>
+              <mat-select>
+                <mat-option>---</mat-option>
+                <mat-option value="valid">2Gb</mat-option>
+                <mat-option value="valid">4Gb</mat-option>
+                <mat-option value="valid">8Gb</mat-option>
+                <mat-option value="valid">16Gb</mat-option>
+                <mat-option value="valid">32Gb</mat-option>
+                <mat-option value="valid">64Gb</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="w-[48%]">
+              <mat-label>Qualité</mat-label>
+              <mat-select>
+                <mat-option>---</mat-option>
+                <mat-option value="valid">1er</mat-option>
+                <mat-option value="valid">2e</mat-option>
+                <mat-option value="valid">3e</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+            
+          <div class="flex justify-evenly">
+            <mat-form-field class="w-[48%]">
+              <mat-label>Position</mat-label>
+              <mat-select>
+                <mat-option>---</mat-option>
+                <mat-option value="valid">Devant</mat-option>
+                <mat-option value="valid">Derrière</mat-option>
+                <mat-option value="valid">Gauche</mat-option>
+                <mat-option value="valid">Droite</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="w-[48%]">
+              <mat-label>Capacité</mat-label>
+              <mat-select>
+                <mat-option>---</mat-option>
+                <mat-option value="valid">16Gb</mat-option>
+                <mat-option value="valid">32Gb</mat-option>
+                <mat-option value="valid">64Gb</mat-option>
+                <mat-option value="valid">128Gb</mat-option>
+                <mat-option value="valid">256Gb</mat-option>
+                <mat-option value="valid">500Gb</mat-option>
+                <mat-option value="valid">1T</mat-option>
+                <mat-option value="valid">2T</mat-option>
+                <mat-option value="valid">3T</mat-option>
+                <mat-option value="valid">4T</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="flex justify-evenly">
+            <mat-form-field class="w-[48%]">
+              <mat-label>Puissance</mat-label>
+              <mat-select>
+                <mat-option>---</mat-option>
+                <mat-option value="valid">1er</mat-option>
+                <mat-option value="valid">2e</mat-option>
+                <mat-option value="valid">3e</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="w-[48%]">
+              <mat-label>Nombre de sim</mat-label>
+              <mat-select>
+                <mat-option>Clear</mat-option>
+                <mat-option value="valid">Valid option</mat-option>
+                <mat-option value="invalid">Invalid option</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="flex justify-evenly">
+            <div class="w-[48%]">
+              <autocomplete placeholder="Stockage*" [values]="marque" idField="id" valueField="name">
+              </autocomplete>
+            </div>
+  
+            <div class="w-[48%]">
+              <autocomplete placeholder="Caratéristique*" [values]="marque" idField="id" valueField="name">
+              </autocomplete>
+            </div>
+          </div>
+
+          <div class="flex justify-evenly">
+            <div class="w-[48%]">
+              <autocomplete placeholder="Couleur*" [values]="marque" idField="id" valueField="name">
+              </autocomplete>
+            </div>
+
+            <div class="w-[48%]">
+              <autocomplete placeholder="Particularité*" [values]="marque" idField="id" valueField="name">
+              </autocomplete>
+            </div>
+          </div>
+
+          <div class="flex justify-evenly">
+            <div class="w-[48%]">
+              <autocomplete placeholder="Etat*" [values]="marque" idField="id" valueField="name">
+              </autocomplete>
+            </div>
+
+            <div class="w-[48%]">
+              <autocomplete placeholder="Model*" [values]="marque" idField="id" valueField="name">
+              </autocomplete>
+            </div>
+          </div>
+
+          <div class="flex justify-evenly">
+            <div class="w-[48%]">
+              <autocomplete placeholder="Type*" [values]="marque" idField="id" valueField="name">
+              </autocomplete>
+            </div>
+
+            <mat-form-field class="w-[48%]">
+              <mat-label>Imei</mat-label>
+              <input matInput placeholder="Entrez le nom du Produit" required>
+            </mat-form-field>
+          </div>
+
+          <div class="mb-[22px] flex justify-end">
+            <button  class="button-primary">
+              Enregistrer
+            </button>
+          </div>
+        </form>
+      </mat-step>
+    
+    </mat-stepper>

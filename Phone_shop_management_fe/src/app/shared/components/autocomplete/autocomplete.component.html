@@ -1,0 +1,40 @@
+<ng-container *ngIf="multipleSelection; else singleAutoComplete">
+    <mat-form-field class="w-100">
+        <mat-chip-set #chipList >
+            <mat-chip *ngFor="let item of multipleSelectedValues;" [removable]="true"
+              (removed)="removeValue(item)">
+              {{getDisplayName(item)}}
+              <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
+            <input matInput [placeholder]="placeholder + (required ? ' *' : '')"
+              autocomplete="new-password"
+              #autoCompleteInput
+              #trigger="matAutocompleteTrigger"
+              [formControl]="autoCompleteControl"
+              [matAutocomplete]="auto"
+              (click)="trigger.openPanel()"/>
+          </mat-chip-set>
+      </mat-form-field>
+  </ng-container>
+  
+  <ng-template #singleAutoComplete>
+    <mat-form-field class="w-100">
+      <input matInput [placeholder]="placeholder + (required ? ' *' : '')"
+        autocomplete="new-password"
+        #autoCompleteInput
+        #trigger="matAutocompleteTrigger"
+        [formControl]="autoCompleteControl"
+        [matAutocomplete]="auto"
+        (click)="trigger.openPanel();"
+        (blur)="forceValueSelection()"
+        />
+      <mat-error *ngIf="autoCompleteControl.errors?.['required']">
+        {{ placeholder ? placeholder + ' est requis' : 'Ce champ est requis' }}</mat-error>
+    </mat-form-field>
+  </ng-template>
+  
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="addValue($event)">
+    <mat-option *ngFor="let item of filteredValues | async" [value]="item">
+      {{item[valueField]}}
+    </mat-option>
+  </mat-autocomplete>

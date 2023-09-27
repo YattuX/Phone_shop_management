@@ -52,6 +52,10 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { AutoCompleteComponent } from './components/autocomplete/autocomplete.component';
+import { InputComponent } from './components/input/input.component';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -66,6 +70,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
     BreadcrumbNavigationComponent,
     SpinnerComponent,
     NotificationComponent,
+    InputComponent,
   ],
   imports: [
     CommonModule,
@@ -102,7 +107,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatMenuModule,
     ToastrModule.forRoot(),
     MatStepperModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatAutocompleteModule,
   ],
   exports:[
     SpinnerComponent,
@@ -153,7 +159,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatProgressBarModule,
     MatSelectModule,
     MatStepperModule,
-    MatExpansionModule
+    MatExpansionModule,
   ],
   providers: [
     KadaService,

@@ -2,9 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductListComponent } from './components/appareil/product-list.component.tab';
 import { ProductRoutingModule } from './product-routing.module';
-import { AppBreadcrumbComponent } from 'src/app/shared/components/layouts/breadcrumb/breadcrumb.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { ProductDialog } from './components/product.dialog';
+import { AddProduct } from './components/addProduct';
 import { PieceComponent } from './components/piece/piece.component.tab';
 import { AccessoirComponent } from './components/accessoir/accessoir.component.tab';
 import { TelephoneComponent } from './components/appareil/telephone/telephone.component';
@@ -25,39 +24,41 @@ import { NapeEtPaletteComponent } from './components/piece/nape-et-palette/nape-
 import { MicroEtVibreurComponent } from './components/piece/micro-et-vibreur/micro-et-vibreur.component';
 import { CadreComponent } from './components/piece/cadre/cadre.component';
 import { MoteurComponent } from './components/piece/moteur/moteur.component';
+import { AutoCompleteComponent } from "../../shared/components/autocomplete/autocomplete.component";
 
 
 
 
 @NgModule({
-  declarations: [
-    ProductListComponent,
-    ProductDialog,
-    PieceComponent,
-    AccessoirComponent,
-    TelephoneComponent,
-    TabletteComponent,
-    OrdinateurComponent,
-    PochetteComponent,
-    AntiCasseComponent,
-    NettoyageComponent,
-    InstrumentComponent,
-    ConnectiqueComponent,
-    AppareilAccessoirComponent,
-    EcranComponent,
-    BatterieComponent,
-    CameraComponent,
-    HautParleurComponent,
-    VitreComponent,
-    NapeEtPaletteComponent,
-    MicroEtVibreurComponent,
-    CadreComponent,
-    MoteurComponent,
-  ],
-  imports: [
-    CommonModule,
-    ProductRoutingModule,
-    SharedModule
-  ]
+    declarations: [
+        ProductListComponent,
+        AddProduct,
+        PieceComponent,
+        AccessoirComponent,
+        TelephoneComponent,
+        TabletteComponent,
+        OrdinateurComponent,
+        PochetteComponent,
+        AntiCasseComponent,
+        NettoyageComponent,
+        InstrumentComponent,
+        ConnectiqueComponent,
+        AppareilAccessoirComponent,
+        EcranComponent,
+        BatterieComponent,
+        CameraComponent,
+        HautParleurComponent,
+        VitreComponent,
+        NapeEtPaletteComponent,
+        MicroEtVibreurComponent,
+        CadreComponent,
+        MoteurComponent,
+    ],
+    imports: [
+        CommonModule,
+        ProductRoutingModule,
+        SharedModule,
+        AutoCompleteComponent
+    ]
 })
 export class ProductModule { }
