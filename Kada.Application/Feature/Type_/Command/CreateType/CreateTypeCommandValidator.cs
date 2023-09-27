@@ -13,7 +13,7 @@ namespace Kada.Application.Feature.Type_.Command.CreateType
             RuleFor(t => t.Content)
                 .NotEmpty()
                 .NotNull()
-                .MaximumLength(50).WithMessage("{PropertyName} must be fewer than 100 characters");
+                .MaximumLength(100).WithMessage("{PropertyName} must be fewer than 100 characters");
         }
     }
 }

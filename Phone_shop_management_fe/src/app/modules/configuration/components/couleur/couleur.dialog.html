@@ -1,0 +1,49 @@
+<div class="headerDialog">
+  <h2 mat-dialog-title>{{data.title}}</h2>
+  <mat-icon [ngClass]="{'dialog-disabled': showSpinner}" class="cursor-pointer"
+    (click)="dialogRef.close()">close</mat-icon>
+</div>
+<mat-dialog-content [ngClass]="{'dialog-disabled': showSpinner}" class="mat-typography">
+  <div class="absolute inset-1/2 z-50 shadow" *ngIf="showSpinner">
+    <mat-spinner [diameter]="80"></mat-spinner>
+  </div>
+  <form [formGroup]="form">
+
+    <div class="md:flex md:space-x-2">
+
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Couleur</mat-label>
+        <input formControlName="name" matInput placeholder="Couleur" #inputName>
+        <mat-hint align="end">{{inputName.value.length}}/50</mat-hint>
+        <mat-error *ngIf="form.controls['name'].errors && 
+                    form.controls['name'].errors['required'] && 
+                    form.controls['name'].touched">Le Couleur est Obligatoire</mat-error>
+        <mat-error *ngIf="form.controls['name'].errors && 
+                    form.controls['name'].errors['minlength'] && 
+                    form.controls['name'].touched">Le Couleur doit avoir au moins
+          {{form.controls['name'].errors['minlength']['requiredLength']}} caractères</mat-error>
+        <mat-error *ngIf="form.controls['name'].errors && 
+                    form.controls['name'].errors['maxlength'] && 
+                    form.controls['name'].touched">Le Couleur ne doit pas dépasser
+          {{form.controls['name'].errors['maxlength']['requiredLength']}} caractères</mat-error>
+      </mat-form-field>
+
+      <div class="w-full flex wrap justify-center items-center">
+        <label for="colorPicker" class="mr-2 w-1/5">Code Couleur</label>
+        <input id="colorPicker" formControlName="codeCouleur" laceholder="Couleur" type="color" class="w-4/5 cursor-pointer">
+      </div>
+
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions [ngClass]="{'dialog-disabled': showSpinner}" align="end">
+  <div class="space-x-3 px-4">
+    <button class="button text-black shadow-xl" (click)="dialogRef.close()">
+      Annuler
+    </button>
+    <button (click)="save()" class="button-primary mr-4 drop-shadow-lg">
+      {{data.action=='add'?'Ajouter':'Modifier'}}
+    </button>
+  </div>
+</mat-dialog-actions>
