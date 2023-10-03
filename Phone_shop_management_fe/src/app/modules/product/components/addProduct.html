@@ -1,256 +1,389 @@
 <app-breadcrumb [Title]="title"></app-breadcrumb>
 <mat-divider></mat-divider>
 <mat-toolbar class="content-toolbar flex flex-wrap justify-evenly items-center"
-    style="height: fit-content !important; padding:5px 10px;">
-    <div class="flex">
-        <mat-icon class="cursor-pointer text-white" title="retour">reply</mat-icon>
-    </div>
+  style="height: fit-content !important; padding:5px 10px;">
+  <div class="flex">
+    <mat-icon class="cursor-pointer text-white" title="retour">reply</mat-icon>
+  </div>
 </mat-toolbar>
-    <mat-stepper labelPosition="bottom" #stepper>
-      <mat-step>
-        <form class="p-10">
-          <ng-template matStepLabel>Article</ng-template>
-          <div>
-            <mat-form-field class="w-full">
-              <mat-label>Type article</mat-label>
-              <input matInput placeholder="Entrez le nom de l'article" required>
-            </mat-form-field>
+<mat-stepper [id]="stepper" labelPosition="bottom" #stepper>
+  <mat-step *ngIf="false">
+    <form [formGroup]="formTypeArticle"  class="p-10">
+      <ng-template matStepLabel>Article</ng-template>
+      <div>
+        <mat-form-field class="w-full">
+          <mat-label>Type article</mat-label>
+          <input formControlName="name" matInput placeholder="Entrez le nom de l'article" #inputName required>
+        <mat-hint align="end">{{inputName.value.length}}/50</mat-hint>
+        <mat-error *ngIf="formTypeArticle.controls['name'].errors && 
+        formTypeArticle.controls['name'].errors['required'] && 
+        formTypeArticle.controls['name'].touched">Le Type D'article est Obligatoire</mat-error>
+        <mat-error *ngIf="formTypeArticle.controls['name'].errors && 
+        formTypeArticle.controls['name'].errors['minlength'] && 
+                    formTypeArticle.controls['name'].touched">Le Type D'article doit avoir au moins
+          {{formTypeArticle.controls['name'].errors['minlength']['requiredLength']}} caractères</mat-error>
+        <mat-error *ngIf="formTypeArticle.controls['name'].errors && 
+        formTypeArticle.controls['name'].errors['maxlength'] && 
+        formTypeArticle.controls['name'].touched">Le Type D'article ne doit pas dépasser
+          {{formTypeArticle.controls['name'].errors['maxlength']['requiredLength']}} caractères</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="mb-[22px] flex justify-end">
+        <button (click)="saveTypeArticle()"  *ngIf="!showSpinner" class="button-primary">
+          Suivant&nbsp; ->
+        </button>
+
+        <button *ngIf="showSpinner" class="button-primary flex space-x-2 justify-center items-center w-[91.84px]">
+          <mat-spinner color="white" [diameter]="20"></mat-spinner>
+          <span>...</span>
+        </button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step>
+    <form [formGroup]="formMarque"  class="p-10">
+      <ng-template matStepLabel>Marque</ng-template>
+      <div class="flex justify-evenly">
+        <mat-form-field class="w-[48%]">
+          <mat-label>Marque</mat-label>
+          <input formControlName="name" matInput placeholder="Entrez le nom de la marque" #inputName required>
+        <mat-hint align="end">{{inputName.value.length}}/50</mat-hint>
+        <mat-error *ngIf="formMarque.controls['name'].errors && 
+        formMarque.controls['name'].errors['required'] && 
+        formMarque.controls['name'].touched">La marque est Obligatoire</mat-error>
+        <mat-error *ngIf="formMarque.controls['name'].errors && 
+        formMarque.controls['name'].errors['minlength'] && 
+        formMarque.controls['name'].touched">La marque doit avoir au moins
+          {{formMarque.controls['name'].errors['minlength']['requiredLength']}} caractères</mat-error>
+        <mat-error *ngIf="formMarque.controls['name'].errors && 
+        formMarque.controls['name'].errors['maxlength'] && 
+        formMarque.controls['name'].touched">Le Type D'article ne doit pas dépasser
+          {{formMarque.controls['name'].errors['maxlength']['requiredLength']}} caractères</mat-error>
+        </mat-form-field>
+
+        <div class="w-[48%]">
+          <autocomplete formControlName="typeArticleId" placeholder="Type article*" [values]="listTypeArticle" idField="id"
+            valueField="name">
+          </autocomplete>
+        </div>
+      </div>
+
+      <div (click)="saveMarque()" class="mb-[22px] flex justify-end px-2">
+        <button *ngIf="!showSpinner" class="button-primary">
+          Suivant&nbsp; ->
+        </button>
+
+        <button *ngIf="showSpinner" class="button-primary flex space-x-2 justify-center items-center w-[91.84px]">
+          <mat-spinner color="white" [diameter]="20"></mat-spinner>
+          <span>...</span>
+        </button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step>
+    <form [formGroup]="formModel" class="p-10" >
+      <ng-template matStepLabel>Model</ng-template>
+      <div class="flex justify-evenly">
+        <mat-form-field class="w-[48%]">
+          <mat-label>Model</mat-label>
+          <input formControlName="name" matInput placeholder="Entrez le nom du model" #inputName required>
+        <mat-hint align="end">{{inputName.value.length}}/50</mat-hint>
+        <mat-error *ngIf="formModel.controls['name'].errors && 
+        formModel.controls['name'].errors['required'] && 
+        formModel.controls['name'].touched">Le modèle est Obligatoire</mat-error>
+        <mat-error *ngIf="formModel.controls['name'].errors && 
+        formModel.controls['name'].errors['minlength'] && 
+        formModel.controls['name'].touched">Le modèle doit avoir au moins
+          {{formModel.controls['name'].errors['minlength']['requiredLength']}} caractères</mat-error>
+        <mat-error *ngIf="formModel.controls['name'].errors && 
+        formModel.controls['name'].errors['maxlength'] && 
+        formModel.controls['name'].touched">Le Type D'article ne doit pas dépasser
+          {{formModel.controls['name'].errors['maxlength']['requiredLength']}} caractères</mat-error>
+        </mat-form-field>
+
+        <div class="w-[48%]">
+          <autocomplete formControlName="marqueId" placeholder="Marque*" [values]="listMark" idField="id"
+            valueField="name">
+          </autocomplete>
+        </div>
+      </div>
+
+      <div class="mb-[22px] flex justify-end px-2">
+        <button (click)="saveModel()" *ngIf="!showSpinner" class="button-primary">
+          Suivant&nbsp; ->
+        </button>
+
+        <button *ngIf="showSpinner" class="button-primary flex space-x-2 justify-center items-center w-[91.84px]">
+          <mat-spinner color="white" [diameter]="20"></mat-spinner>
+          <span>...</span>
+        </button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step>
+    <form [formGroup]="formCaracteristique"  class="p-10">
+      <ng-template matStepLabel>Caractéristique</ng-template>
+      <div class="">
+        <div class=" w-full px-2 mt-4">
+          <autocomplete formControlName="modelId" placeholder="Model*" [values]="listModel" idField="id" valueField="name">
+          </autocomplete>
+          <div *ngIf="formCaracteristique.controls['modelId'].errors && 
+              formCaracteristique.controls['modelId'].errors['required'] && 
+              formCaracteristique.controls['modelId'].touched">Le modèle est Obligatoire</div>
+        </div>
+
+        <div class="flex flex-wrap">
+          <div class="md:w-[20%]">
+            <mat-checkbox formControlName="hasStockage">A un Stockage</mat-checkbox>
           </div>
-            <div class="mb-[22px] flex justify-end">
-              <button  class="button-primary">
-                Suivant&nbsp; ->
-              </button>
-            </div>
-        </form>
-      </mat-step>
-
-      <mat-step>
-        <form class="p-10">
-          <ng-template matStepLabel>Marque</ng-template>
-          <div class="flex justify-evenly">
-            <mat-form-field class="w-[48%]">
-              <mat-label>Marque</mat-label>
-              <input matInput placeholder="Entrez le nom de la marque" required>
-            </mat-form-field>
-
-            <div class="w-[48%]">
-              <autocomplete placeholder="Type article*" [values]="marque" idField="id" valueField="name">
-              </autocomplete>
-            </div>
+          <div class="md:w-[20%]">
+            <mat-checkbox formControlName="hasCouleur">A une Couleur</mat-checkbox>
           </div>
-
-            <div class="mb-[22px] flex justify-end">
-              <button  class="button-primary">
-                Suivant&nbsp; ->
-              </button>
-            </div>
-        </form>
-      </mat-step>
-      
-      <mat-step>
-        <form class="p-10">
-          <ng-template matStepLabel>Model</ng-template>
-          <div class="flex justify-evenly">
-            <mat-form-field class="w-[48%]">
-              <mat-label>Model</mat-label>
-              <input matInput placeholder="Entrez le nom du model" required>
-            </mat-form-field>
-
-            <div class="w-[48%]">
-              <autocomplete placeholder="Marque*" [values]="marque" idField="id" valueField="name">
-              </autocomplete>
-            </div>
+          <div class="md:w-[20%]">
+            <mat-checkbox formControlName="hasNombreDeSim">A Carte Sim</mat-checkbox>
           </div>
-
-          <div class="mb-[22px] flex justify-end">
-            <button  class="button-primary">
-              Suivant&nbsp; ->
-            </button>
+          <div class="md:w-[20%]">
+            <mat-checkbox formControlName="hasImei">A un Imei</mat-checkbox>
           </div>
-        </form>
-      </mat-step>
-
-      <mat-step>
-        <form class="p-10">
-          <ng-template matStepLabel>Caractéristique</ng-template>
-          <div class="flex justify-evenly">
-            <mat-form-field class="w-[48%]">
-              <mat-label>Caractéristique</mat-label>
-              <input matInput placeholder="Entrez le nom de la Caractéristique" required>
-            </mat-form-field>
-
-            <div class="w-[48%]">
-              <autocomplete placeholder="Model*" [values]="marque" idField="id" valueField="name">
-              </autocomplete>
-            </div>
+          <div class="md:w-[20%]">
+            <mat-checkbox formControlName="hasParticularite">A une Particularité</mat-checkbox>
           </div>
-
-          <div class="mb-[22px] flex justify-end">
-            <button  class="button-primary">
-              Suivant&nbsp; ->
-            </button>
+          <div class="md:w-[20%]">
+            <mat-checkbox formControlName="hasEtat">A un Etat</mat-checkbox>
           </div>
-        </form>
-      </mat-step>
-
-      <mat-step>
-        <form class="p-10">
-          <ng-template matStepLabel>Produit</ng-template>
-          
-
-          <div class="flex justify-evenly">
-            <mat-form-field class="w-[48%]">
-              <mat-label>Processeur</mat-label>
-              <mat-select>
-                <mat-option>---</mat-option>
-                <mat-option value="valid">2GHz</mat-option>
-                <mat-option value="valid">2.4GHz</mat-option>
-                <mat-option value="valid">2.5GHz</mat-option>
-                <mat-option value="invalid">3GHz</mat-option>
-              </mat-select>
-            </mat-form-field>
-
-            <mat-form-field class="w-[48%]">
-              <mat-label>Taille écran</mat-label>
-              <mat-select>
-                <mat-option>---</mat-option>
-                <mat-option value="valid">14</mat-option>
-                <mat-option value="valid">32</mat-option>
-                <mat-option value="valid">64</mat-option>
-              </mat-select>
-            </mat-form-field>
+          <div class="md:w-[20%]">
+            <mat-checkbox formControlName="hasProcesseurs">A un Processeur</mat-checkbox>
           </div>
-
-          <div class="flex justify-evenly">
-            <mat-form-field class="w-[48%]">
-              <mat-label>Ram</mat-label>
-              <mat-select>
-                <mat-option>---</mat-option>
-                <mat-option value="valid">2Gb</mat-option>
-                <mat-option value="valid">4Gb</mat-option>
-                <mat-option value="valid">8Gb</mat-option>
-                <mat-option value="valid">16Gb</mat-option>
-                <mat-option value="valid">32Gb</mat-option>
-                <mat-option value="valid">64Gb</mat-option>
-              </mat-select>
-            </mat-form-field>
-
-            <mat-form-field class="w-[48%]">
-              <mat-label>Qualité</mat-label>
-              <mat-select>
-                <mat-option>---</mat-option>
-                <mat-option value="valid">1er</mat-option>
-                <mat-option value="valid">2e</mat-option>
-                <mat-option value="valid">3e</mat-option>
-              </mat-select>
-            </mat-form-field>
+          <div class="md:w-[20%]">
+            <mat-checkbox formControlName="hasTailleEcran">A un Ecran</mat-checkbox>
           </div>
-            
-          <div class="flex justify-evenly">
-            <mat-form-field class="w-[48%]">
-              <mat-label>Position</mat-label>
-              <mat-select>
-                <mat-option>---</mat-option>
-                <mat-option value="valid">Devant</mat-option>
-                <mat-option value="valid">Derrière</mat-option>
-                <mat-option value="valid">Gauche</mat-option>
-                <mat-option value="valid">Droite</mat-option>
-              </mat-select>
-            </mat-form-field>
-
-            <mat-form-field class="w-[48%]">
-              <mat-label>Capacité</mat-label>
-              <mat-select>
-                <mat-option>---</mat-option>
-                <mat-option value="valid">16Gb</mat-option>
-                <mat-option value="valid">32Gb</mat-option>
-                <mat-option value="valid">64Gb</mat-option>
-                <mat-option value="valid">128Gb</mat-option>
-                <mat-option value="valid">256Gb</mat-option>
-                <mat-option value="valid">500Gb</mat-option>
-                <mat-option value="valid">1T</mat-option>
-                <mat-option value="valid">2T</mat-option>
-                <mat-option value="valid">3T</mat-option>
-                <mat-option value="valid">4T</mat-option>
-              </mat-select>
-            </mat-form-field>
+          <div class="md:w-[20%]">
+            <mat-checkbox formControlName="hasRam">A une Ram</mat-checkbox>
           </div>
-
-          <div class="flex justify-evenly">
-            <mat-form-field class="w-[48%]">
-              <mat-label>Puissance</mat-label>
-              <mat-select>
-                <mat-option>---</mat-option>
-                <mat-option value="valid">1er</mat-option>
-                <mat-option value="valid">2e</mat-option>
-                <mat-option value="valid">3e</mat-option>
-              </mat-select>
-            </mat-form-field>
-
-            <mat-form-field class="w-[48%]">
-              <mat-label>Nombre de sim</mat-label>
-              <mat-select>
-                <mat-option>Clear</mat-option>
-                <mat-option value="valid">Valid option</mat-option>
-                <mat-option value="invalid">Invalid option</mat-option>
-              </mat-select>
-            </mat-form-field>
+          <div class="md:w-[20%]">
+            <mat-checkbox formControlName="hasQualite">A une Qualite</mat-checkbox>
           </div>
+          <div class="md:w-[20%]">
+            <mat-checkbox formControlName="hasType">A un Type</mat-checkbox>
+          </div>
+          <div class="md:w-[20%]">
+            <mat-checkbox formControlName="hasCapacite">A une Capacité</mat-checkbox>
+          </div>
+          <div class="md:w-[20%]">
+            <mat-checkbox formControlName="hasCaracteristic">A une Caracteristique</mat-checkbox>
+          </div>
+          <div class="md:w-[20%]">
+            <mat-checkbox formControlName="hasPuissance">A une Puissance</mat-checkbox>
+          </div>
+          <div class="md:w-[20%]">
+            <mat-checkbox formControlName="hasCamera">A une Caméra</mat-checkbox>
+          </div>
+        </div>
+        <hr class="my-4">
+      </div>
 
-          <div class="flex justify-evenly">
-            <div class="w-[48%]">
-              <autocomplete placeholder="Stockage*" [values]="marque" idField="id" valueField="name">
-              </autocomplete>
-            </div>
+      <div class="mb-[22px] flex justify-end">
+        <button (click)="saveCaracteristique()" *ngIf="!showSpinner" class="button-primary">
+          Suivant&nbsp; ->
+        </button>
+
+        <button *ngIf="showSpinner" class="button-primary flex space-x-2 justify-center items-center w-[91.84px]">
+          <mat-spinner color="white" [diameter]="20"></mat-spinner>
+          <span>...</span>
+        </button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step>
+    <form [formGroup]="formProduit"  class="p-10">
+      <ng-template matStepLabel>Produit</ng-template>
+      <div class=" w-full px-5 mt-4">
+        <autocomplete formControlName="modelId" (valueChange)="getCaracteristique($event)" placeholder="Model*" [values]="listModel" idField="id" valueField="name">
+        </autocomplete>
+        <div *ngIf="formCaracteristique.controls['modelId'].errors && 
+            formCaracteristique.controls['modelId'].errors['required'] && 
+            formCaracteristique.controls['modelId'].touched">Le modèle est Obligatoire</div>
+        </div>
+
+        <div class="flex flex-wrap justify-evenly">
+
+          <mat-form-field *ngIf="caracteristique.hasProcesseurs" class="w-[48%]">
+            <mat-label>Processeur</mat-label>
+            <mat-select formControlName="processeurs">
+              <mat-option>---</mat-option>
+              <mat-option value="2GHz">2GHz</mat-option>
+              <mat-option value="2.4GHz">2.4GHz</mat-option>
+              <mat-option value="2.5GHz">2.5GHz</mat-option>
+              <mat-option value="3GHz">3GHz</mat-option>
+            </mat-select>
+            <mat-error *ngIf="formProduit.controls['processeurs'].errors && 
+            formProduit.controls['processeurs'].errors['required'] && 
+            formProduit.controls['processeurs'].touched">Le processeur est Obligatoire</mat-error>
+          </mat-form-field>
   
-            <div class="w-[48%]">
-              <autocomplete placeholder="Caratéristique*" [values]="marque" idField="id" valueField="name">
-              </autocomplete>
-            </div>
+          <mat-form-field *ngIf="caracteristique.hasTailleEcran" class="w-[48%]">
+            <mat-label>Taille écran</mat-label>
+            <mat-select formControlName="tailleEcran">
+              <mat-option>---</mat-option>
+              <mat-option value="14">14</mat-option>
+              <mat-option value="32">32</mat-option>
+              <mat-option value="64">64</mat-option>
+            </mat-select>
+            <mat-error *ngIf="formProduit.controls['tailleEcran'].errors && 
+            formProduit.controls['tailleEcran'].errors['required'] && 
+            formProduit.controls['tailleEcran'].touched">La taille de l'ecran est Obligatoire</mat-error>
+          </mat-form-field>
+  
+          <mat-form-field *ngIf="caracteristique.hasRam" class="w-[48%]">
+            <mat-label>Ram</mat-label>
+            <mat-select formControlName="ram">
+              <mat-option>---</mat-option>
+              <mat-option value="2Gb">2Gb</mat-option>
+              <mat-option value="4Gb">4Gb</mat-option>
+              <mat-option value="8Gb">8Gb</mat-option>
+              <mat-option value="16Gb">16Gb</mat-option>
+              <mat-option value="32Gb">32Gb</mat-option>
+              <mat-option value="64Gb">64Gb</mat-option>
+            </mat-select>
+            <mat-error *ngIf="formProduit.controls['ram'].errors && 
+            formProduit.controls['ram'].errors['required'] &&
+            formProduit.controls['ram'].touched && formProduit.controls['ram'].dirty">La ram est Obligatoire</mat-error>
+          </mat-form-field>
+  
+          <mat-form-field *ngIf="caracteristique.hasQualite" class="w-[48%]">
+            <mat-label>Qualité</mat-label>
+            <mat-select formControlName="qualite">
+              <mat-option>---</mat-option>
+              <mat-option value="1er">1er</mat-option>
+              <mat-option value="2e">2e</mat-option>
+              <mat-option value="3e">3e</mat-option>
+            </mat-select>
+            <mat-error *ngIf="formProduit.controls['qualite'].errors && 
+            formProduit.controls['qualite'].errors['required'] && 
+            formProduit.controls['qualite'].touched">La qualité est Obligatoire</mat-error>
+          </mat-form-field>
+  
+          <mat-form-field *ngIf="caracteristique.hasCamera" class="w-[48%]">
+            <mat-label>Position</mat-label>
+            <mat-select formControlName="camera">
+              <mat-option>---</mat-option>
+              <mat-option value="Devant">Devant</mat-option>
+              <mat-option value="Derrière">Derrière</mat-option>
+              <mat-option value="Gauche">Gauche</mat-option>
+              <mat-option value="Droite">Droite</mat-option>
+            </mat-select>
+            <mat-error *ngIf="formProduit.controls['camera'].errors && 
+            formProduit.controls['camera'].errors['required'] && 
+            formProduit.controls['camera'].touched">La position est Obligatoire</mat-error>
+          </mat-form-field>
+  
+          <mat-form-field *ngIf="caracteristique.hasCapacite" class="w-[48%]">
+            <mat-label>Capacité</mat-label>
+            <mat-select formControlName="capacite">
+              <mat-option>---</mat-option>
+              <mat-option value="4Gb">4Gb</mat-option>
+              <mat-option value="8Gb">8Gb</mat-option>
+              <mat-option value="16Gb">16Gb</mat-option>
+              <mat-option value="32Gb">32Gb</mat-option>
+              <mat-option value="64Gb">64Gb</mat-option>
+              <mat-option value="128Gb">128Gb</mat-option>
+              <mat-option value="256Gb">256Gb</mat-option>
+              <mat-option value="500Gb">500Gb</mat-option>
+              <mat-option value="1T">1T</mat-option>
+              <mat-option value="2T">2T</mat-option>
+              <mat-option value="3T">3T</mat-option>
+              <mat-option value="4T">4T</mat-option>
+            </mat-select>
+            <mat-error *ngIf="formProduit.controls['capacite'].errors && 
+            formProduit.controls['capacite'].errors['required'] && 
+            formProduit.controls['capacite'].touched">La capacité est Obligatoire</mat-error>
+          </mat-form-field>
+  
+          <mat-form-field *ngIf="caracteristique.hasPuissance" class="w-[48%]">
+            <mat-label>Puissance</mat-label>
+            <mat-select formControlName="puissance">
+              <mat-option>---</mat-option>
+              <mat-option value="1er">1er</mat-option>
+              <mat-option value="2e">2e</mat-option>
+              <mat-option value="3e">3e</mat-option>
+            </mat-select>
+            <mat-error *ngIf="formProduit.controls['puissance'].errors && 
+            formProduit.controls['puissance'].errors['required'] && 
+            formProduit.controls['puissance'].touched">La puissance est Obligatoire</mat-error>
+          </mat-form-field>
+  
+          <mat-form-field *ngIf="caracteristique.hasNombreDeSim" class="w-[48%]">
+            <mat-label>Nombre de sim</mat-label>
+            <mat-select formControlName="nombreDeSim">
+              <mat-option>Clear</mat-option>
+              <mat-option value=1>1</mat-option>
+              <mat-option value=2>2</mat-option>
+              <mat-option value=3>3</mat-option>
+            </mat-select>
+            <mat-error *ngIf="formProduit.controls['nombreDeSim'].errors && 
+            formProduit.controls['nombreDeSim'].errors['required'] && 
+            formProduit.controls['nombreDeSim'].touched">Le nombre de sim est Obligatoire</mat-error>
+          </mat-form-field>
+  
+          <div *ngIf="caracteristique.hasStockage" class="w-[48%]">
+            <autocomplete formControlName="stockageId" placeholder="Stockage*" [values]="listStockage" idField="id" valueField="name">
+            </autocomplete>
           </div>
-
-          <div class="flex justify-evenly">
-            <div class="w-[48%]">
-              <autocomplete placeholder="Couleur*" [values]="marque" idField="id" valueField="name">
-              </autocomplete>
-            </div>
-
-            <div class="w-[48%]">
-              <autocomplete placeholder="Particularité*" [values]="marque" idField="id" valueField="name">
-              </autocomplete>
-            </div>
+  
+          <div *ngIf="caracteristique.hasCouleur" class="w-[48%]">
+            <autocomplete formControlName="couleurId" placeholder="Couleur*" [values]="listCouleur" idField="id" valueField="name">
+            </autocomplete>
           </div>
-
-          <div class="flex justify-evenly">
-            <div class="w-[48%]">
-              <autocomplete placeholder="Etat*" [values]="marque" idField="id" valueField="name">
-              </autocomplete>
-            </div>
-
-            <div class="w-[48%]">
-              <autocomplete placeholder="Model*" [values]="marque" idField="id" valueField="name">
-              </autocomplete>
-            </div>
+  
+          <div *ngIf="caracteristique.hasParticularite" class="w-[48%]">
+            <autocomplete formControlName="particulariteId" placeholder="Particularité*" [values]="listParticularite" idField="id" valueField="content">
+            </autocomplete>
           </div>
-
-          <div class="flex justify-evenly">
-            <div class="w-[48%]">
-              <autocomplete placeholder="Type*" [values]="marque" idField="id" valueField="name">
-              </autocomplete>
-            </div>
-
-            <mat-form-field class="w-[48%]">
-              <mat-label>Imei</mat-label>
-              <input matInput placeholder="Entrez le nom du Produit" required>
-            </mat-form-field>
+  
+          <div *ngIf="caracteristique.hasEtat" class="w-[48%]">
+            <autocomplete formControlName="etatId" placeholder="Etat*" [values]="listEtat" idField="id" valueField="content">
+            </autocomplete>
           </div>
-
-          <div class="mb-[22px] flex justify-end">
-            <button  class="button-primary">
-              Enregistrer
-            </button>
+          
+          <div *ngIf="caracteristique.hasType" class="w-[48%]">
+            <autocomplete formControlName="typeId" placeholder="Type*" [values]="listType" idField="id" valueField="content">
+            </autocomplete>
           </div>
-        </form>
-      </mat-step>
-    
-    </mat-stepper>
+  
+          <mat-form-field *ngIf="caracteristique.hasImei" class="w-[48%]">
+            <mat-label>Imei</mat-label>
+            <input formControlName="imei" matInput placeholder="Entrez le nom du Produit">
+            <mat-error *ngIf="formProduit.controls['imei'].errors && 
+            formProduit.controls['imei'].errors['required'] && 
+            formProduit.controls['imei']['touched']">L'imei est Obligatoire</mat-error>
+          </mat-form-field>
+
+          <mat-form-field *ngIf="caracteristique.hasCaracteristic" class="w-[48%]">
+            <mat-label>Caracteristique</mat-label>
+            <input formControlName="caracteristic" matInput placeholder="Entrez la caracteristique">
+            <mat-error *ngIf="formProduit.controls['caracteristic'].errors && 
+            formProduit.controls['caracteristic'].errors['required'] && 
+            formProduit.controls['caracteristic']['touched']">La caracteristique est Obligatoire</mat-error>
+          </mat-form-field>
+        </div>
+
+
+        <div class="mb-[22px] flex justify-end px-5">
+          <button (click)="saveProduit()" *ngIf="!showSpinner" class="button-primary">
+            Enregister
+          </button>
+  
+          <button *ngIf="showSpinner" class="button-primary flex space-x-2 justify-center items-center w-[91.84px]">
+            <mat-spinner color="white" [diameter]="20"></mat-spinner>
+            <span>...</span>
+          </button>
+        </div>
+    </form>
+  </mat-step>
+
+</mat-stepper>

@@ -28,12 +28,108 @@ CREATE TABLE Fournisseur (
   PRIMARY KEY (Id)
 );
 
+CREATE TABLE [Type_] (
+    Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
+    Content NVARCHAR(255),
+    DateCreated DateTime2,
+    CreatedBy VARCHAR(255),
+    DateModified DateTime2,
+    ModifiedBy VARCHAR(255),
+    PRIMARY KEY (Id)
+);
+
+CREATE TABLE [dbo].[Couleur] (
+    [Id]           UNIQUEIDENTIFIER DEFAULT (newid()) NOT NULL,
+    [Name]         NVARCHAR (255)   NULL,
+    [CodeCouleur]  NVARCHAR (255)   NULL,
+    [DateCreated]  DateTime2         NULL,
+    [CreatedBy]    VARCHAR (255)    NULL,
+    [DateModified] DateTime2         NULL,
+    [ModifiedBy]   VARCHAR (255)    NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+CREATE TABLE Etat (
+    Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
+    Content NVARCHAR(MAX),
+    DateCreated DateTime2,
+    CreatedBy VARCHAR(255),
+    DateModified DateTime2,
+    ModifiedBy VARCHAR(255),
+    PRIMARY KEY (Id),
+);
+
+CREATE TABLE Particularite (
+Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
+    Content NVARCHAR(MAX),
+    DateCreated DateTime2,
+    CreatedBy VARCHAR(255),
+    DateModified DateTime2,
+    ModifiedBy VARCHAR(255),
+    PRIMARY KEY (Id),
+);
+
+CREATE TABLE Processeurs (
+    Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
+    Content NVARCHAR(MAX),
+    DateCreated DateTime2,
+    CreatedBy VARCHAR(255),
+    DateModified DateTime2,
+    ModifiedBy VARCHAR(255),
+    PRIMARY KEY (Id),
+);
+
+CREATE TABLE Stockage (
+    Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
+    [Name] NVARCHAR(255),
+    DateCreated DateTime2,
+    CreatedBy VARCHAR(255),
+    DateModified DateTime2,
+    ModifiedBy VARCHAR(255),
+    PRIMARY KEY (Id),
+);
+
+CREATE TABLE TypeArticle (
+    Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
+    Name NVARCHAR(255),
+    DateCreated DateTime2,
+    CreatedBy VARCHAR(255),
+    DateModified DateTime2,
+    ModifiedBy VARCHAR(255),
+    PRIMARY KEY (Id)
+);
+
+CREATE TABLE Marque (
+    Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
+    [Name] NVARCHAR(255),
+    TypeArticleId UNIQUEIDENTIFIER,
+    DateCreated DateTime2,
+    CreatedBy VARCHAR(255),
+    DateModified DateTime2,
+    ModifiedBy VARCHAR(255),
+    FOREIGN KEY (TypeArticleId) REFERENCES TypeArticle(Id),
+    PRIMARY KEY (Id)
+);
+
+CREATE TABLE Modele (
+    Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
+    [Name] NVARCHAR(255),
+    MarqueId UNIQUEIDENTIFIER,
+    FOREIGN KEY (MarqueId) REFERENCES Marque(Id),
+    DateCreated DateTime2,
+    CreatedBy VARCHAR(255),
+    DateModified DateTime2,
+    ModifiedBy VARCHAR(255),
+    PRIMARY KEY (Id)
+);
+
+
 CREATE TABLE Caracteristique
 (
     Id UNIQUEIDENTIFIER PRIMARY KEY,
-    DateCreated DATETIME,
+    DateCreated DateTime2,
     CreatedBy NVARCHAR(MAX),
-    DateModified DATETIME,
+    DateModified DateTime2,
     ModifiedBy NVARCHAR(MAX),
     HasStockage BIT,
     HasCouleur BIT,
@@ -85,102 +181,4 @@ CREATE TABLE [dbo].[Article] (
     FOREIGN KEY ([CaracteristiqueId]) REFERENCES [dbo].[Caracteristique] ([Id])
 );
 
-
-
-
-CREATE TABLE [dbo].[Couleur] (
-    [Id]           UNIQUEIDENTIFIER DEFAULT (newid()) NOT NULL,
-    [Name]         NVARCHAR (255)   NULL,
-    [CodeCouleur]  NVARCHAR (255)   NULL,
-    [DateCreated]  DATETIME         NULL,
-    [CreatedBy]    VARCHAR (255)    NULL,
-    [DateModified] DATETIME         NULL,
-    [ModifiedBy]   VARCHAR (255)    NULL,
-    PRIMARY KEY CLUSTERED ([Id] ASC)
-);
-
-CREATE TABLE Etat (
-    Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
-    Content NVARCHAR(MAX),
-    DateCreated DateTime,
-    CreatedBy VARCHAR(255),
-    DateModified DateTime,
-    ModifiedBy VARCHAR(255),
-    PRIMARY KEY (Id),
-);
-
-CREATE TABLE Marque (
-    Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
-    [Name] NVARCHAR(255),
-    TypeArticleId UNIQUEIDENTIFIER,
-    DateCreated DateTime,
-    CreatedBy VARCHAR(255),
-    DateModified DateTime,
-    ModifiedBy VARCHAR(255),
-    FOREIGN KEY (TypeArticleId) REFERENCES TypeArticle(Id),
-    PRIMARY KEY (Id)
-);
-
-CREATE TABLE Modele (
-    Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
-    [Name] NVARCHAR(255),
-    MarqueId UNIQUEIDENTIFIER,
-    FOREIGN KEY (MarqueId) REFERENCES Marque(Id),
-    DateCreated DateTime,
-    CreatedBy VARCHAR(255),
-    DateModified DateTime,
-    ModifiedBy VARCHAR(255),
-    PRIMARY KEY (Id)
-);
-
-CREATE TABLE Particularite (
-Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
-    Content NVARCHAR(MAX),
-    DateCreated DateTime,
-    CreatedBy VARCHAR(255),
-    DateModified DateTime,
-    ModifiedBy VARCHAR(255),
-    PRIMARY KEY (Id),
-);
-
-CREATE TABLE Processeurs (
-    Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
-    Content NVARCHAR(MAX),
-    DateCreated DateTime,
-    CreatedBy VARCHAR(255),
-    DateModified DateTime,
-    ModifiedBy VARCHAR(255),
-    PRIMARY KEY (Id),
-);
-
-CREATE TABLE Stockage (
-    Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
-    [Name] NVARCHAR(255),
-    DateCreated DateTime,
-    CreatedBy VARCHAR(255),
-    DateModified DateTime,
-    ModifiedBy VARCHAR(255),
-    PRIMARY KEY (Id),
-);
-
-CREATE TABLE Type_ (
-    Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
-    Content NVARCHAR(255),
-    PRIMARY KEY (Id),
-    DateCreated DateTime,
-    CreatedBy VARCHAR(255),
-    DateModified DateTime,
-    ModifiedBy VARCHAR(255),
-    PRIMARY KEY (Id)
-);
-
-CREATE TABLE TypeArticle (
-    Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
-    Name NVARCHAR(255),
-    DateCreated DateTime,
-    CreatedBy VARCHAR(255),
-    DateModified DateTime,
-    ModifiedBy VARCHAR(255),
-    PRIMARY KEY (Id)
-);
 
