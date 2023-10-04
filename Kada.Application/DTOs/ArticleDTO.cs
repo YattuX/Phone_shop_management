@@ -25,7 +25,7 @@ namespace Kada.Application.DTOs
         public string? Ram { get; set; }
         public string? Qualite { get; set; }
         public string? Position { get; set; }
-        public string? Camera { get; set; }
+        public string? Description { get; set; }
         public Guid? TypeId { get; set; }
         public string? TypeContent { get; set; }
         public string? Capacite { get; set; }

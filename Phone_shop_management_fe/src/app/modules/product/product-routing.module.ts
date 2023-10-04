@@ -22,6 +22,7 @@ import { PochetteComponent } from './components/accessoir/pochette/pochette.comp
 import { PieceComponent } from './components/piece/piece.component.tab';
 import { AccessoirComponent } from './components/accessoir/accessoir.component.tab';
 import { AddProduct } from './components/addProduct';
+import { AuthGuard } from 'src/app/shared/services/auth.guard';
 
 const routes: Routes = [
     {
@@ -32,6 +33,7 @@ const routes: Routes = [
     {
         path: 'appareil',
         component: ProductListComponent,
+        canActivate:[AuthGuard],
         data: {
             title: 'Liste des articles'
         },
@@ -44,20 +46,24 @@ const routes: Routes = [
             {
                 path: 'telephone',
                 component: TelephoneComponent,
+                canActivate:[AuthGuard],
             },
             {
                 path: 'tablette',
                 component: TabletteComponent,
+                canActivate:[AuthGuard],
             },
             {
                 path: 'ordinateur',
                 component: OrdinateurComponent,
+                canActivate:[AuthGuard],
             }
         ]
     },
     {
         path: 'piece',
         component: PieceComponent,
+        canActivate:[AuthGuard],
         data: {
             title: 'Liste des pièces'
         },
@@ -70,38 +76,47 @@ const routes: Routes = [
             {
                 path: 'batterie',
                 component: BatterieComponent,
+                canActivate:[AuthGuard],
             },
             {
                 path: 'cadre',
-                component: CadreComponent
+                component: CadreComponent,
+                canActivate:[AuthGuard],
             },
             {
                 path: 'camera',
-                component: CameraComponent
+                component: CameraComponent,
+                canActivate:[AuthGuard],
             },
             {
                 path: 'ecran',
-                component: EcranComponent
+                component: EcranComponent,
+                canActivate:[AuthGuard],
             },
             {
                 path: 'haut_parleur',
-                component: HautParleurComponent
+                component: HautParleurComponent,
+                canActivate:[AuthGuard],
             },
             {
                 path: 'micro_et_vibreur',
-                component: MicroEtVibreurComponent
+                component: MicroEtVibreurComponent,
+                canActivate:[AuthGuard],
             },
             {
                 path: 'moteur',
-                component: MoteurComponent
+                component: MoteurComponent,
+                canActivate:[AuthGuard],
             },
             {
                 path: 'nape_et_palette',
-                component: NapeEtPaletteComponent
+                component: NapeEtPaletteComponent,
+                canActivate:[AuthGuard],
             },
             {
                 path: 'vitre',
-                component: VitreComponent
+                component: VitreComponent,
+                canActivate:[AuthGuard],
             }
 
         ]
@@ -109,6 +124,7 @@ const routes: Routes = [
     {
         path: 'accessoir',
         component: AccessoirComponent,
+        canActivate:[AuthGuard],
         data: {
             title: 'Liste des accessoirs'
         },
@@ -120,33 +136,40 @@ const routes: Routes = [
             },
             {
                 path: 'anti_cass',
-                component: AntiCasseComponent
+                component: AntiCasseComponent,
+                canActivate:[AuthGuard],
             },
             {
                 path: 'appreil_accessoir',
-                component: AppareilAccessoirComponent
+                component: AppareilAccessoirComponent,
+                canActivate:[AuthGuard],
             },
             {
                 path: 'connectique',
-                component: ConnectiqueComponent
+                component: ConnectiqueComponent,
+                canActivate:[AuthGuard],
             },
             {
                 path: 'instrument',
-                component: InstrumentComponent
+                component: InstrumentComponent,
+                canActivate:[AuthGuard],
             },
             {
                 path: 'netoyage',
-                component: NettoyageComponent
+                component: NettoyageComponent,
+                canActivate:[AuthGuard],
             },
             {
                 path: 'pochette',
-                component: PochetteComponent
+                component: PochetteComponent,
+                canActivate:[AuthGuard],
             },
         ]
     },
     {
         path: 'materiel',
         component: ProductListComponent,
+        canActivate:[AuthGuard],
         data: {
             title: 'Liste matériels'
         }

@@ -12,6 +12,8 @@ import { Observable, throwError as _observableThrow, of as _observableOf } from 
 import { Injectable, Inject, Optional, InjectionToken } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angular/common/http';
 import { UserService } from './user.service';
+import { LocalstorageService } from './localstorage.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 export const API_BASE_URL = new InjectionToken<string>("https://localhost:7105");
 
@@ -30,28 +32,38 @@ export interface IClient {
 
 @Injectable({
     providedIn: 'root'
-  })
+})
 export class AuthService {
     private http: HttpClient;
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
-    constructor(private _user: UserService, @Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string,
+    constructor(
+        private _user: UserService,
+        private _router: Router,
+        private _localSerice: LocalstorageService,
+        private _activatedRoute: ActivatedRoute,
+        @Inject(HttpClient) http: HttpClient,
+        @Optional() @Inject(API_BASE_URL) baseUrl?: string,
     ) {
         this.http = http;
         this.baseUrl = baseUrl ? baseUrl : "https://localhost:7105";
     }
 
-    logout(){
-        localStorage.removeItem('user');
+    logout() {
+        this._localSerice.removeToken();
         this._user.removeCurrentUser();
-      }
+        const currentUrl = location.pathname;
+        this._router.navigate(['/auth/login'], {
+            queryParams: { returnUrl: currentUrl },
+        });
+    }
 
-     /**
-     * @param username (optional) 
-     * @param password (optional) 
-     * @return Success
-     */
+    /**
+    * @param username (optional) 
+    * @param password (optional) 
+    * @return Success
+    */
     login(username: string | undefined, password: string | undefined): Observable<AuthResponse> {
         let url_ = this.baseUrl + "/login?";
         if (username === null)
@@ -64,15 +76,16 @@ export class AuthService {
             url_ += "Password=" + encodeURIComponent("" + password) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
-        let options_ : any = {
+        let options_: any = {
             observe: "response",
             responseType: "blob",
+            withCredentials: true,
             headers: new HttpHeaders({
                 "Accept": "text/plain"
             })
         };
 
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_: any) => {
             return this.processLogin(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
@@ -90,19 +103,19 @@ export class AuthService {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = AuthResponse.fromJS(resultData200);
-            return _observableOf(result200);
+                let result200: any = null;
+                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result200 = AuthResponse.fromJS(resultData200);
+                return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
         return _observableOf<AuthResponse>(<any>null);
@@ -143,15 +156,16 @@ export class AuthService {
             url_ += "Password=" + encodeURIComponent("" + password) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
-        let options_ : any = {
+        let options_: any = {
             observe: "response",
             responseType: "blob",
+            withCredentials: true,
             headers: new HttpHeaders({
                 "Accept": "text/plain"
             })
         };
 
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_: any) => {
             return this.processRegister(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
@@ -169,19 +183,19 @@ export class AuthService {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = RegistrationResponse.fromJS(resultData200);
-            return _observableOf(result200);
+                let result200: any = null;
+                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result200 = RegistrationResponse.fromJS(resultData200);
+                return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
         return _observableOf<RegistrationResponse>(<any>null);
@@ -248,7 +262,7 @@ export class AuthResponse implements IAuthResponse {
         }
         data["token"] = this.token;
         data["dateTokenExpiration"] = this.dateTokenExpiration ? this.dateTokenExpiration.toISOString() : <any>undefined;
-        return data; 
+        return data;
     }
 }
 
@@ -292,7 +306,7 @@ export class RegistrationResponse implements IRegistrationResponse {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["userId"] = this.userId;
-        return data; 
+        return data;
     }
 }
 

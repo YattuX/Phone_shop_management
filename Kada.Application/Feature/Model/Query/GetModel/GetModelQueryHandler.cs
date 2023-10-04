@@ -67,8 +67,9 @@ namespace Kada.Application.Feature.Model.Query.GetModel
                         models = _modelRepository.FilterQuery(models, x => x.MarqueId.Equals(Guid.Parse(filter[key])));
                         break;
                     case "notCaracteritique":
+                        var hasNotCaracteristique = bool.Parse(filter[key]);
                         var modelWithCaracteristiques = _caracteristiqueRepository.GetQuery().Select(v=>v.ModelId).ToList();
-                        models = _modelRepository.FilterQuery(models,x=> !modelWithCaracteristiques.Contains(x.Id));
+                        models = _modelRepository.FilterQuery(models,x=> hasNotCaracteristique?(!modelWithCaracteristiques.Contains(x.Id)): modelWithCaracteristiques.Contains(x.Id));
                         break;
                 }
             }

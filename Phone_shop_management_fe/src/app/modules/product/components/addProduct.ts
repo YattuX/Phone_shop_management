@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, Inject, Optional, ViewChild } from '@angu
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { ToastrService } from 'ngx-toastr';
-import { CaracteristiqueDTO, CouleurDTO, CreateArticleCommand, EtatDTO, KadaService, MarqueDTO, ModelDTO, ParticulariteDTO, SearchDTO, StockageDTO, TypeArticleDTO, TypeDTO } from 'src/app/shared/services/kada.service';
+import { CaracteristiqueDTO, CouleurDTO, CreateArticleCommand, EtatDTO, ICaracteristiqueDTO, KadaService, MarqueDTO, ModelDTO, ParticulariteDTO, SearchDTO, StockageDTO, TypeArticleDTO, TypeDTO } from 'src/app/shared/services/kada.service';
 
 
 @Component({
@@ -16,6 +16,7 @@ export class AddProduct {
   listTypeArticle: TypeArticleDTO[];
   listMark: MarqueDTO[];
   listModel: ModelDTO[];
+  listModelWithCaractristique:ModelDTO[];
   listCaracteristique: CaracteristiqueDTO[];
   caracteristique: any;
   listControl: string[] = ['hasStockage', 'hasCouleur', 'hasNombreDeSim', 'hasImei', 'hasParticularite', 'hasEtat','hasProcesseursvd', 'hasTailleEcran','hasRam', 'hasQualite', 'hasType', 'hasCapacite','hasCaracteristic','hasPuissance']
@@ -30,7 +31,7 @@ export class AddProduct {
   formModel : FormGroup;
   formCaracteristique : FormGroup;
   formProduit : FormGroup;
-v
+
   @ViewChild('stepper')
   private stepper: MatStepper;
 
@@ -85,7 +86,7 @@ v
       hasCapacite: false,
       hasCaracteristic: false,
       hasPuissance: false,
-      hasCamera: false,
+      hasPosition: false,
     }
 
     this.formCaracteristique = this._formBuilder.group({
@@ -104,7 +105,8 @@ v
       hasCapacite: [false],
       hasCaracteristic: [false],
       hasPuissance: [false],
-      hasCamera: [false],
+      hasPosition: [false],
+      hasDescription:[false],
     })
 
     this.formProduit = this._formBuilder.group({
@@ -114,7 +116,7 @@ v
       tailleEcran : [null],
       ram: [null],
       qualite : [null],
-      camera : [null],
+      description : [null],
       capacite : [null],
       puissance : [null],
       nombreDeSim : [null],
@@ -138,6 +140,7 @@ v
     this.getStockages();
     this.getTypeArticles();
     this.getTypes();
+    this.getModelsWithCaracteristique();
   }
 
   getTypeArticles(){
@@ -164,6 +167,13 @@ v
       if(this.listModel.length == 0){
         this._toastr.warning("tous les models existants ont des caracteristiques");
       }
+    })
+  }
+  getModelsWithCaracteristique(){
+    this._kadaService.getModelListPage(SearchDTO.fromJS({
+      pageIndex:-1, filters:{notCaracteritique:'false'}
+    })).subscribe(v =>{
+      this.listModelWithCaractristique = v.results;
     })
   }
 
@@ -323,6 +333,7 @@ v
             next: (response) => {
               this.showSpinner = false;
               this.getCaracteristiques();
+              this.getModelsWithCaracteristique();
               this._cd.markForCheck()
               this._toastr.success("Caractéristique ajoutée avec succès!");
             },

@@ -13,11 +13,13 @@ import { PaiementRoutingModule } from './modules/paiement/paiment-routing.module
 import { RepairRoutingModule } from './modules/repair/repair-routing.module';
 import { ConfigurationRoutingModule } from './modules/configuration/configuration-routing.module';
 import { UsersRoutingModule } from './modules/users/users-routing.module';
+import { AuthGuard } from './shared/services/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: FullComponent,
+    canActivate:[AuthGuard],
     children: [
       {
         path:'',
@@ -26,42 +28,52 @@ const routes: Routes = [
       },
       {
         path:'dashboard',
+        canActivate:[AuthGuard],
         loadChildren:()=>DashboardRoutingModule
       },
       {
         path: 'products',
+        canActivate:[AuthGuard],
         loadChildren:()=>ProductRoutingModule,
       },
       {
         path:'customer',
+        canActivate:[AuthGuard],
         loadChildren:()=>CustomerRoutingModule,
       },
       {
         path:'provider',
+        canActivate:[AuthGuard],
         loadChildren:()=>ProviderRoutingModule,
       },
       {
         path:"stock",
+        canActivate:[AuthGuard],
         loadChildren:()=>StockRoutingModule,
       },
       {
         path:"sales",
+        canActivate:[AuthGuard],
         loadChildren:()=>SalesRoutingModule,
       },
       {
         path:"paiement",
+        canActivate:[AuthGuard],
         loadChildren:()=>PaiementRoutingModule,
       },
       {
         path:'repair',
+        canActivate:[AuthGuard],
         loadChildren:()=>RepairRoutingModule
       },
       {
         path:'config',
+        canActivate:[AuthGuard],
         loadChildren:()=>ConfigurationRoutingModule
       },
       {
         path:'users',
+        canActivate:[AuthGuard],
         loadChildren:()=>UsersRoutingModule
       },
     ]

@@ -19,6 +19,7 @@ import { CustomPaginatorIntl } from './shared/global/custom-paginator-intl';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './shared/interceptors/AuthInterceptors/auth-Interceptor';
 import { ConfigurationModule } from './modules/configuration/configuration.module';
+import { DashboardsModule } from './shared/components/dashboards/dashboards.module';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ConfigurationModule } from './modules/configuration/configuration.modul
     CustomerModule,
     MatChipsModule,
     ProviderModule,
-    ConfigurationModule
+    ConfigurationModule,
+    DashboardsModule,
   ],
  
   providers: [

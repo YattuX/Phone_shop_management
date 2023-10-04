@@ -20,6 +20,6 @@ namespace Kada.Application.Feature.Article.Command.UpdateArticle
         public string? Capacite { get; set; }
         public Guid CaracteristiqueId { get; set; }
         public string? Puissance { get; set; }
-        public string? Camera { get; set; }
+        public string? Description { get; set; }
     }
 }

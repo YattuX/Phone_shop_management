@@ -46,7 +46,8 @@ namespace Kada.Application.Feature.Caracteristique.Query.GetCaracteristique
                     HasCapacite= caracteristique.HasCapacite,
                     HasCaracteristic= caracteristique.HasCaracteristic,
                     HasPuissance= caracteristique.HasPuissance,
-                    HasCamera= caracteristique.HasCamera,
+                    HasPosition= caracteristique.HasPosition,
+                    HasDescription = caracteristique.HasDescription,
                 });
             }
 
@@ -127,9 +128,13 @@ namespace Kada.Application.Feature.Caracteristique.Query.GetCaracteristique
                         var hasPuissance = bool.Parse(filter[key]);
                         caracteristiques = _caracteristiqueRepository.FilterQuery(caracteristiques, x => x.HasPuissance == hasPuissance);
                         break;
-                    case "hasCamera":
-                        var hasCamera = bool.Parse(filter[key]);
-                        caracteristiques = _caracteristiqueRepository.FilterQuery(caracteristiques, x => x.HasCamera == hasCamera);
+                    case "hasPosition":
+                        var hasPosition = bool.Parse(filter[key]);
+                        caracteristiques = _caracteristiqueRepository.FilterQuery(caracteristiques, x => x.HasPosition == hasPosition);
+                        break;
+                    case "hasDescription":
+                        var hasDescription = bool.Parse(filter[key]);
+                        caracteristiques = _caracteristiqueRepository.FilterQuery(caracteristiques, x => x.HasDescription == hasDescription);
                         break;
                     
                     case "model":

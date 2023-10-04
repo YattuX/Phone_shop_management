@@ -10,8 +10,8 @@
       >
 
 
-    <mat-toolbar [class.mat-elevation-z8]="true">
-        <mat-toolbar-row class="flex justify-between items-center bg-[#011039] text-white" >
+    <mat-toolbar [class.mat-elevation-z8]="true" style="height: fit-content !important; background-color: #011039 !important;">
+        <div class="flex justify-between items-center text-white w-full" >
             <div class="flex justify-between items-center md:w-1/5">
                 <p id="title" class="p-0 m-0">
                     KADA TECH
@@ -25,7 +25,7 @@
             <div class="flex justify-end items-center md:w-1/4">
                 <app-header></app-header>
             </div>
-        </mat-toolbar-row>
+        </div>
     </mat-toolbar>
 
 
@@ -88,7 +88,7 @@
         </mat-sidenav>
         <!-- container: body -->
         <mat-sidenav-content>
-                <div class="min-h-[calc(100vh-64px)] max-h-[calc(100vh-64px)] overflow-y-auto flex flex-col justify-between" id="main">
+                <div class="min-h-[calc(100vh-48px)] max-h-[calc(100vh-48px)] overflow-y-auto flex flex-col justify-between" id="main">
                     <div>
                         <router-outlet>
                             <app-spinner></app-spinner>

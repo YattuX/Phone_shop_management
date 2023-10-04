@@ -18,7 +18,8 @@ namespace Kada.Domain
         public bool HasCapacite { get; set; }
         public bool HasCaracteristic{ get; set; }
         public bool HasPuissance { get; set; }
-        public bool HasCamera { get; set; }
+        public bool HasPosition { get; set; }
+        public bool HasDescription { get; set; }
         public Guid ModelId { get; set; }
         public Model Model { get; set; }
     }

@@ -1,10 +1,10 @@
 ﻿using Kada.Application.DTOs;
 using Kada.Application.DTOs.Search;
-using Kada.Application.Feature.Marque.Command.CreateMarque;
-using Kada.Application.Feature.Marque.Command.DeleteMarque;
-using Kada.Application.Feature.Marque.Command.UpdateMarque;
-using Kada.Application.Feature.Marque.Query.GetMarque;
-using Kada.Application.Feature.Marque.Query.GetMarqueDetails;
+using Kada.Application.Feature.Article.Command.CreateArticle;
+using Kada.Application.Feature.Article.Command.DeleteArticle;
+using Kada.Application.Feature.Article.Command.UpdateArticle;
+using Kada.Application.Feature.Article.Query.GetArticle;
+using Kada.Application.Feature.Article.Query.GetArticleDetails;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,20 +12,20 @@ namespace Kada.Api.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class MarqueController : ControllerBase
+    public class ArticleController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public MarqueController(IMediator mediator)
+        public ArticleController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
         [HttpPost]
-        public async Task<SearchResult<MarqueDTO>> GetMarqueListPage([FromBody] SearchDTO search)
+        public async Task<SearchResult<ArticleDTO>> GetArticleListPage([FromBody] SearchDTO search)
         {
             try
             {
-                var types = await _mediator.Send(new GetMarqueQuery() { Search = search });
+                var types = await _mediator.Send(new GetArticleQuery() { Search = search });
                 return types;
             }
             catch (Exception)
@@ -36,11 +36,11 @@ namespace Kada.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<MarqueDTO> GetMarque(Guid id)
+        public async Task<ArticleDTO> GetArticle(Guid id)
         {
             try
             {
-                var type = await _mediator.Send(new GetMarqueDetailsQuery() { Id = id });
+                var type = await _mediator.Send(new GetArticleDetailsQuery() { Id = id });
                 return type;
             }
             catch (Exception)
@@ -54,12 +54,12 @@ namespace Kada.Api.Controllers
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult> CreateMarque([FromBody] CreateMarqueCommand request)
+        public async Task<ActionResult> CreateArticle([FromBody] CreateArticleCommand request)
         {
             try
             {
                 var response = await _mediator.Send(request);
-                return CreatedAtAction(nameof(CreateMarque), new { id = response });
+                return CreatedAtAction(nameof(CreateArticle), new { id = response });
             }
             catch (Exception e)
             {
@@ -72,7 +72,7 @@ namespace Kada.Api.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult> UpdateMarque(UpdateMarqueCommand request)
+        public async Task<ActionResult> UpdateArticle(UpdateArticleCommand request)
         {
             try
             {
@@ -91,11 +91,11 @@ namespace Kada.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult> DeleteMarque(Guid id)
+        public async Task<ActionResult> DeleteArticle(Guid id)
         {
             try
             {
-                await _mediator.Send(new DeleteMarqueCommand() { Id = id });
+                await _mediator.Send(new DeleteArticleCommand() { Id = id });
                 return NoContent();
 
             }

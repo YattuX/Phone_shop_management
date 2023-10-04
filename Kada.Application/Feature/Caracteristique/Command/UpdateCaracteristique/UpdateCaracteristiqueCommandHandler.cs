@@ -33,7 +33,7 @@ namespace Kada.Application.Feature.Caracteristique.Command.UpdateCaracteristique
             caracteristique.HasPuissance = request.HasPuissance;
             caracteristique.HasParticularite = request.HasParticularite;
             caracteristique.HasCapacite = request.HasCapacite;
-            caracteristique.HasCamera = request.HasCamera;
+            caracteristique.HasPosition = request.HasPosition;
             caracteristique.HasEtat = request.HasEtat;
             caracteristique.HasImei = request.HasImei;
             caracteristique.HasNombreDeSim = request.HasNombreDeSim;
@@ -42,6 +42,7 @@ namespace Kada.Application.Feature.Caracteristique.Command.UpdateCaracteristique
             caracteristique.HasCaracteristic = request.HasCaracteristic;
             caracteristique.HasType = request.HasType;
             caracteristique.ModelId = request.ModelId;
+            caracteristique.HasDescription = request.HasDescription;
             
             await _caracteristiqueRepository.UpdateAsync(caracteristique);
             return Unit.Value;

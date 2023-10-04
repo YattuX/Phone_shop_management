@@ -1,5 +1,8 @@
-<div class="flex items-center justify-around space-x-4 ">
-    <div class="profile-container flex items-center">
+<div class="flex items-center space-x-4 ">
+    <div class="md:text-[16px] max-sm:hidden">
+        {{User.userName|titlecase}}
+    </div>
+    <div class="profile-container flex items-center w-[40px]">
         <img src="../../../../../assets/images/profile.jpg" alt="profile_image" class="rounded-full" height="40px" width="40px">
         <div class="status-dot mt-2"></div>
     </div>
@@ -8,6 +11,6 @@
         class="cursor-pointer" >notifications</mat-icon>
     </div>
     <div class="flex items-center">
-        <mat-icon matTooltip="Se Deconnecter" routerLink="/auth/login" class="cursor-pointer">logout</mat-icon>
+        <mat-icon matTooltip="Se Deconnecter" (click)="logout()" class="cursor-pointer">logout</mat-icon>
     </div>
 </div>

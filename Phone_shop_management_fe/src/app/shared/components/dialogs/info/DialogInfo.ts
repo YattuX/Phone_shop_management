@@ -5,4 +5,5 @@ export interface DialogInfo {
   message: string;
   cancelAction?: string;
   valideAction?: string;
+  personaliseDialog:boolean|undefined;
 }
