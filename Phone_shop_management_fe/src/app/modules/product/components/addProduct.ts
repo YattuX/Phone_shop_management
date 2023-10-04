@@ -158,9 +158,12 @@ v
 
   getModels(){
     this._kadaService.getModelListPage(SearchDTO.fromJS({
-      pageIndex:-1, filters:{}
+      pageIndex:-1, filters:{notCaracteritique:'true'}
     })).subscribe(v =>{
       this.listModel = v.results;
+      if(this.listModel.length == 0){
+        this._toastr.warning("tous les models existants ont des caracteristiques");
+      }
     })
   }
 
