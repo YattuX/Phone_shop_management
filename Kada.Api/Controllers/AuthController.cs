@@ -1,6 +1,7 @@
 ﻿using HR.LeaveManagement.Application.Contracts.Identity;
 using Kada.Application.Models.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 
 namespace Kada.Api.Controllers
 {
@@ -16,7 +17,14 @@ namespace Kada.Api.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<AuthResponse>> Login(AuthRequest request)
         {
-            return Ok(await _authenticationService.Login(request));
+            var response = await _authenticationService.Login(request);
+            Response.Cookies.Append("AuthToken", response.Token, new CookieOptions
+            {
+                HttpOnly = true,
+                Expires = response.DateTokenExpiration,
+                Path = "/",
+            });
+            return Ok(response);
         }
 
         [HttpPost("register")]

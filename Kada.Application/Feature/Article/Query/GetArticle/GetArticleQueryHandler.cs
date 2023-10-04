@@ -51,7 +51,7 @@ namespace Kada.Application.Feature.Article.Query.GetArticle
                     Puissance = article.Puissance,
                     modele = article.Caracteristique.Model.Name,
                     CaracteristiqueId = article.CaracteristiqueId,
-                    Camera = article.Camera,
+                    Description = article.Description,
                 });
             }
 
@@ -118,8 +118,8 @@ namespace Kada.Application.Feature.Article.Query.GetArticle
                     case "puissance":
                         articles = _articleRepository.FilterQuery(articles, x => x.Puissance.ToLower().Contains(filter[key].ToLower()));
                         break;
-                    case "camera":
-                        articles = _articleRepository.FilterQuery(articles, x => x.Camera.ToLower().Contains(filter[key].ToLower()));
+                    case "description":
+                        articles = _articleRepository.FilterQuery(articles, x => x.Description.ToLower().Contains(filter[key].ToLower()));
                         break;
                     case "model":
                         articles = _articleRepository.FilterQuery(articles, x => x.Caracteristique.Model.Id.Equals(filter[key]));

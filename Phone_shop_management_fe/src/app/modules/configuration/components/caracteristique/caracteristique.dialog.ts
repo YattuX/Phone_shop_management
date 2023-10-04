@@ -35,7 +35,8 @@ export class CaracteristiqueDialog implements OnInit {
       hasCapacite: [data.hasCapacite ?? false],
       hasCaracteristic: [data.hasCaracteristic ?? false],
       hasPuissance: [data.hasPuissance ?? false],
-      hasCamera: [data.hasCamera ?? false],
+      hasPosition: [data.hasPosition ?? false],
+      hasDescription: [data.hasDescription ?? false],
     })
   }
   ngOnInit(): void {

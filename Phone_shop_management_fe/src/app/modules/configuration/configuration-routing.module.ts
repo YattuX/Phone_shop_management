@@ -6,6 +6,7 @@ import { MarqueComponent } from './components/marque/marque.component';
 import { ModeleComponent } from './components/modele/modele.component';
 import { CaracteristiqueComponent } from './components/caracteristique/caracteristique.component';
 import { CouleurComponent } from './components/couleur/couleur.component';
+import { AuthGuard } from 'src/app/shared/services/auth.guard';
 
 const routes: Routes = [
     {
@@ -14,6 +15,7 @@ const routes: Routes = [
             {
                 path:'type_article',
                 component:TypeArticleComponent,
+                canActivate:[AuthGuard],
                 data:{
                     title:"CONFIGURATION>TYPE D'ARTICLES"
                 }
@@ -21,6 +23,7 @@ const routes: Routes = [
             {
                 path:'marque',
                 component:MarqueComponent,
+                canActivate:[AuthGuard],
                 data:{
                     title:"CONFIGURATION>Marque"
                 }
@@ -35,6 +38,7 @@ const routes: Routes = [
             {
                 path:'caracteristique',
                 component:CaracteristiqueComponent,
+                canActivate:[AuthGuard],
                 data:{
                     title:"CONFIGURATION> caractéristique"
                 }
@@ -42,6 +46,7 @@ const routes: Routes = [
             {
                 path:'couleur',
                 component:CouleurComponent,
+                canActivate:[AuthGuard],
                 data:{
                     title:"CONFIGURATION>Couleur"
                 }

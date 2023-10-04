@@ -76,7 +76,7 @@ namespace Kada.Application.Feature.Article.Command.UpdateArticle
                 .MustAsync(PuissanceIsRequired)
                 .WithMessage("{PropertyName} must not be empty");
             RuleFor(p => p)
-                .MustAsync(CameraIsRequired)
+                .MustAsync(DescriptionIsRequired)
                 .WithMessage("{PropertyName} must not be empty");
         }
 
@@ -269,16 +269,15 @@ namespace Kada.Application.Feature.Article.Command.UpdateArticle
 
         }
 
-        private async Task<bool> CameraIsRequired(UpdateArticleCommand article, CancellationToken cancellationToken)
+        private async Task<bool> DescriptionIsRequired(UpdateArticleCommand article, CancellationToken cancellationToken)
         {
             var caracteristique = await GetCaracteristiqueAsync(article.CaracteristiqueId);
-            if (!caracteristique.HasCamera)
+            if (!caracteristique.HasDescription)
             {
-                article.Camera = null;
+                article.Description = null;
                 return true;
             }
-            return article.Camera != null;
-
+            return article.Description != null;
         }
 
         private async Task<Domain.Caracteristique> GetCaracteristiqueAsync(Guid id)

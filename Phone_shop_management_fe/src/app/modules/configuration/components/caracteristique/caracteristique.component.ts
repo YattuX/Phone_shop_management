@@ -58,13 +58,14 @@ export class CaracteristiqueComponent extends BaseTableComponent {
       this.searchForm.get('hasCapacite')?.valueChanges.pipe(debounceTime(800), distinctUntilChanged(), startWith(this.searchForm.get('hasCapacite')?.value),map((value) => (value ? `${value}` : null))),
       this.searchForm.get('hasCaracteristic')?.valueChanges.pipe(debounceTime(800), distinctUntilChanged(), startWith(this.searchForm.get('hasCaracteristic')?.value),map((value) => (value ? `${value}` : null))),
       this.searchForm.get('hasPuissance')?.valueChanges.pipe(debounceTime(800), distinctUntilChanged(), startWith(this.searchForm.get('hasPuissance')?.value),map((value) => (value ? `${value}` : null))),
-      this.searchForm.get('hasCamera')?.valueChanges.pipe(debounceTime(800), distinctUntilChanged(), startWith(this.searchForm.get('hasCamera')?.value),map((value) => (value ? `${value}` : null))),
-    ]).pipe(takeUntil(this.$ngOnDestroyed)).subscribe(([model,hasStockage,hasCouleur,hasNombreDeSim,hasImei,hasParticularite,hasEtat,hasProcesseurs,hasTailleEcran,hasRam,hasQualite,hasType,hasCapacite,hasCaracteristic,hasPuissance,hasCamera,]) => {
+      this.searchForm.get('hasPosition')?.valueChanges.pipe(debounceTime(800), distinctUntilChanged(), startWith(this.searchForm.get('hasPosition')?.value),map((value) => (value ? `${value}` : null))),
+      this.searchForm.get('hasDescription')?.valueChanges.pipe(debounceTime(800), distinctUntilChanged(), startWith(this.searchForm.get('hasDescription')?.value),map((value) => (value ? `${value}` : null))),
+    ]).pipe(takeUntil(this.$ngOnDestroyed)).subscribe(([model,hasStockage,hasCouleur,hasNombreDeSim,hasImei,hasParticularite,hasEtat,hasProcesseurs,hasTailleEcran,hasRam,hasQualite,hasType,hasCapacite,hasCaracteristic,hasPuissance,hasPosition,hasDescription]) => {
       this.searchForm.patchValue({
         model,
         hasStockage,hasCouleur,hasNombreDeSim,hasImei,hasParticularite,
         hasEtat,hasProcesseurs,hasTailleEcran,hasRam,hasQualite,hasType,
-        hasCapacite,hasCaracteristic,hasPuissance,hasCamera,
+        hasCapacite,hasCaracteristic,hasPuissance,hasPosition,hasDescription
       }, { emitEvent: false });
       super.triggerSearch();
     });
@@ -91,7 +92,8 @@ export class CaracteristiqueComponent extends BaseTableComponent {
       hasCapacite: null,
       hasCaracteristic: null,
       hasPuissance: null,
-      hasCamera: null,
+      hasPosition: null,
+      hasDescription: null,
     });
   }
 

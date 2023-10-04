@@ -9,7 +9,7 @@
 
 import { mergeMap as _observableMergeMap, catchError as _observableCatch } from 'rxjs/operators';
 import { Observable, throwError as _observableThrow, of as _observableOf } from 'rxjs';
-import { Injectable, Inject, Optional } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { RoleModel, CreateRoleModel } from './user.service';
@@ -3852,7 +3852,7 @@ export class ArticleDTO implements IArticleDTO {
     ram?: string | undefined;
     qualite?: string | undefined;
     position?: string | undefined;
-    camera?: string | undefined;
+    description?: string | undefined;
     typeId?: string | undefined;
     typeContent?: string | undefined;
     capacite?: string | undefined;
@@ -3887,7 +3887,7 @@ export class ArticleDTO implements IArticleDTO {
             this.ram = _data["ram"];
             this.qualite = _data["qualite"];
             this.position = _data["position"];
-            this.camera = _data["camera"];
+            this.description = _data["description"];
             this.typeId = _data["typeId"];
             this.typeContent = _data["typeContent"];
             this.capacite = _data["capacite"];
@@ -3922,7 +3922,7 @@ export class ArticleDTO implements IArticleDTO {
         data["ram"] = this.ram;
         data["qualite"] = this.qualite;
         data["position"] = this.position;
-        data["camera"] = this.camera;
+        data["description"] = this.description;
         data["typeId"] = this.typeId;
         data["typeContent"] = this.typeContent;
         data["capacite"] = this.capacite;
@@ -3950,7 +3950,7 @@ export interface IArticleDTO {
     ram?: string | undefined;
     qualite?: string | undefined;
     position?: string | undefined;
-    camera?: string | undefined;
+    description?: string | undefined;
     typeId?: string | undefined;
     typeContent?: string | undefined;
     capacite?: string | undefined;
@@ -4031,7 +4031,8 @@ export class CaracteristiqueDTO implements ICaracteristiqueDTO {
     hasCapacite?: boolean;
     hasCaracteristic?: boolean;
     hasPuissance?: boolean;
-    hasCamera?: boolean;
+    hasPosition?: boolean;
+    hasDescription?: boolean;
     modelId?: string;
     modelName?: string | undefined;
 
@@ -4061,7 +4062,8 @@ export class CaracteristiqueDTO implements ICaracteristiqueDTO {
             this.hasCapacite = _data["hasCapacite"];
             this.hasCaracteristic = _data["hasCaracteristic"];
             this.hasPuissance = _data["hasPuissance"];
-            this.hasCamera = _data["hasCamera"];
+            this.hasPosition = _data["hasPosition"];
+            this.hasDescription = _data["hasDescription"];
             this.modelId = _data["modelId"];
             this.modelName = _data["modelName"];
         }
@@ -4091,7 +4093,8 @@ export class CaracteristiqueDTO implements ICaracteristiqueDTO {
         data["hasCapacite"] = this.hasCapacite;
         data["hasCaracteristic"] = this.hasCaracteristic;
         data["hasPuissance"] = this.hasPuissance;
-        data["hasCamera"] = this.hasCamera;
+        data["hasPosition"] = this.hasPosition;
+        data["hasDescription"] = this.hasDescription;
         data["modelId"] = this.modelId;
         data["modelName"] = this.modelName;
         return data; 
@@ -4114,7 +4117,8 @@ export interface ICaracteristiqueDTO {
     hasCapacite?: boolean;
     hasCaracteristic?: boolean;
     hasPuissance?: boolean;
-    hasCamera?: boolean;
+    hasPosition?: boolean;
+    hasDescription?: boolean;
     modelId?: string;
     modelName?: string | undefined;
 }
@@ -4406,12 +4410,12 @@ export class CreateArticleCommand implements ICreateArticleCommand {
     tailleEcran?: string | undefined;
     ram?: string | undefined;
     qualite?: string | undefined;
-    position?: string | undefined;
     typeId?: string | undefined;
     capacite?: string | undefined;
     caracteristiqueId?: string;
     puissance?: string | undefined;
-    camera?: string | undefined;
+    description?: string | undefined;
+    position?: string | undefined;
 
     constructor(data?: ICreateArticleCommand) {
         if (data) {
@@ -4434,12 +4438,12 @@ export class CreateArticleCommand implements ICreateArticleCommand {
             this.tailleEcran = _data["tailleEcran"];
             this.ram = _data["ram"];
             this.qualite = _data["qualite"];
-            this.position = _data["position"];
             this.typeId = _data["typeId"];
             this.capacite = _data["capacite"];
             this.caracteristiqueId = _data["caracteristiqueId"];
             this.puissance = _data["puissance"];
-            this.camera = _data["camera"];
+            this.description = _data["description"];
+            this.position = _data["position"];
         }
     }
 
@@ -4462,12 +4466,12 @@ export class CreateArticleCommand implements ICreateArticleCommand {
         data["tailleEcran"] = this.tailleEcran;
         data["ram"] = this.ram;
         data["qualite"] = this.qualite;
-        data["position"] = this.position;
         data["typeId"] = this.typeId;
         data["capacite"] = this.capacite;
         data["caracteristiqueId"] = this.caracteristiqueId;
         data["puissance"] = this.puissance;
-        data["camera"] = this.camera;
+        data["description"] = this.description;
+        data["position"] = this.position;
         return data; 
     }
 }
@@ -4483,12 +4487,12 @@ export interface ICreateArticleCommand {
     tailleEcran?: string | undefined;
     ram?: string | undefined;
     qualite?: string | undefined;
-    position?: string | undefined;
     typeId?: string | undefined;
     capacite?: string | undefined;
     caracteristiqueId?: string;
     puissance?: string | undefined;
-    camera?: string | undefined;
+    description?: string | undefined;
+    position?: string | undefined;
 }
 
 export class CreateCaracteristiqueCommand implements ICreateCaracteristiqueCommand {
@@ -4506,7 +4510,8 @@ export class CreateCaracteristiqueCommand implements ICreateCaracteristiqueComma
     hasCapacite?: boolean;
     hasCaracteristic?: boolean;
     hasPuissance?: boolean;
-    hasCamera?: boolean;
+    hasPosition?: boolean;
+    hasDescription?: boolean;
     modelId?: string;
 
     constructor(data?: ICreateCaracteristiqueCommand) {
@@ -4534,7 +4539,8 @@ export class CreateCaracteristiqueCommand implements ICreateCaracteristiqueComma
             this.hasCapacite = _data["hasCapacite"];
             this.hasCaracteristic = _data["hasCaracteristic"];
             this.hasPuissance = _data["hasPuissance"];
-            this.hasCamera = _data["hasCamera"];
+            this.hasPosition = _data["hasPosition"];
+            this.hasDescription = _data["hasDescription"];
             this.modelId = _data["modelId"];
         }
     }
@@ -4562,7 +4568,8 @@ export class CreateCaracteristiqueCommand implements ICreateCaracteristiqueComma
         data["hasCapacite"] = this.hasCapacite;
         data["hasCaracteristic"] = this.hasCaracteristic;
         data["hasPuissance"] = this.hasPuissance;
-        data["hasCamera"] = this.hasCamera;
+        data["hasPosition"] = this.hasPosition;
+        data["hasDescription"] = this.hasDescription;
         data["modelId"] = this.modelId;
         return data; 
     }
@@ -4583,7 +4590,8 @@ export interface ICreateCaracteristiqueCommand {
     hasCapacite?: boolean;
     hasCaracteristic?: boolean;
     hasPuissance?: boolean;
-    hasCamera?: boolean;
+    hasPosition?: boolean;
+    hasDescription?: boolean;
     modelId?: string;
 }
 
@@ -5916,7 +5924,7 @@ export class UpdateArticleCommand implements IUpdateArticleCommand {
     capacite?: string | undefined;
     caracteristiqueId?: string;
     puissance?: string | undefined;
-    camera?: string | undefined;
+    description?: string | undefined;
 
     constructor(data?: IUpdateArticleCommand) {
         if (data) {
@@ -5945,7 +5953,7 @@ export class UpdateArticleCommand implements IUpdateArticleCommand {
             this.capacite = _data["capacite"];
             this.caracteristiqueId = _data["caracteristiqueId"];
             this.puissance = _data["puissance"];
-            this.camera = _data["camera"];
+            this.description = _data["description"];
         }
     }
 
@@ -5974,7 +5982,7 @@ export class UpdateArticleCommand implements IUpdateArticleCommand {
         data["capacite"] = this.capacite;
         data["caracteristiqueId"] = this.caracteristiqueId;
         data["puissance"] = this.puissance;
-        data["camera"] = this.camera;
+        data["description"] = this.description;
         return data; 
     }
 }
@@ -5996,7 +6004,7 @@ export interface IUpdateArticleCommand {
     capacite?: string | undefined;
     caracteristiqueId?: string;
     puissance?: string | undefined;
-    camera?: string | undefined;
+    description?: string | undefined;
 }
 
 export class UpdateCaracteristiqueCommand implements IUpdateCaracteristiqueCommand {
@@ -6015,7 +6023,8 @@ export class UpdateCaracteristiqueCommand implements IUpdateCaracteristiqueComma
     hasCapacite?: boolean;
     hasCaracteristic?: boolean;
     hasPuissance?: boolean;
-    hasCamera?: boolean;
+    hasPosition?: boolean;
+    hasDescription?: boolean;
     modelId?: string;
 
     constructor(data?: IUpdateCaracteristiqueCommand) {
@@ -6044,7 +6053,8 @@ export class UpdateCaracteristiqueCommand implements IUpdateCaracteristiqueComma
             this.hasCapacite = _data["hasCapacite"];
             this.hasCaracteristic = _data["hasCaracteristic"];
             this.hasPuissance = _data["hasPuissance"];
-            this.hasCamera = _data["hasCamera"];
+            this.hasPosition = _data["hasPosition"];
+            this.hasDescription = _data["hasDescription"];
             this.modelId = _data["modelId"];
         }
     }
@@ -6073,7 +6083,8 @@ export class UpdateCaracteristiqueCommand implements IUpdateCaracteristiqueComma
         data["hasCapacite"] = this.hasCapacite;
         data["hasCaracteristic"] = this.hasCaracteristic;
         data["hasPuissance"] = this.hasPuissance;
-        data["hasCamera"] = this.hasCamera;
+        data["hasPosition"] = this.hasPosition;
+        data["hasDescription"] = this.hasDescription;
         data["modelId"] = this.modelId;
         return data; 
     }
@@ -6095,7 +6106,8 @@ export interface IUpdateCaracteristiqueCommand {
     hasCapacite?: boolean;
     hasCaracteristic?: boolean;
     hasPuissance?: boolean;
-    hasCamera?: boolean;
+    hasPosition?: boolean;
+    hasDescription?: boolean;
     modelId?: string;
 }
 

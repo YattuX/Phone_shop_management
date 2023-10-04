@@ -57,6 +57,7 @@ namespace Kada.Application.Feature.Article.Command.UpdateArticle
             article.Capacite = request.Capacite;
             article.CaracteristiqueId = request.CaracteristiqueId;
             article.Puissance = request.Puissance;
+            article.Description = request.Description;
             
             await _articleRepository.UpdateAsync(article);
             return Unit.Value;

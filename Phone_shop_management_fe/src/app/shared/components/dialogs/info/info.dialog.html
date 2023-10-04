@@ -2,8 +2,7 @@
     <h2 mat-dialog-title [title]="data.title">{{data.title}}</h2>
     <mat-icon class="cursor-pointer" (click)="dialogRef.close()">close</mat-icon>
 </div>
-<mat-dialog-content class="mat-typography">
-    {{data.message}}
+<mat-dialog-content class="mat-typography" [innerHTML]="data.message">
 </mat-dialog-content>
 <mat-dialog-actions align="end">
     <button mat-button (click)="dialogRef.close()" *ngIf="data?.type!=='info' && data?.type">

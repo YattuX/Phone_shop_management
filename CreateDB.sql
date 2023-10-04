@@ -145,7 +145,8 @@ CREATE TABLE Caracteristique
     HasCapacite BIT,
     HasCaracteristic BIT,
     HasPuissance BIT,
-    HasCamera BIT,
+    HasPosition BIT,
+    HasDescription BIT,
     ModelId UNIQUEIDENTIFIER,
     FOREIGN KEY (ModelId) REFERENCES Modele(Id)
 );
@@ -160,7 +161,6 @@ CREATE TABLE [dbo].[Article] (
     [CouleurId]         UNIQUEIDENTIFIER NULL,
     [NombreDeSim]       INT              NULL,
     [Imei]              NVARCHAR (255)   NULL,
-    [Camera]            NVARCHAR (255)   NULL,
     [ParticulariteId]   UNIQUEIDENTIFIER NULL,
     [EtatId]            UNIQUEIDENTIFIER NULL,
     [Processeurs]       NVARCHAR (255)   NULL,
@@ -172,6 +172,7 @@ CREATE TABLE [dbo].[Article] (
     [Capacite]          NVARCHAR (255)   NULL,
     [CaracteristiqueId] UNIQUEIDENTIFIER NULL,
     [Puissance]         NVARCHAR (255)   NULL,
+    [Description]       NVARCHAR (Max)   NULL
     PRIMARY KEY CLUSTERED ([Id] ASC),
     FOREIGN KEY ([StockageId]) REFERENCES [dbo].[Stockage] ([Id]),
     FOREIGN KEY ([CouleurId]) REFERENCES [dbo].[Couleur] ([Id]),
