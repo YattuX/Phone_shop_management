@@ -66,7 +66,7 @@ namespace Kada.Application.Feature.Article.Query.GetArticle
 
         public IQueryable<Domain.Article> GetFilteredQuery(Dictionary<string, string> filter)
         {
-            var articles = _articleRepository.GetQuery("Caracteristique.Model,Stockage,Couleur,Particularite,Etat,Type");
+            var articles = _articleRepository.GetQuery("Caracteristique.Model.Marque.TypeArticle,Stockage,Couleur,Particularite,Etat,Type");
 
             foreach (var key in filter.Keys)
             {
@@ -124,7 +124,9 @@ namespace Kada.Application.Feature.Article.Query.GetArticle
                     case "model":
                         articles = _articleRepository.FilterQuery(articles, x => x.Caracteristique.Model.Id.Equals(filter[key]));
                         break;
-
+                    case "typeArticle":
+                        articles = _articleRepository.FilterQuery(articles, x => x.Caracteristique.Model.Marque.TypeArticle.Name.ToLower().Contains(filter[key].ToLower()));
+                        break;
                 }
             }
             return articles;
