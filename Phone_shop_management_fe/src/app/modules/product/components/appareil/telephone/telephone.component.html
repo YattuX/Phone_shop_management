@@ -1,0 +1,206 @@
+<form [formGroup]="searchForm" class="flex flex-wrap mb-6 border border-gray-300 rounded-md pt-4 ">
+    <!-- <mat-form-field class="w-full m-2">
+        <mat-select placeholder="Modèle" formControlName="model">
+            <mat-option [value]="null"></mat-option>
+            <mat-option *ngFor="let modele of modeles" [value]="modele.id">{{modele.name}}</mat-option>
+        </mat-select>
+    </mat-form-field> -->
+
+    <autocomplete formControlName="model" placeholder="Model" [values]="modeles" idField="id" valueField="name"
+        class="w-full md:w-[48%] m-2">
+    </autocomplete>
+
+    <autocomplete formControlName="couleur" placeholder="Couleur" [values]="couleurs" idField="id" valueField="name"
+        class="w-full md:w-[48%] m-2" *ngIf="fieldActive('hasCouleur')">
+    </autocomplete>
+
+    <autocomplete formControlName="stockage" placeholder="Stockage" [values]="stockages" idField="id" valueField="name"
+        class="w-full md:w-[48%] m-2" *ngIf="fieldActive('hasStockage')">
+    </autocomplete>
+
+    <autocomplete formControlName="etat" placeholder="Etat" [values]="etats" idField="id" valueField="name"
+        class="w-full md:w-[48%] m-2" *ngIf="fieldActive('hasEtat')">
+    </autocomplete>
+
+    <autocomplete formControlName="particularite" placeholder="Particularite" [values]="particularites" idField="id" valueField="name"
+        class="w-full md:w-[48%] m-2" *ngIf="fieldActive('hasParticularite')">
+    </autocomplete>
+
+    <autocomplete formControlName="type" placeholder="Type" [values]="types" idField="id" valueField="name"
+        class="w-full md:w-[48%] m-2" *ngIf="fieldActive('hasType')">
+    </autocomplete>
+    
+    <mat-form-field *ngIf="fieldActive('hasImei')" class="w-full md:w-[48%] m-2">
+        <mat-label>Imei</mat-label>
+        <input matInput formControlName="imei" placeholder="Imei">
+    </mat-form-field>
+    
+    <mat-form-field *ngIf="fieldActive('hasProcesseurs')" class="w-full md:w-[48%] m-2">
+        <mat-label>Processeur</mat-label>
+        <input matInput formControlName="processeurs" placeholder="Processeur">
+    </mat-form-field>
+
+    <mat-form-field *ngIf="fieldActive('hasTailleEcran')" class="w-full md:w-[48%] m-2">
+        <mat-label>Taille Ecran</mat-label>
+        <input matInput formControlName="tailleEcran" placeholder="Taille Ecran">
+    </mat-form-field>
+
+    <mat-form-field *ngIf="fieldActive('hasRam')" class="w-full md:w-[48%] m-2">
+        <mat-label>Ram</mat-label>
+        <input matInput formControlName="ram" placeholder="Ram">
+    </mat-form-field>
+
+    <mat-form-field *ngIf="fieldActive('hasQualite')" class="w-full md:w-[48%] m-2">
+        <mat-label>Qualite</mat-label>
+        <input matInput formControlName="qualite" placeholder="Qualite">
+    </mat-form-field>
+
+    <mat-form-field *ngIf="fieldActive('hasPosition')" class="w-full md:w-[48%] m-2">
+        <mat-label>Position</mat-label>
+        <input matInput formControlName="position" placeholder="Position">
+    </mat-form-field>
+
+    <mat-form-field *ngIf="fieldActive('hasCapacite')" class="w-full md:w-[48%] m-2">
+        <mat-label>Capacite</mat-label>
+        <input matInput formControlName="capacite" placeholder="Capacite">
+    </mat-form-field>
+
+    <mat-form-field *ngIf="fieldActive('hasPuissance')" class="w-full md:w-[48%] m-2">
+        <mat-label>Puissance</mat-label>
+        <input matInput formControlName="puissance" placeholder="Puissance">
+    </mat-form-field>
+</form>
+<div class="content mat-elevation-z2">
+    <mat-table [dataSource]="pageRows" cdkDropList cdkDropListOrientation="horizontal"
+        (cdkDropListDropped)="drop($event)">
+
+        <!-- ID Column -->
+        <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef cdkDrag>#</mat-header-cell>
+            <mat-cell *matCellDef="let row;let index=index"> {{index+1}} </mat-cell>
+        </ng-container>
+
+        <!-- typeArticle Column -->
+        <ng-container matColumnDef="modele">
+            <mat-header-cell *matHeaderCellDef cdkDrag>Modèle</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.modele}} </mat-cell>
+        </ng-container>
+
+        <!-- Stockage Column -->
+        <ng-container matColumnDef="hasStockage">
+            <mat-header-cell *matHeaderCellDef cdkDrag>Stockage</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.stockageName??'-'}} </mat-cell>
+        </ng-container>
+
+        <!-- Couleur Column -->
+        <ng-container matColumnDef="hasCouleur">
+            <mat-header-cell *matHeaderCellDef cdkDrag>Couleur</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.couleurName??'-'}} </mat-cell>
+        </ng-container>
+
+        <!-- NombreDeSim Column -->
+        <ng-container matColumnDef="hasNombreDeSim">
+            <mat-header-cell *matHeaderCellDef cdkDrag>NombreDeSim</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.nombreDeSim??'-'}} </mat-cell>
+        </ng-container>
+
+        <!-- Etat Column -->
+        <ng-container matColumnDef="hasEtat">
+            <mat-header-cell *matHeaderCellDef cdkDrag>Etat</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.etatContent??'-'}} </mat-cell>
+        </ng-container>
+
+        <!-- Imei Column -->
+        <ng-container matColumnDef="hasImei">
+            <mat-header-cell *matHeaderCellDef cdkDrag>Imei</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.imei??'-'}} </mat-cell>
+        </ng-container>
+
+        <!-- Description Column -->
+        <ng-container matColumnDef="hasDescription">
+            <mat-header-cell *matHeaderCellDef cdkDrag>Description</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.description??'-'}} </mat-cell>
+        </ng-container>
+
+        <!-- Processeurs Column -->
+        <ng-container matColumnDef="hasProcesseurs">
+            <mat-header-cell *matHeaderCellDef cdkDrag>Processeurs</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.processeurs??'-'}} </mat-cell>
+        </ng-container>
+
+        <!-- Particularite Column -->
+        <ng-container matColumnDef="hasParticularite">
+            <mat-header-cell *matHeaderCellDef cdkDrag>Particularite</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.particulariteContent??'-'}} </mat-cell>
+        </ng-container>
+
+        <!-- TailleEcran Column -->
+        <ng-container matColumnDef="hasTailleEcran">
+            <mat-header-cell *matHeaderCellDef cdkDrag>Taille Ecran</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.tailleEcran??'-'}} </mat-cell>
+        </ng-container>
+
+        <!-- Ram Column -->
+        <ng-container matColumnDef="hasRam">
+            <mat-header-cell *matHeaderCellDef cdkDrag>Ram</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.ram??'-'}} </mat-cell>
+        </ng-container>
+
+        <!-- Qualite Column -->
+        <ng-container matColumnDef="hasQualite">
+            <mat-header-cell *matHeaderCellDef cdkDrag>Qualite</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.qualite??'-'}} </mat-cell>
+        </ng-container>
+
+        <!-- Type Column -->
+        <ng-container matColumnDef="hasType">
+            <mat-header-cell *matHeaderCellDef cdkDrag>Type</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.typeContent??'-'}} </mat-cell>
+        </ng-container>
+
+        <!-- Capacite Column -->
+        <ng-container matColumnDef="hasCapacite">
+            <mat-header-cell *matHeaderCellDef cdkDrag>Capacite</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.capacite??'-'}} </mat-cell>
+        </ng-container>
+
+        <!-- Puissance Column -->
+        <ng-container matColumnDef="hasPuissance">
+            <mat-header-cell *matHeaderCellDef cdkDrag>Puissance</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.puissance??'-'}} </mat-cell>
+        </ng-container>
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="hasPosition">
+            <mat-header-cell *matHeaderCellDef cdkDrag>Position</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.position??'-'}} </mat-cell>
+        </ng-container>
+
+        <!-- action Column -->
+        <ng-container matColumnDef="action">
+            <mat-header-cell *matHeaderCellDef cdkDrag></mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <button mat-stroked-button [matMenuTriggerFor]="menu" color="primary">Action</button>
+                <mat-menu #menu="matMenu">
+                    <!-- <span mat-menu-item (click)="openDialog('edit',row)">
+                        Voir
+                    </span>
+                    <span mat-menu-item (click)="removeRows(row)">Supprimer</span> -->
+                </mat-menu>
+            </mat-cell>
+        </ng-container>
+        <ng-container *matNoDataRow>
+            <div *ngIf="!loading" class="text-lg text-center p-2">
+                Aucune donnée trouvée
+            </div>
+            <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;">
+        </mat-row>
+    </mat-table>
+
+    <mat-paginator [length]="pageRows.length" [pageSize]="pageSize" [pageIndex]="pageOffset / pageSize"
+        (page)="onChangePage($event)"></mat-paginator>
+
+</div>

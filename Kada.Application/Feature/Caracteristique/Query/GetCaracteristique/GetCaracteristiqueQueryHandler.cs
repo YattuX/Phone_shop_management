@@ -44,7 +44,6 @@ namespace Kada.Application.Feature.Caracteristique.Query.GetCaracteristique
                     HasQualite= caracteristique.HasQualite,
                     HasType= caracteristique.HasType,
                     HasCapacite= caracteristique.HasCapacite,
-                    HasCaracteristic= caracteristique.HasCaracteristic,
                     HasPuissance= caracteristique.HasPuissance,
                     HasPosition= caracteristique.HasPosition,
                     HasDescription = caracteristique.HasDescription,
@@ -119,10 +118,6 @@ namespace Kada.Application.Feature.Caracteristique.Query.GetCaracteristique
                     case "hasCapacite":
                         var hasCapacite = bool.Parse(filter[key]);
                         caracteristiques = _caracteristiqueRepository.FilterQuery(caracteristiques, x => x.HasCapacite == hasCapacite);
-                        break;
-                    case "hasCaracteristic":
-                        var val = bool.Parse(filter[key]);
-                        caracteristiques = _caracteristiqueRepository.FilterQuery(caracteristiques, x => x.HasCaracteristic == val);
                         break;
                     case "hasPuissance":
                         var hasPuissance = bool.Parse(filter[key]);

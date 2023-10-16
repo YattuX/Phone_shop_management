@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Directive } from "@angular/core";
 import { BaseReactiveComponent } from "./base-reactive.component";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
-import { Observable, takeUntil } from "rxjs";
+import { Observable, takeUntil, Subject } from "rxjs";
 
 @Directive()
 export abstract class BaseTableComponent extends BaseReactiveComponent {
@@ -12,7 +12,8 @@ export abstract class BaseTableComponent extends BaseReactiveComponent {
     pageRows = [];
     searchForm!: FormGroup;
     defaultSearchFormValue = {};
-    loading = false;
+    private _loading = false;
+    protected loadingSubject = new Subject<boolean>();
     constructor(
         protected _cd: ChangeDetectorRef,
         protected _formBuilder: FormBuilder,
@@ -26,8 +27,13 @@ export abstract class BaseTableComponent extends BaseReactiveComponent {
         this.searchForm = this._formBuilder.group({});
     }
 
+    setLoading(newValue: boolean) {
+        this._loading = newValue;
+        this.loadingSubject.next(newValue);
+    }
+
     protected onChangePage(pageInfo: { pageSize?: number, pageOffset?: number }) {
-        this.loading = true;
+        this.setLoading(true);
         this.pageSize = pageInfo.pageSize as number;
         this.pageOffset = pageInfo.pageOffset as number;
         
@@ -47,12 +53,16 @@ export abstract class BaseTableComponent extends BaseReactiveComponent {
                 this._cd.markForCheck();
             },
             error:(err)=>{
-                this.loading = false;
+                this.setLoading(false);
             },
             complete:()=>{
-                this.loading = false;
+                this.setLoading(false);
             }
         });
+    }
+
+    get loading(){
+        return this._loading
     }
 
 
