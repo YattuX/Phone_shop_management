@@ -39,7 +39,6 @@ namespace Kada.Application.Feature.Caracteristique.Command.UpdateCaracteristique
             caracteristique.HasNombreDeSim = request.HasNombreDeSim;
             caracteristique.HasTailleEcran = request.HasTailleEcran;
             caracteristique.HasStockage = request.HasStockage;
-            caracteristique.HasCaracteristic = request.HasCaracteristic;
             caracteristique.HasType = request.HasType;
             caracteristique.ModelId = request.ModelId;
             caracteristique.HasDescription = request.HasDescription;

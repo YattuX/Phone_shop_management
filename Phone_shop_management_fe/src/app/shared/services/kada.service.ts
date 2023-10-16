@@ -3857,6 +3857,7 @@ export class ArticleDTO implements IArticleDTO {
     typeContent?: string | undefined;
     capacite?: string | undefined;
     caracteristiqueId?: string | undefined;
+    caracteristiques?: CaracteristiqueDTO | undefined;
     puissance?: string | undefined;
     modele?: string | undefined;
 
@@ -3892,6 +3893,7 @@ export class ArticleDTO implements IArticleDTO {
             this.typeContent = _data["typeContent"];
             this.capacite = _data["capacite"];
             this.caracteristiqueId = _data["caracteristiqueId"];
+            this.caracteristiques = _data["caracteristiques"];
             this.puissance = _data["puissance"];
             this.modele = _data["modele"];
         }
@@ -3927,6 +3929,7 @@ export class ArticleDTO implements IArticleDTO {
         data["typeContent"] = this.typeContent;
         data["capacite"] = this.capacite;
         data["caracteristiqueId"] = this.caracteristiqueId;
+        data["caracteristiques"] = this.caracteristiques;
         data["puissance"] = this.puissance;
         data["modele"] = this.modele;
         return data; 
@@ -3954,6 +3957,7 @@ export interface IArticleDTO {
     typeId?: string | undefined;
     typeContent?: string | undefined;
     capacite?: string | undefined;
+    caracteristiques?: CaracteristiqueDTO | undefined;
     caracteristiqueId?: string | undefined;
     puissance?: string | undefined;
     modele?: string | undefined;

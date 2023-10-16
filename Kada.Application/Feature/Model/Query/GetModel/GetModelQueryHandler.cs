@@ -9,11 +9,13 @@ namespace Kada.Application.Feature.Model.Query.GetModel
     {
         private readonly IModelRepository _modelRepository;
         private readonly ICaracteristiqueRepository _caracteristiqueRepository;
+        private readonly ITypeArticleRepository _typeArticleRepository;
 
-        public GetModelQueryHandler(IModelRepository modelRepository, ICaracteristiqueRepository caracteristiqueRepository)
+        public GetModelQueryHandler(IModelRepository modelRepository, ICaracteristiqueRepository caracteristiqueRepository, ITypeArticleRepository typeArticleRepository)
         {
             _modelRepository = modelRepository;
             _caracteristiqueRepository = caracteristiqueRepository;
+            _typeArticleRepository = typeArticleRepository;
         }
 
         public async Task<SearchResult<ModelDTO>> Handle(GetModelQuery request, CancellationToken cancellationToken)
@@ -70,6 +72,13 @@ namespace Kada.Application.Feature.Model.Query.GetModel
                         var hasNotCaracteristique = bool.Parse(filter[key]);
                         var modelWithCaracteristiques = _caracteristiqueRepository.GetQuery().Select(v=>v.ModelId).ToList();
                         models = _modelRepository.FilterQuery(models,x=> hasNotCaracteristique?(!modelWithCaracteristiques.Contains(x.Id)): modelWithCaracteristiques.Contains(x.Id));
+                        break;
+                    case "typeArticle":
+                        var typeArticle = _typeArticleRepository.GetQuery().Where(x => x.Name.ToLower().Contains(filter[key].ToLower())).FirstOrDefault();
+                        if(typeArticle != null)
+                        {
+                            models = _modelRepository.FilterQuery(models, x => x.Marque.TypeArticleId == typeArticle.Id);
+                        }
                         break;
                 }
             }

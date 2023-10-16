@@ -29,7 +29,7 @@ namespace Kada.Application.DTOs
         public Guid? TypeId { get; set; }
         public string? TypeContent { get; set; }
         public string? Capacite { get; set; }
-        public string? Caracteristic { get; set; }
+        public CaracteristiqueDTO Caracteristiques { get; set; }
         public Guid? CaracteristiqueId { get; set; }
         public string? Puissance { get; set; }
         public string modele { get; set; }

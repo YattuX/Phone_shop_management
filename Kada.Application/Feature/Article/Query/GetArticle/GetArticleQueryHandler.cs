@@ -1,4 +1,5 @@
-﻿using Kada.Application.Contracts.Pesistence;
+﻿using AutoMapper;
+using Kada.Application.Contracts.Pesistence;
 using Kada.Application.DTOs;
 using Kada.Application.DTOs.Search;
 using MediatR;
@@ -8,10 +9,12 @@ namespace Kada.Application.Feature.Article.Query.GetArticle
     public class GetArticleQueryHandler : IRequestHandler<GetArticleQuery, SearchResult<ArticleDTO>>
     {
         private readonly IArticleRepository _articleRepository;
+        private readonly IMapper _mapper;
 
-        public GetArticleQueryHandler(IArticleRepository articleRepository)
+        public GetArticleQueryHandler(IArticleRepository articleRepository, IMapper mapper)
         {
             _articleRepository = articleRepository;
+            _mapper = mapper;
         }
 
         public async Task<SearchResult<ArticleDTO>> Handle(GetArticleQuery request, CancellationToken cancellationToken)
@@ -52,6 +55,7 @@ namespace Kada.Application.Feature.Article.Query.GetArticle
                     modele = article.Caracteristique.Model.Name,
                     CaracteristiqueId = article.CaracteristiqueId,
                     Description = article.Description,
+                    Caracteristiques = _mapper.Map<CaracteristiqueDTO>(article.Caracteristique),
                 });
             }
 
@@ -77,22 +81,22 @@ namespace Kada.Application.Feature.Article.Query.GetArticle
                 switch (key)
                 {
                     case "caracteristique":
-                        articles = _articleRepository.FilterQuery(articles, x => x.CaracteristiqueId.Equals(filter[key]));
+                        articles = _articleRepository.FilterQuery(articles, x => x.CaracteristiqueId.Equals(Guid.Parse(filter[key])));
                         break;
                     case "stockage":
-                        articles = _articleRepository.FilterQuery(articles, x => x.StockageId.Equals(filter[key]));
+                        articles = _articleRepository.FilterQuery(articles, x => x.StockageId.Equals(Guid.Parse(filter[key])));
                         break;
                     case "couleur":
-                        articles = _articleRepository.FilterQuery(articles, x => x.CouleurId.Equals(filter[key]));
+                        articles = _articleRepository.FilterQuery(articles, x => x.CouleurId.Equals(Guid.Parse(filter[key])));
                         break;
                     case "particularite":
-                        articles = _articleRepository.FilterQuery(articles, x => x.ParticulariteId.Equals(filter[key]));
+                        articles = _articleRepository.FilterQuery(articles, x => x.ParticulariteId.Equals(Guid.Parse(filter[key])));
                         break;
                     case "etat":
-                        articles = _articleRepository.FilterQuery(articles, x => x.EtatId.Equals(filter[key]));
+                        articles = _articleRepository.FilterQuery(articles, x => x.EtatId.Equals(Guid.Parse(filter[key])));
                         break;
                     case "type":
-                        articles = _articleRepository.FilterQuery(articles, x => x.TypeId.Equals(filter[key]));
+                        articles = _articleRepository.FilterQuery(articles, x => x.TypeId.Equals(Guid.Parse(filter[key])));
                         break;
                     case "imei":
                         articles = _articleRepository.FilterQuery(articles, x => x.Imei.ToLower().Contains(filter[key].ToLower()));
@@ -122,7 +126,7 @@ namespace Kada.Application.Feature.Article.Query.GetArticle
                         articles = _articleRepository.FilterQuery(articles, x => x.Description.ToLower().Contains(filter[key].ToLower()));
                         break;
                     case "model":
-                        articles = _articleRepository.FilterQuery(articles, x => x.Caracteristique.Model.Id.Equals(filter[key]));
+                        articles = _articleRepository.FilterQuery(articles, x => x.Caracteristique.Model.Id.Equals(Guid.Parse(filter[key])));
                         break;
                     case "typeArticle":
                         articles = _articleRepository.FilterQuery(articles, x => x.Caracteristique.Model.Marque.TypeArticle.Name.ToLower().Contains(filter[key].ToLower()));
