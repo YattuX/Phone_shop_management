@@ -56,6 +56,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { AutoCompleteComponent } from './components/autocomplete/autocomplete.component';
 import { InputComponent } from './components/input/input.component';
 import { MatChipsModule } from '@angular/material/chips';
+import { ListProductComponent } from './components/list-product/list-product.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { MatChipsModule } from '@angular/material/chips';
     SpinnerComponent,
     NotificationComponent,
     InputComponent,
+    ListProductComponent,
   ],
   imports: [
     CommonModule,
@@ -109,6 +111,8 @@ import { MatChipsModule } from '@angular/material/chips';
     MatStepperModule,
     MatExpansionModule,
     MatAutocompleteModule,
+    AutoCompleteComponent,
+    MatProgressBarModule,
   ],
   exports:[
     SpinnerComponent,
@@ -160,6 +164,7 @@ import { MatChipsModule } from '@angular/material/chips';
     MatSelectModule,
     MatStepperModule,
     MatExpansionModule,
+    ListProductComponent,
   ],
   providers: [
     KadaService,

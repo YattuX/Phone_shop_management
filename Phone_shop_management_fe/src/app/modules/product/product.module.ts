@@ -25,6 +25,7 @@ import { MicroEtVibreurComponent } from './components/piece/micro-et-vibreur/mic
 import { CadreComponent } from './components/piece/cadre/cadre.component';
 import { MoteurComponent } from './components/piece/moteur/moteur.component';
 import { AutoCompleteComponent } from "../../shared/components/autocomplete/autocomplete.component";
+import { ListProductComponent } from 'src/app/shared/components/list-product/list-product.component';
 
 
 

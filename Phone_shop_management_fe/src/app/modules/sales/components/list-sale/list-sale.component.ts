@@ -5,5 +5,9 @@ import { Component } from '@angular/core';
   templateUrl: './list-sale.component.html',
 })
 export class ListSaleComponent {
+title: string;
 
+  constructor(){
+    this.title = "Vente"
+  }
 }
