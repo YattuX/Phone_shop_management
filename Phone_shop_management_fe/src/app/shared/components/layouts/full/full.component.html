@@ -6,17 +6,17 @@
         dark: dark,
         green: green,
         horizontal: horizontal
-      }"
-      >
+      }">
 
 
-    <mat-toolbar [class.mat-elevation-z8]="true" style="height: fit-content !important; background-color: #011039 !important;">
-        <div class="flex justify-between items-center text-white w-full" >
+    <mat-toolbar [class.mat-elevation-z8]="true"
+        style="height: fit-content !important; background-color: #011039 !important;">
+        <div class="flex justify-between items-center text-white w-full">
             <div class="flex justify-between items-center md:w-1/5">
                 <div class="w-[50px] h-[50px]">
                     <img class="h-full w-full" src="../../../../assets/images/logo.png" alt="">
-                   </div>
-                <div id="menu" >
+                </div>
+                <div id="menu">
                     <button mat-icon-button (click)="sidenav.toggle();">
                         <mat-icon>menu</mat-icon>
                     </button>
@@ -28,11 +28,11 @@
         </div>
     </mat-toolbar>
 
-    <mat-sidenav-container  [hasBackdrop]="!openedSideNav">
+    <mat-sidenav-container [hasBackdrop]="!openedSideNav">
         <mat-sidenav #sidenav style="min-width: 20vw;" [mode]="openedSideNav?'side':'over'" [opened]="openedSideNav"
             [class.mat-elevation-z8]="true">
             <!-- Side Bar -->
-            <app-sidebar ></app-sidebar>
+            <app-sidebar></app-sidebar>
         </mat-sidenav>
         <!-- ============================================================== -->
         <!-- Sidebar - style you can find in sidebar.scss -->
@@ -87,14 +87,15 @@
         </mat-sidenav>
         <!-- container: body -->
         <mat-sidenav-content>
-                <div class="min-h-[calc(100vh-48px)] max-h-[calc(100vh-48px)] overflow-y-auto flex flex-col justify-between" id="main">
-                    <div>
-                        <router-outlet>
-                            <app-spinner></app-spinner>
-                        </router-outlet>
-                    </div>
-                    <app-footer></app-footer>
+            <div class="min-h-[calc(100vh-50px)] max-h-[calc(100vh-50px)] overflow-y-auto flex flex-col justify-between"
+                id="main">
+                <div>
+                    <router-outlet>
+                        <app-spinner></app-spinner>
+                    </router-outlet>
                 </div>
+                <app-footer></app-footer>
+            </div>
         </mat-sidenav-content>
     </mat-sidenav-container>
 </div>
