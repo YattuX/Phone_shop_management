@@ -3,7 +3,7 @@
 <mat-toolbar class="content-toolbar flex flex-wrap justify-between items-center"
     style="height: fit-content !important; padding:5px 10px;">
     <div class="flex">
-        <mat-icon class="cursor-pointer text-white" title="retour" (click)="goBack()">reply</mat-icon>
+        <mat-icon class="cursor-pointer text-white" title="retour">reply</mat-icon>
     </div>
 
     <div class="flex">
@@ -12,8 +12,8 @@
         </button>
     </div>
 </mat-toolbar>
-<nav mat-tab-nav-bar class="my-3 mat-tab-group custom blue">
-    <a *ngFor="let nav of navs1"
+<nav mat-tab-nav-bar class="my-3 mat-tab-group custom blue" [tabPanel]="tabPanel">
+    <a *ngFor="let nav of navs2"
       mat-tab-link 
       class="mat-tab-label"
       [disableRipple]="true"
@@ -23,7 +23,7 @@
       {{ nav.label }}
     </a>
 </nav>
-<mat-tab-nav-panel>
+<mat-tab-nav-panel #tabPanel>
     <router-outlet></router-outlet>
 </mat-tab-nav-panel>
 

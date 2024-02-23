@@ -22,7 +22,6 @@ export class ListUsersComponent extends BaseTableComponent {
   displayedColumns = ['id', 'lastname','firstname','email','phone','role','action'];
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(

@@ -14,7 +14,7 @@ import { AntiCasseComponent } from './components/accessoir/anti-casse/anti-casse
 import { NettoyageComponent } from './components/accessoir/nettoyage/nettoyage.component';
 import { InstrumentComponent } from './components/accessoir/instrument/instrument.component';
 import { ConnectiqueComponent } from './components/accessoir/connectique/connectique.component';
-import { AppareilAccessoirComponent } from './components/accessoir/appareil-accessoir/appareil-accessoir.component';
+import { AppareilAccessoirComponent } from './components/materiel/appareil-accessoir/appareil-accessoir.component';
 import { EcranComponent } from './components/piece/ecran/ecran.component';
 import { BatterieComponent } from './components/piece/batterie/batterie.component';
 import { CameraComponent } from './components/piece/camera/camera.component';
@@ -25,7 +25,8 @@ import { MicroEtVibreurComponent } from './components/piece/micro-et-vibreur/mic
 import { CadreComponent } from './components/piece/cadre/cadre.component';
 import { MoteurComponent } from './components/piece/moteur/moteur.component';
 import { AutoCompleteComponent } from "../../shared/components/autocomplete/autocomplete.component";
-import { ListProductComponent } from 'src/app/shared/components/list-product/list-product.component';
+import { MaterialTabComponent } from './components/materiel/material.tab.component';
+import { EditProductDialog } from './components/editProduct.dialog';
 
 
 
@@ -54,6 +55,8 @@ import { ListProductComponent } from 'src/app/shared/components/list-product/lis
         MicroEtVibreurComponent,
         CadreComponent,
         MoteurComponent,
+        MaterialTabComponent,
+        EditProductDialog
     ],
     imports: [
         CommonModule,

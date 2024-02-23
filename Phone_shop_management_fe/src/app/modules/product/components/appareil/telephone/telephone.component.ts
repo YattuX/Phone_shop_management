@@ -12,5 +12,4 @@ export class TelephoneComponent  {
   {
     this.typeArticle = TypeArticleName.telephone
   }
-
 }
