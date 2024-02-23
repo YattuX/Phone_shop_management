@@ -9,7 +9,6 @@ export const UiPath = {
         },
         accessoir: {
             anti_cass: 'products/accessoir/anti_cass',
-            appreil_accessoir: 'products/accessoir/appreil_accessoir',
             connectique: 'products/accessoir/connectique',
             instrument: 'products/accessoir/instrument',
             netoyage: 'products/accessoir/netoyage',
@@ -25,6 +24,9 @@ export const UiPath = {
             moteur : 'products/piece/moteur',
             nape_et_palette : 'products/piece/nape_et_palette',
             vitre : 'products/piece/vitre',
+        },
+        materiel:{
+            appreil_accessoir: 'products/materiel/appreil_accessoir',
         },
         addProduct: {
             add: 'products/add-produit'

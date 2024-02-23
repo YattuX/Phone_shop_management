@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Tabs } from '../accessoir.component.tab';
 import { TypeArticleName } from 'src/app/core/models/Utils';
 
 @Component({

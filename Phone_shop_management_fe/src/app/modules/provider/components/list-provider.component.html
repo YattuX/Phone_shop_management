@@ -90,6 +90,6 @@
     </mat-table>
 
     <mat-paginator [length]="total" [pageSize]="pageSize"
-        (page)="onChangePage({pageSize: $event.pageSize, pageOffset: $event.pageIndex})"></mat-paginator>
+        (page)="onChangePage({pageSize: $event.pageSize, pageIndex: $event.pageIndex})"></mat-paginator>
 
 </div>
