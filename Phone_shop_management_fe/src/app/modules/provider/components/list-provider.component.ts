@@ -22,7 +22,6 @@ export class ListProviderComponent extends BaseTableComponent implements OnInit 
 
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
