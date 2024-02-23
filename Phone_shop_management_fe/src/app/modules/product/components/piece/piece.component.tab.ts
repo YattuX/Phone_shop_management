@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -54,6 +55,7 @@ export class PieceComponent {
   constructor(
     private _dialog: MatDialog,
     private router: Router,
+    private _location:Location
   ) {
     this.title = 'Liste des articles'
   }
@@ -70,5 +72,7 @@ export class PieceComponent {
   addArticle() {
     this.router.navigateByUrl(UiPath.products.addProduct.add)
   }
+
+  goBack = ()=> this._location.back();
 
 }
