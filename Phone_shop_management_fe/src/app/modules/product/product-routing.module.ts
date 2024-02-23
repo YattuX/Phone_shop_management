@@ -14,7 +14,7 @@ import { MoteurComponent } from './components/piece/moteur/moteur.component';
 import { NapeEtPaletteComponent } from './components/piece/nape-et-palette/nape-et-palette.component';
 import { VitreComponent } from './components/piece/vitre/vitre.component';
 import { AntiCasseComponent } from './components/accessoir/anti-casse/anti-casse.component';
-import { AppareilAccessoirComponent } from './components/accessoir/appareil-accessoir/appareil-accessoir.component';
+import { AppareilAccessoirComponent } from './components/materiel/appareil-accessoir/appareil-accessoir.component';
 import { ConnectiqueComponent } from './components/accessoir/connectique/connectique.component';
 import { InstrumentComponent } from './components/accessoir/instrument/instrument.component';
 import { NettoyageComponent } from './components/accessoir/nettoyage/nettoyage.component';
@@ -23,6 +23,7 @@ import { PieceComponent } from './components/piece/piece.component.tab';
 import { AccessoirComponent } from './components/accessoir/accessoir.component.tab';
 import { AddProduct } from './components/addProduct';
 import { AuthGuard } from 'src/app/shared/services/auth.guard';
+import { MaterialTabComponent } from './components/materiel/material.tab.component';
 
 const routes: Routes = [
     {
@@ -140,11 +141,6 @@ const routes: Routes = [
                 canActivate:[AuthGuard],
             },
             {
-                path: 'appreil_accessoir',
-                component: AppareilAccessoirComponent,
-                canActivate:[AuthGuard],
-            },
-            {
                 path: 'connectique',
                 component: ConnectiqueComponent,
                 canActivate:[AuthGuard],
@@ -168,11 +164,23 @@ const routes: Routes = [
     },
     {
         path: 'materiel',
-        component: ProductListComponent,
+        component: MaterialTabComponent,
         canActivate:[AuthGuard],
         data: {
             title: 'Liste matériels'
-        }
+        },
+        children:[
+            {
+                path:'',
+                redirectTo:"appreil_accessoir",
+                pathMatch:'full'
+            },
+            {
+                path: 'appreil_accessoir',
+                component: AppareilAccessoirComponent,
+                canActivate:[AuthGuard],
+            },
+        ]
     },
     {
         path: 'add-produit',

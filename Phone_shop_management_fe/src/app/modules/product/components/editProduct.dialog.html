@@ -1,0 +1,214 @@
+<div class="headerDialog">
+    <h2 mat-dialog-title>{{title}}</h2>
+    <mat-icon [ngClass]="{'dialog-disabled': showSpinner}" class="cursor-pointer"
+        (click)="dialogRef.close()">close</mat-icon>
+</div>
+<mat-dialog-content [ngClass]="{'dialog-disabled': showSpinner}" class="mat-typography">
+    <div class="absolute inset-1/2 z-50 shadow" *ngIf="showSpinner">
+        <mat-spinner [diameter]="80"></mat-spinner>
+    </div>
+    <form [formGroup]="formProduit">
+
+        <div class=" w-full px-5 mt-4">
+            <mat-form-field class="w-full">
+                <mat-label>Model</mat-label>
+                <mat-select formControlName="modelId" (valueChange)="getCaracteristique($event.value)"
+                    placeholder="Model*">
+                    <mat-option *ngFor="let l of listModelWithCaractristique" [value]="l.id">
+                        {{l.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div *ngIf="formProduit.controls['modelId'].errors && 
+          formProduit.controls['modelId'].errors['required'] && 
+          formProduit.controls['modelId'].touched">Le modèle est Obligatoire</div>
+        </div>
+
+        <div class="flex flex-wrap justify-evenly">
+
+            <mat-form-field *ngIf="caracteristique?.hasProcesseurs" class="w-[48%]">
+                <mat-label>Processeur</mat-label>
+                <mat-select formControlName="processeurs">
+                    <mat-option>---</mat-option>
+                    <mat-option value="2GHz">2GHz</mat-option>
+                    <mat-option value="2.4GHz">2.4GHz</mat-option>
+                    <mat-option value="2.5GHz">2.5GHz</mat-option>
+                    <mat-option value="3GHz">3GHz</mat-option>
+                </mat-select>
+                <mat-error *ngIf="formProduit.controls['processeurs'].errors && 
+          formProduit.controls['processeurs'].errors['required'] && 
+          formProduit.controls['processeurs'].touched">Le processeur est Obligatoire</mat-error>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="caracteristique?.hasTailleEcran" class="w-[48%]">
+                <mat-label>Taille écran</mat-label>
+                <mat-select formControlName="tailleEcran">
+                    <mat-option>---</mat-option>
+                    <mat-option value="14">14</mat-option>
+                    <mat-option value="32">32</mat-option>
+                    <mat-option value="64">64</mat-option>
+                </mat-select>
+                <mat-error *ngIf="formProduit.controls['tailleEcran'].errors && 
+          formProduit.controls['tailleEcran'].errors['required'] && 
+          formProduit.controls['tailleEcran'].touched">La taille de l'ecran est Obligatoire</mat-error>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="caracteristique?.hasRam" class="w-[48%]">
+                <mat-label>Ram</mat-label>
+                <mat-select formControlName="ram">
+                    <mat-option>---</mat-option>
+                    <mat-option value="2Gb">2Gb</mat-option>
+                    <mat-option value="4Gb">4Gb</mat-option>
+                    <mat-option value="8Gb">8Gb</mat-option>
+                    <mat-option value="16Gb">16Gb</mat-option>
+                    <mat-option value="32Gb">32Gb</mat-option>
+                    <mat-option value="64Gb">64Gb</mat-option>
+                </mat-select>
+                <mat-error *ngIf="formProduit.controls['ram'].errors && 
+          formProduit.controls['ram'].errors['required'] &&
+          formProduit.controls['ram'].touched && formProduit.controls['ram'].dirty">La ram est Obligatoire</mat-error>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="caracteristique?.hasQualite" class="w-[48%]">
+                <mat-label>Qualité</mat-label>
+                <mat-select formControlName="qualite">
+                    <mat-option>---</mat-option>
+                    <mat-option value="1er">1er</mat-option>
+                    <mat-option value="2e">2e</mat-option>
+                    <mat-option value="3e">3e</mat-option>
+                </mat-select>
+                <mat-error *ngIf="formProduit.controls['qualite'].errors && 
+          formProduit.controls['qualite'].errors['required'] && 
+          formProduit.controls['qualite'].touched">La qualité est Obligatoire</mat-error>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="caracteristique?.hasPosition" class="w-[48%]">
+                <mat-label>Position</mat-label>
+                <mat-select formControlName="position">
+                    <mat-option>---</mat-option>
+                    <mat-option value="Devant">Devant</mat-option>
+                    <mat-option value="Derrière">Derrière</mat-option>
+                    <mat-option value="Gauche">Gauche</mat-option>
+                    <mat-option value="Droite">Droite</mat-option>
+                </mat-select>
+                <mat-error *ngIf="formProduit.controls['position'].errors && 
+          formProduit.controls['position'].errors['required'] && 
+          formProduit.controls['position'].touched">La position est Obligatoire</mat-error>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="caracteristique?.hasCapacite" class="w-[48%]">
+                <mat-label>Capacité</mat-label>
+                <mat-select formControlName="capacite">
+                    <mat-option>---</mat-option>
+                    <mat-option value="4Gb">4Gb</mat-option>
+                    <mat-option value="8Gb">8Gb</mat-option>
+                    <mat-option value="16Gb">16Gb</mat-option>
+                    <mat-option value="32Gb">32Gb</mat-option>
+                    <mat-option value="64Gb">64Gb</mat-option>
+                    <mat-option value="128Gb">128Gb</mat-option>
+                    <mat-option value="256Gb">256Gb</mat-option>
+                    <mat-option value="500Gb">500Gb</mat-option>
+                    <mat-option value="1T">1T</mat-option>
+                    <mat-option value="2T">2T</mat-option>
+                    <mat-option value="3T">3T</mat-option>
+                    <mat-option value="4T">4T</mat-option>
+                </mat-select>
+                <mat-error *ngIf="formProduit.controls['capacite'].errors && 
+          formProduit.controls['capacite'].errors['required'] && 
+          formProduit.controls['capacite'].touched">La capacité est Obligatoire</mat-error>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="caracteristique?.hasPuissance" class="w-[48%]">
+                <mat-label>Puissance</mat-label>
+                <mat-select formControlName="puissance">
+                    <mat-option>---</mat-option>
+                    <mat-option value="1er">1er</mat-option>
+                    <mat-option value="2e">2e</mat-option>
+                    <mat-option value="3e">3e</mat-option>
+                </mat-select>
+                <mat-error *ngIf="formProduit.controls['puissance'].errors && 
+          formProduit.controls['puissance'].errors['required'] && 
+          formProduit.controls['puissance'].touched">La puissance est Obligatoire</mat-error>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="caracteristique?.hasNombreDeSim" class="w-[48%]">
+                <mat-label>Nombre de sim</mat-label>
+                <mat-select formControlName="nombreDeSim">
+                    <mat-option>Clear</mat-option>
+                    <mat-option [value]="1">1</mat-option>
+                    <mat-option [value]="2">2</mat-option>
+                    <mat-option [value]="3">3</mat-option>
+                </mat-select>
+                <mat-error *ngIf="formProduit.controls['nombreDeSim'].errors && 
+          formProduit.controls['nombreDeSim'].errors['required'] && 
+          formProduit.controls['nombreDeSim'].touched">Le nombre de sim est Obligatoire</mat-error>
+            </mat-form-field>
+
+            <div *ngIf="caracteristique?.hasStockage" class="w-[48%]">
+                <autocomplete formControlName="stockageId" placeholder="Stockage*" [values]="listStockage" idField="id"
+                    valueField="name">
+                </autocomplete>
+            </div>
+
+            <div *ngIf="caracteristique?.hasCouleur" class="w-[48%]">
+                <autocomplete formControlName="couleurId" placeholder="Couleur*" [values]="listCouleur" idField="id"
+                    valueField="name">
+                </autocomplete>
+            </div>
+
+            <div *ngIf="caracteristique?.hasParticularite" class="w-[48%]">
+                <autocomplete formControlName="particulariteId" placeholder="Particularité*"
+                    [values]="listParticularite" idField="id" valueField="content">
+                </autocomplete>
+            </div>
+
+            <div *ngIf="caracteristique?.hasEtat" class="w-[48%]">
+                <autocomplete formControlName="etatId" placeholder="Etat*" [values]="listEtat" idField="id"
+                    valueField="content">
+                </autocomplete>
+            </div>
+
+            <div *ngIf="caracteristique?.hasType" class="w-[48%]">
+                <autocomplete formControlName="typeId" placeholder="Type*" [values]="listType" idField="id"
+                    valueField="content">
+                </autocomplete>
+            </div>
+
+            <mat-form-field *ngIf="caracteristique?.hasImei" class="w-[48%]">
+                <mat-label>Imei</mat-label>
+                <input formControlName="imei" matInput placeholder="Entrez le nom du Produit">
+                <mat-error *ngIf="formProduit.controls['imei'].errors && 
+          formProduit.controls['imei'].errors['required'] && 
+          formProduit.controls['imei']['touched']">L'imei est Obligatoire</mat-error>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="caracteristique?.hasCaracteristic" class="w-[48%]">
+                <mat-label>Caracteristique</mat-label>
+                <input formControlName="caracteristiqueId" matInput placeholder="Entrez la caracteristique">
+                <mat-error *ngIf="formProduit.controls['caracteristiqueId'].errors && 
+          formProduit.controls['caracteristiqueId'].errors['required'] && 
+          formProduit.controls['caracteristiqueId']['touched']">La caracteristique est Obligatoire</mat-error>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="caracteristique?.hasDescription" class="w-[48%]">
+                <mat-label>Description</mat-label>
+                <textarea formControlName="description" matInput placeholder="Entrez la Description" [rows]="1"
+                    class="resize-none"></textarea>
+                <mat-error *ngIf="formProduit.controls['description'].errors && 
+          formProduit.controls['description'].errors['required'] && 
+          formProduit.controls['description']['touched']">La Description est Obligatoire</mat-error>
+            </mat-form-field>
+        </div>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions [ngClass]="{'dialog-disabled': showSpinner}" align="end">
+    <div class="space-x-3 px-4">
+        <button class="button text-black shadow-xl" (click)="dialogRef.close()">
+            Annuler
+        </button>
+        <button (click)="save()" class="button-primary mr-4 drop-shadow-lg">
+            Modifier
+        </button>
+    </div>
+</mat-dialog-actions>

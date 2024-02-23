@@ -12,14 +12,4 @@ export class TelephoneComponent  {
   {
     this.typeArticle = TypeArticleName.telephone
   }
-
-  openDialog(action:string,row:any){
-    console.log({action,row});
-    
-  }
-  removeRows(row:any){
-    console.log({row});
-    
-  }
-
 }
