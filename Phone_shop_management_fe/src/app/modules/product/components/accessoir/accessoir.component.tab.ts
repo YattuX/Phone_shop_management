@@ -10,10 +10,6 @@ export const Tabs = [
     label: 'Liste des anti-casse'
   },
   {
-    routerLink: '/' + UiPath.products.accessoir.appreil_accessoir,
-    label: 'Liste des appareils accessoir'
-  },
-  {
     routerLink: '/' + UiPath.products.accessoir.connectique,
     label: 'Liste des connectiques'
   },
