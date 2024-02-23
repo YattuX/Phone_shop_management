@@ -1,6 +1,6 @@
-import { ChangeDetectorRef, Component, Input } from '@angular/core';
-import { ArticleDTOSearchResult, CouleurDTO, EtatDTO, ICaracteristiqueDTO, IModelDTO, KadaService, ModelDTO, ParticulariteDTO, SearchDTO, StockageDTO, TypeDTO } from 'src/app/shared/services/kada.service';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ChangeDetectorRef, Component, Input, Optional } from '@angular/core';
+import { ArticleDTOSearchResult, CouleurDTO, EtatDTO, ICaracteristiqueDTO, KadaService, ModelDTO, ParticulariteDTO, SearchDTO, StockageDTO, TypeDTO } from 'src/app/shared/services/kada.service';
+import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BaseTableComponent } from 'src/app/shared/components/table/base-table.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Observable, combineLatest, debounceTime, distinctUntilChanged, startWith, takeUntil } from 'rxjs';
 import { TypeArticleName } from 'src/app/core/models/Utils';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
+import { EditProductDialog } from 'src/app/modules/product/components/editProduct.dialog';
 
 
 @Component({
@@ -16,6 +17,18 @@ import { moveItemInArray } from '@angular/cdk/drag-drop';
 })
 export class ListProductComponent extends BaseTableComponent {
   @Input() typeArticle : string;
+
+  @Optional() @Input() editDialog:Function = (action:string,row:any)=>{
+      this._dialog.open(EditProductDialog,{
+        data:row,
+        minWidth:'900px'
+      }).afterClosed().subscribe((res)=>{
+        if(res){
+          this.triggerSearch();
+        }
+      })
+  };
+
   displayedColumns: string[] = ["modele"];
   modeles: ModelDTO[];
   couleurs: CouleurDTO[];
@@ -219,6 +232,10 @@ export class ListProductComponent extends BaseTableComponent {
       .subscribe(res => {
         this.types = res.results
       })
+  }
+
+  haveOtherFields = ()=>{
+    return this.displayedColumns.length > 1;
   }
 
   drop(event: any) {
