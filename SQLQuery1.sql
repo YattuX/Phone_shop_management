@@ -1,0 +1,21 @@
+﻿INSERT INTO TypeArticle (Id,Name, [Status])
+VALUES
+  (NEWID(),'Téléphone',1),
+  (NEWID(),'Tablette',1),
+  (NEWID(),'Pochette',1),
+  (NEWID(),'Micro et Vibreur',1),
+  (NEWID(),'Connectiques',1),
+  (NEWID(),'Ecran',1),
+  (NEWID(),'Dépoussiérant',1),
+  (NEWID(),'Appareil-accessoir',1),
+  (NEWID(),'Diluant',1),
+  (NEWID(),'Napes et Plaquettes',1),
+  (NEWID(),'Moteur',1),
+  (NEWID(),'Vitre',1),
+  (NEWID(),'Batterie',1),
+  (NEWID(),'Haut-Parleur',1),
+  (NEWID(),'Camera',1),
+  (NEWID(),'Ordinateur',1),
+  (NEWID(),'Instrument',1),
+  (NEWID(),'Cadre',1),
+  (NEWID(),'Anti-casse',1);

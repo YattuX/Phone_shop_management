@@ -4,6 +4,7 @@ using Kada.Identity.DbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Kada.Identity.Migrations
 {
     [DbContext(typeof(KadaIdentityDbContext))]
-    partial class KadaIdentityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240223152643_AddStatus")]
+    partial class AddStatus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -103,18 +106,18 @@ namespace Kada.Identity.Migrations
                         {
                             Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3bb71851-2380-418b-9303-ab355094957c",
+                            ConcurrencyStamp = "50dd828f-c26c-4efc-8162-37d0b99cec9e",
                             Email = "admin@localhost.com",
                             EmailConfirmed = true,
                             FirstName = "System",
-                            Identifiant = "Adm-Q69PHTGH",
+                            Identifiant = "Adm-UTKO1CJ7",
                             LastName = "Admin",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGQdMNoo88VCjBY6UXdcE8xtyohcwlAckKZi6BP4XeS6fDtcGVj2ciAHbWP6+sYXwg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDhPgKfiJNOVwbuCwdcu4NJ9Yctdi6pBx/T5dOlFZz+rQJMOLubmFCnstu2LArQb6g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "15283815-5628-49c1-b141-3bc53c6ad6b6",
+                            SecurityStamp = "157a85c4-206f-4ccb-9ff1-45d6cb312b7e",
                             TwoFactorEnabled = false,
                             UserName = "admin@localhost.com"
                         },
@@ -122,18 +125,18 @@ namespace Kada.Identity.Migrations
                         {
                             Id = "9e224968-33e4-4652-b7b7-8574d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f2e8ac85-7f63-458e-9bf2-37c8c5b89787",
+                            ConcurrencyStamp = "b2e7301e-7f28-4626-b6d9-73826de097a6",
                             Email = "user@localhost.com",
                             EmailConfirmed = true,
                             FirstName = "System",
-                            Identifiant = "Tech-4MR8DHPJ",
+                            Identifiant = "Tech-G4QJGEUB",
                             LastName = "User",
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@LOCALHOST.COM",
                             NormalizedUserName = "USER@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAECz1ITNuYE+yITuA/x+RPBfrHS8D5gPCBUqzilbtqwkV90MV38XfXNcLT/A4w050mQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGLEJ4p+PPJkg7h4+r4mTVgCgewObY12r9E8e3iPuceIkQ6tpqBxHONyFjx7zEtrbw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "bba27b73-a8c8-44b3-bdfc-8ed37263d285",
+                            SecurityStamp = "48828812-c1fd-4ff5-b73b-4f3c4d1e515c",
                             TwoFactorEnabled = false,
                             UserName = "user@localhost.com"
                         });
