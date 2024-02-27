@@ -182,4 +182,25 @@ CREATE TABLE [dbo].[Article] (
     FOREIGN KEY ([CaracteristiqueId]) REFERENCES [dbo].[Caracteristique] ([Id])
 );
 
+CREATE TABLE Reparation (
+    Id UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
+    ClientId UNIQUEIDENTIFIER NOT NULL,
+    ArticleId UNIQUEIDENTIFIER NOT NULL,
+    DescriptionProbleme NVARCHAR(MAX),
+    DateDepot DATETIME NOT NULL,
+    DateLivraison DATETIME,
+    EtatReparation INT NOT NULL DEFAULT 0,
+    StatutPaiement INT NOT NULL DEFAULT 0,
+    CoutReparation DECIMAL(18, 2) NOT NULL,
+    ReparateurEnCharge NVARCHAR(36),
+    Remarques NVARCHAR(MAX),
+    DateCreated DATETIME default getDate(),
+    CreatedBy NVARCHAR(MAX),
+    DateModified DATETIME,
+    ModifiedBy NVARCHAR(MAX),
+    FOREIGN KEY (ClientId) REFERENCES Client(Id),
+    FOREIGN KEY (ArticleId) REFERENCES Article(Id)
+);
+
+
 
