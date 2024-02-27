@@ -19,7 +19,8 @@ export class AppBreadcrumbComponent {
       .pipe()
       .subscribe(() => {
         const route = this.getLastChild(this._activatedRoute);
-        this.Title = route.snapshot.data['title'];
+        if(route.snapshot.data['title'])
+          this.Title = route.snapshot.data['title'];
       })
 
   }
