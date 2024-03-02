@@ -4138,6 +4138,127 @@ export class KadaService {
         }
     }
 
+     /**
+     * @param body (optional) 
+     * @return No Content
+     */
+     updateEtatReparation(body: UpdateEtatReparationCommand | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/Reparation/UpdateEtatReparation";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUpdateEtatReparation(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUpdateEtatReparation(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processUpdateEtatReparation(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result400 = ProblemDetails.fromJS(resultData400);
+            return throwException("Bad Request", status, _responseText, _headers, result400);
+            }));
+        } else if (status === 404) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result404: any = null;
+            let resultData404 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result404 = ProblemDetails.fromJS(resultData404);
+            return throwException("Not Found", status, _responseText, _headers, result404);
+            }));
+        } else {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let resultdefault: any = null;
+            let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            resultdefault = ProblemDetails.fromJS(resultDatadefault);
+            return throwException("Error", status, _responseText, _headers, resultdefault);
+            }));
+        }
+    }
+
+}
+
+export enum EtatReparation {
+    _0 = 0,
+    _1 = 1,
+    _2 = 2,
+    _3 = 3,
+}
+
+export enum StatutPaiement {
+    _0 = 0,
+    _1 = 1,
+    _2 = 2,
+}
+
+export class UpdateEtatReparationCommand implements IUpdateEtatReparationCommand {
+    id?: string;
+    etatReparation?: EtatReparation;
+
+    constructor(data?: IUpdateEtatReparationCommand) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.etatReparation = _data["etatReparation"];
+        }
+    }
+
+    static fromJS(data: any): UpdateEtatReparationCommand {
+        data = typeof data === 'object' ? data : {};
+        let result = new UpdateEtatReparationCommand();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["etatReparation"] = this.etatReparation;
+        return data; 
+    }
+}
+
+export interface IUpdateEtatReparationCommand {
+    id?: string;
+    etatReparation?: EtatReparation;
 }
 
 export class CreateReparationCommand implements ICreateReparationCommand {
@@ -4211,8 +4332,8 @@ export class ReparationDTO implements IReparationDTO {
     descriptionProbleme?: string | undefined;
     dateDepot?: Date;
     dateLivraison?: Date | undefined;
-    etatReparation?: string | undefined;
-    statutPaiement?: string | undefined;
+    etatReparation?: EtatReparation;
+    statutPaiement?: StatutPaiement;
     coutReparation?: number;
     reparateurEnCharge?: string | undefined;
     remarques?: string | undefined;
@@ -4279,15 +4400,14 @@ export interface IReparationDTO {
     descriptionProbleme?: string | undefined;
     dateDepot?: Date;
     dateLivraison?: Date | undefined;
-    etatReparation?: string | undefined;
-    statutPaiement?: string | undefined;
+    etatReparation?: EtatReparation;
+    statutPaiement?: StatutPaiement;
     coutReparation?: number;
     reparateurEnCharge?: string | undefined;
     remarques?: string | undefined;
     clientName?: string | undefined;
     articleName?: string | undefined;
 }
-
 export class ReparationDTOSearchResult implements IReparationDTOSearchResult {
     results?: ReparationDTO[] | undefined;
     totalCount?: number;
@@ -6099,6 +6219,7 @@ export class ProblemDetails implements IProblemDetails {
     status?: number | undefined;
     detail?: string | undefined;
     instance?: string | undefined;
+    errors?:any|undefined;
 
     constructor(data?: IProblemDetails) {
         if (data) {
@@ -6116,6 +6237,7 @@ export class ProblemDetails implements IProblemDetails {
             this.status = _data["status"];
             this.detail = _data["detail"];
             this.instance = _data["instance"];
+            this.errors = _data["errors"]
         }
     }
 
@@ -6143,6 +6265,7 @@ export interface IProblemDetails {
     status?: number | undefined;
     detail?: string | undefined;
     instance?: string | undefined;
+    errors?:any;
 }
 
 export class SearchDTO implements ISearchDTO {

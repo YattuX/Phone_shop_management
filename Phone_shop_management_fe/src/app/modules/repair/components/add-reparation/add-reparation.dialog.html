@@ -1,0 +1,94 @@
+<div class="headerDialog">
+    <h2 mat-dialog-title>{{title}} une reparation</h2>
+    <mat-icon [ngClass]="{'dialog-disabled': showSpinner}" class="cursor-pointer"
+        (click)="dialogRef.close()">close</mat-icon>
+</div>
+
+<mat-dialog-content [ngClass]="{'dialog-disabled': showSpinner}" class="mat-typography">
+    <div class="absolute inset-1/2 z-50 shadow" *ngIf="showSpinner">
+        <mat-spinner [diameter]="80"></mat-spinner>
+    </div>
+    <form [formGroup]="form" class="flex flex-wrap justify-center gap-3">
+        <div class="w-full md:w-[47%]">
+            <!-- <mat-label>Client</mat-label> -->
+            <autocomplete formControlName="clientId" placeholder="Client" [values]="clientsList" idField="id"
+                valueField="fullName"></autocomplete>
+            <mat-error *ngIf="form.get('clientId').hasError('required')">
+                Client est requis.
+            </mat-error>
+        </div>
+        <div class="w-full md:w-[47%]">
+            <!-- <mat-label>Article</mat-label> -->
+            <autocomplete formControlName="articleId" placeholder="Article" [values]="articlesList" idField="id"
+                valueField="modele"></autocomplete>
+            <mat-error *ngIf="form.get('articleId').hasError('required')">
+                Article est requis.
+            </mat-error>
+        </div>
+        <mat-form-field class="w-full md:w-[47%]">
+            <mat-label>Date de depôt</mat-label>
+            <input matInput [matDatepicker]="picker1" formControlName="dateDepot">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+            <mat-error *ngIf="form.get('dateDepot').hasError('required')">
+                Date de dépôt est requise.
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="w-full md:w-[47%]">
+            <mat-label>Date de livraison</mat-label>
+            <input matInput [matDatepicker]="picker2" formControlName="dateLivraison" [min]="form.controls['dateDepot'].value">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+        <div class="w-full md:w-[47%]">
+            <!-- <mat-label>Reparateur en Charge</mat-label> -->
+            <autocomplete formControlName="reparateurEnCharge" placeholder="Reparateur en Charge" [values]="userLists"
+                idField="id" valueField="fullName"></autocomplete>
+            <mat-error *ngIf="form.get('reparateurEnCharge').hasError('required')">
+                Réparateur en charge est requis.
+            </mat-error>
+        </div>
+        <mat-form-field class="w-full md:w-[47%]" floatLabel="always">
+            <mat-label>Coût de la reparation</mat-label>
+            <input matInput type="number" class="right-align" placeholder="0" formControlName="coutReparation">
+            <span matTextSuffix>.00 GNF</span>
+            <mat-error *ngIf="form.get('coutReparation').hasError('required')">
+                Coût de la reparation est requis.
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="w-full md:w-[47%]">
+            <mat-label>Description du problème</mat-label>
+            <input matInput placeholder="Description du problème" formControlName="descriptionProbleme">
+            <mat-error *ngIf="form.get('descriptionProbleme').hasError('required')">
+                Description du problème est requise.
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="w-full md:w-[47%]">
+            <input matInput placeholder="Remarque/Note" formControlName="remarques">
+        </mat-form-field>
+    </form>
+    
+</mat-dialog-content>
+
+<mat-dialog-actions [ngClass]="{'dialog-disabled': showSpinner}" class="flex justify-between w-full">
+    <div class="w-[50%]">
+        <button class="button text-black shadow-xl" (click)="dialogRef.close()">
+            Annuler
+        </button>
+    </div>
+    <div class="space-x-3 px-4 w-[50%] text-end">
+        <button 
+            mat-stroked-button 
+            color="primary"
+            (click)="!isRestitued?updateEtat():null" [disabled]="isRestitued"
+            *ngIf="data.row?.etatReparation"
+        >
+            {{getTitleButton()}}
+        </button>
+        <button (click)="save()" class="button-primary mr-4 drop-shadow-lg">
+            {{title}}
+        </button>
+    </div>
+</mat-dialog-actions>

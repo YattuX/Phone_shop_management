@@ -1,1 +1,138 @@
-<p>list-repair works!</p>
+<app-breadcrumb [Title]="title"></app-breadcrumb>
+
+<mat-divider></mat-divider>
+<mat-toolbar class="content-toolbar flex flex-wrap justify-between items-center"
+    style="height: fit-content !important; padding:5px 10px;">
+    <div class="flex">
+    </div>
+
+    <div class="flex">
+        <button class="flex button items-center bg-white text-black shadow-xl" (click)="openDialog('add',{})">
+            + Ajouter
+        </button>
+    </div>
+</mat-toolbar>
+
+<form [formGroup]="searchForm" class="flex flex-wrap justify-center my-6 mx-3 border border-gray-300 rounded-md pt-4 gap-3 bg-white">
+    <div class="w-full md:w-[47%]">
+        <autocomplete formControlName="clientId" placeholder="Client" [values]="clientsList" idField="id"
+            valueField="fullName"></autocomplete>
+    </div>
+    <div class="w-full md:w-[47%]">
+        <autocomplete formControlName="articleId" placeholder="Article" [values]="articlesList" idField="id"
+            valueField="modele"></autocomplete>
+    </div>
+    <mat-form-field class="w-full md:w-[47%]">
+        <mat-label>Date de depôt</mat-label>
+        <input matInput [matDatepicker]="picker1" formControlName="dateDepot">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="w-full md:w-[47%]">
+        <mat-label>Date de livraison</mat-label>
+        <input matInput [matDatepicker]="picker2" formControlName="dateLivraison">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
+    <div class="w-full md:w-[47%]">
+        <autocomplete formControlName="etatReparation" placeholder="Etat de la reparation"
+            [values]="etatsReparationList" idField="id" valueField="name"></autocomplete>
+    </div>
+    <div class="w-full md:w-[47%]">
+        <autocomplete formControlName="statutPaiement" placeholder="Statut paiement" [values]="statutPaiemenetList"
+            idField="id" valueField="name"></autocomplete>
+    </div>
+    <div class="w-full md:w-[47%]">
+        <autocomplete formControlName="reparateurEnCharge" placeholder="Reparateur en Charge" [values]="userLists"
+            idField="id" valueField="fullName"></autocomplete>
+    </div>
+    <mat-form-field class="w-full md:w-[47%]">
+        <input matInput placeholder="Description du problème" formControlName="description">
+    </mat-form-field>
+</form>
+
+<div class="overflow-x-auto mat-elevation-z2 p-2 bg-white m-2">
+
+    <mat-table [dataSource]="pageRows" matSort cdkDropList cdkDropListOrientation="horizontal"
+        (cdkDropListDropped)="drop($event)" class="w-max">
+
+        <!-- ID Column -->
+        <ng-container matColumnDef="clientId">
+            <mat-header-cell *matHeaderCellDef mat-sort-header cdkDrag>Client</mat-header-cell>
+            <mat-cell *matCellDef="let row;let index=index"> {{row.clientName}} </mat-cell>
+        </ng-container>
+
+        <!-- username Column -->
+        <ng-container matColumnDef="articleId">
+            <mat-header-cell *matHeaderCellDef mat-sort-header cdkDrag>Article</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.articleName}} </mat-cell>
+        </ng-container>
+
+        <!-- firstname Column -->
+        <ng-container matColumnDef="description">
+            <mat-header-cell *matHeaderCellDef mat-sort-header cdkDrag>Description problème</mat-header-cell>
+            <mat-cell *matCellDef="let row" 
+            [matTooltip]="row.descriptionProbleme?.length>25?row.descriptionProbleme:''"
+            > {{row.descriptionProbleme|slice:0:25}} 
+            {{row.descriptionProbleme?.length>25?"...":"" }} </mat-cell>
+        </ng-container>
+
+        <!-- lastname Column -->
+        <ng-container matColumnDef="dateDepot">
+            <mat-header-cell *matHeaderCellDef mat-sort-header cdkDrag>Date depôt</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.dateDepot|date:"dd/MM/yyyy"}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="dateLivraison">
+            <mat-header-cell *matHeaderCellDef mat-sort-header cdkDrag>Date livraison</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.dateLivraison|date:'dd/MM/yyyy'}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="etatReparation">
+            <mat-header-cell *matHeaderCellDef mat-sort-header cdkDrag>Etat de la reparation</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{getEtatReparationTitle(row.etatReparation)}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="statutPaiement">
+            <mat-header-cell *matHeaderCellDef mat-sort-header cdkDrag>Statut du paiement</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{getStatutPaiementTitle(row.statutPaiement)}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="coutReparation">
+            <mat-header-cell *matHeaderCellDef mat-sort-header cdkDrag>Coût de la reparation</mat-header-cell>
+            <mat-cell *matCellDef="let row" style="width: 250px;"> {{row.coutReparation | currency:" "}} GNF </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="reparateurEnCharge">
+            <mat-header-cell *matHeaderCellDef mat-sort-header cdkDrag>Reparateur</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{getReparateur(row.reparateurEnCharge)}} </mat-cell>
+        </ng-container>
+
+        <!-- action Column -->
+        <ng-container matColumnDef="action">
+            <mat-header-cell *matHeaderCellDef mat-sort-header cdkDrag></mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <button mat-stroked-button [matMenuTriggerFor]="menu" color="primary">Action</button>
+                <mat-menu #menu="matMenu">
+                    <span mat-menu-item (click)="openDialog('edit',row)">
+                        Details
+                    </span>
+                    <!-- <span mat-menu-item (click)="removeRows(row)">Supprimer</span> -->
+                </mat-menu>
+            </mat-cell>
+        </ng-container>
+        <ng-container *matNoDataRow>
+            <div *ngIf="!loading" class="text-lg text-center p-2">
+                Aucune donnée trouvée
+            </div>
+            <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;">
+        </mat-row>
+    </mat-table>
+
+    <mat-paginator [length]="total" [pageSize]="pageSize"
+        (page)="onChangePage({pageSize: $event.pageSize, pageIndex: $event.pageIndex})"></mat-paginator>
+
+</div>
