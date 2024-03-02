@@ -99,17 +99,31 @@ namespace Kada.Identity.Services
 
             foreach (var utilisateur in utilisateurs)
             {
-                var rolesInfo = await GetRoleInfos(utilisateur);
+                bool canGetUser = true;
 
-                usersWithRoles.Add(new UserModel {
-                    Id = utilisateur.Id,
-                    Email = utilisateur.Email,
-                    Firstname = utilisateur.FirstName,
-                    Lastname = utilisateur.LastName,
-                    Roles = rolesInfo,
-                    PhoneNumber = utilisateur.PhoneNumber,
-                    Username = utilisateur.UserName
-                });
+                if (filters.ContainsKey("role") && !string.IsNullOrEmpty(filters["role"]))
+                {
+                    if(!await _userManager.IsInRoleAsync(utilisateur, filters["role"]))
+                    {
+                        canGetUser = false;
+                    }
+                }
+
+                if (canGetUser)
+                {
+                    var rolesInfo = await GetRoleInfos(utilisateur);
+
+                    usersWithRoles.Add(new UserModel
+                    {
+                        Id = utilisateur.Id,
+                        Email = utilisateur.Email,
+                        Firstname = utilisateur.FirstName,
+                        Lastname = utilisateur.LastName,
+                        Roles = rolesInfo,
+                        PhoneNumber = utilisateur.PhoneNumber,
+                        Username = utilisateur.UserName
+                    });
+                }
             }
 
             return new SearchResult<UserModel>
@@ -205,5 +219,6 @@ namespace Kada.Identity.Services
                 }).ToListAsync();
             return rolesInfo;
         }
+        
     }
 }

@@ -2,6 +2,7 @@
 using Kada.Application.DTOs.Search;
 using Kada.Application.Feature.Reparation.Command.CreateReparation;
 using Kada.Application.Feature.Reparation.Command.DeleteReparation;
+using Kada.Application.Feature.Reparation.Command.UpdateEtatReparation;
 using Kada.Application.Feature.Reparation.Command.UpdateReparation;
 using Kada.Application.Feature.Reparation.Query.GetReparation;
 using Kada.Application.Feature.Reparation.Query.GetReparationDetails;
@@ -73,6 +74,26 @@ namespace Kada.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult> UpdateReparation(UpdateReparationCommand request)
+        {
+            try
+            {
+                await _mediator.Send(request);
+                return NoContent();
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        [HttpPut]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult> UpdateEtatReparation(UpdateEtatReparationCommand request)
         {
             try
             {

@@ -17,8 +17,8 @@ namespace Kada.Application.DTOs
         public string DescriptionProbleme { get; set; }
         public DateTime DateDepot { get; set; }
         public DateTime? DateLivraison { get; set; }
-        public string EtatReparation { get; set; }
-        public string StatutPaiement { get; set; }
+        public EtatReparation EtatReparation { get; set; }
+        public StatutPaiement StatutPaiement { get; set; }
         public decimal CoutReparation { get; set; }
         public string ReparateurEnCharge { get; set; }
         public string Remarques { get; set; }

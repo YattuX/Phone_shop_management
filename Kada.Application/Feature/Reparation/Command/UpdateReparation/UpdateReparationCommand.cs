@@ -17,6 +17,6 @@ namespace Kada.Application.Feature.Reparation.Command.UpdateReparation
         public DateTime? DateLivraison { get; set; }
         public decimal CoutReparation { get; set; }
         public string ReparateurEnCharge { get; set; }
-        public string Remarques { get; set; }
+        public string? Remarques { get; set; }
     }
 }
