@@ -78,9 +78,9 @@
         <input matInput formControlName="puissance" placeholder="Puissance">
     </mat-form-field>
 </form>
-<div class="content mat-elevation-z2 overflow-x-auto">
+<div class="mat-elevation-z2 overflow-x-auto">
     <mat-table [dataSource]="pageRows" cdkDropList cdkDropListOrientation="horizontal"
-        (cdkDropListDropped)="drop($event)">
+        (cdkDropListDropped)="drop($event)" class="w-max">
 
         <!-- ID Column -->
         <ng-container matColumnDef="id">

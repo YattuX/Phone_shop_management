@@ -3833,7 +3833,705 @@ export class KadaService {
         }
         return _observableOf<string>(<any>null);
     }
+
+    
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    getReparationListPage(body: SearchDTO | undefined): Observable<ReparationDTOSearchResult> {
+        let url_ = this.baseUrl + "/api/Reparation/GetReparationListPage";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetReparationListPage(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetReparationListPage(<any>response_);
+                } catch (e) {
+                    return <Observable<ReparationDTOSearchResult>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ReparationDTOSearchResult>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetReparationListPage(response: HttpResponseBase): Observable<ReparationDTOSearchResult> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ReparationDTOSearchResult.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ReparationDTOSearchResult>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getReparation(id: string): Observable<ReparationDTO> {
+        let url_ = this.baseUrl + "/api/Reparation/GetReparation/{id}";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetReparation(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetReparation(<any>response_);
+                } catch (e) {
+                    return <Observable<ReparationDTO>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ReparationDTO>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetReparation(response: HttpResponseBase): Observable<ReparationDTO> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ReparationDTO.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ReparationDTO>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Created
+     */
+    createReparation(body: CreateReparationCommand | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/Reparation/CreateReparation";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateReparation(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateReparation(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateReparation(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 201) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result400 = ProblemDetails.fromJS(resultData400);
+            return throwException("Bad Request", status, _responseText, _headers, result400);
+            }));
+        } else if (status === 404) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result404: any = null;
+            let resultData404 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result404 = ProblemDetails.fromJS(resultData404);
+            return throwException("Not Found", status, _responseText, _headers, result404);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return No Content
+     */
+    updateReparation(body: UpdateReparationCommand | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/Reparation/UpdateReparation";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUpdateReparation(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUpdateReparation(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processUpdateReparation(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result400 = ProblemDetails.fromJS(resultData400);
+            return throwException("Bad Request", status, _responseText, _headers, result400);
+            }));
+        } else if (status === 404) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result404: any = null;
+            let resultData404 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result404 = ProblemDetails.fromJS(resultData404);
+            return throwException("Not Found", status, _responseText, _headers, result404);
+            }));
+        } else {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let resultdefault: any = null;
+            let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            resultdefault = ProblemDetails.fromJS(resultDatadefault);
+            return throwException("Error", status, _responseText, _headers, resultdefault);
+            }));
+        }
+    }
+
+    /**
+     * @return No Content
+     */
+    deleteReparation(id: string): Observable<void> {
+        let url_ = this.baseUrl + "/api/Reparation/DeleteReparation/{id}";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteReparation(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteReparation(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeleteReparation(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 404) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result404: any = null;
+            let resultData404 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result404 = ProblemDetails.fromJS(resultData404);
+            return throwException("Not Found", status, _responseText, _headers, result404);
+            }));
+        } else {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let resultdefault: any = null;
+            let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            resultdefault = ProblemDetails.fromJS(resultDatadefault);
+            return throwException("Error", status, _responseText, _headers, resultdefault);
+            }));
+        }
+    }
+
+     /**
+     * @param body (optional) 
+     * @return No Content
+     */
+     updateEtatReparation(body: UpdateEtatReparationCommand | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/Reparation/UpdateEtatReparation";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUpdateEtatReparation(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUpdateEtatReparation(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processUpdateEtatReparation(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result400 = ProblemDetails.fromJS(resultData400);
+            return throwException("Bad Request", status, _responseText, _headers, result400);
+            }));
+        } else if (status === 404) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result404: any = null;
+            let resultData404 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result404 = ProblemDetails.fromJS(resultData404);
+            return throwException("Not Found", status, _responseText, _headers, result404);
+            }));
+        } else {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let resultdefault: any = null;
+            let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            resultdefault = ProblemDetails.fromJS(resultDatadefault);
+            return throwException("Error", status, _responseText, _headers, resultdefault);
+            }));
+        }
+    }
+
 }
+
+export enum EtatReparation {
+    _0 = 0,
+    _1 = 1,
+    _2 = 2,
+    _3 = 3,
+}
+
+export enum StatutPaiement {
+    _0 = 0,
+    _1 = 1,
+    _2 = 2,
+}
+
+export class UpdateEtatReparationCommand implements IUpdateEtatReparationCommand {
+    id?: string;
+    etatReparation?: EtatReparation;
+
+    constructor(data?: IUpdateEtatReparationCommand) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.etatReparation = _data["etatReparation"];
+        }
+    }
+
+    static fromJS(data: any): UpdateEtatReparationCommand {
+        data = typeof data === 'object' ? data : {};
+        let result = new UpdateEtatReparationCommand();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["etatReparation"] = this.etatReparation;
+        return data; 
+    }
+}
+
+export interface IUpdateEtatReparationCommand {
+    id?: string;
+    etatReparation?: EtatReparation;
+}
+
+export class CreateReparationCommand implements ICreateReparationCommand {
+    clientId?: string;
+    articleId?: string;
+    descriptionProbleme?: string | undefined;
+    dateDepot?: Date;
+    dateLivraison?: Date | undefined;
+    coutReparation?: number;
+    reparateurEnCharge?: string | undefined;
+    remarques?: string | undefined;
+
+    constructor(data?: ICreateReparationCommand) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.clientId = _data["clientId"];
+            this.articleId = _data["articleId"];
+            this.descriptionProbleme = _data["descriptionProbleme"];
+            this.dateDepot = _data["dateDepot"] ? new Date(_data["dateDepot"].toString()) : <any>undefined;
+            this.dateLivraison = _data["dateLivraison"] ? new Date(_data["dateLivraison"].toString()) : <any>undefined;
+            this.coutReparation = _data["coutReparation"];
+            this.reparateurEnCharge = _data["reparateurEnCharge"];
+            this.remarques = _data["remarques"];
+        }
+    }
+
+    static fromJS(data: any): CreateReparationCommand {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateReparationCommand();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["clientId"] = this.clientId;
+        data["articleId"] = this.articleId;
+        data["descriptionProbleme"] = this.descriptionProbleme;
+        data["dateDepot"] = this.dateDepot ? this.dateDepot.toISOString() : <any>undefined;
+        data["dateLivraison"] = this.dateLivraison ? this.dateLivraison.toISOString() : <any>undefined;
+        data["coutReparation"] = this.coutReparation;
+        data["reparateurEnCharge"] = this.reparateurEnCharge;
+        data["remarques"] = this.remarques;
+        return data; 
+    }
+}
+
+export interface ICreateReparationCommand {
+    clientId?: string;
+    articleId?: string;
+    descriptionProbleme?: string | undefined;
+    dateDepot?: Date;
+    dateLivraison?: Date | undefined;
+    coutReparation?: number;
+    reparateurEnCharge?: string | undefined;
+    remarques?: string | undefined;
+}
+
+export class ReparationDTO implements IReparationDTO {
+    id?: string;
+    clientId?: string;
+    articleId?: string;
+    descriptionProbleme?: string | undefined;
+    dateDepot?: Date;
+    dateLivraison?: Date | undefined;
+    etatReparation?: EtatReparation;
+    statutPaiement?: StatutPaiement;
+    coutReparation?: number;
+    reparateurEnCharge?: string | undefined;
+    remarques?: string | undefined;
+    clientName?: string | undefined;
+    articleName?: string | undefined;
+
+    constructor(data?: IReparationDTO) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.clientId = _data["clientId"];
+            this.articleId = _data["articleId"];
+            this.descriptionProbleme = _data["descriptionProbleme"];
+            this.dateDepot = _data["dateDepot"] ? new Date(_data["dateDepot"].toString()) : <any>undefined;
+            this.dateLivraison = _data["dateLivraison"] ? new Date(_data["dateLivraison"].toString()) : <any>undefined;
+            this.etatReparation = _data["etatReparation"];
+            this.statutPaiement = _data["statutPaiement"];
+            this.coutReparation = _data["coutReparation"];
+            this.reparateurEnCharge = _data["reparateurEnCharge"];
+            this.remarques = _data["remarques"];
+            this.clientName = _data["clientName"];
+            this.articleName = _data["articleName"];
+        }
+    }
+
+    static fromJS(data: any): ReparationDTO {
+        data = typeof data === 'object' ? data : {};
+        let result = new ReparationDTO();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["clientId"] = this.clientId;
+        data["articleId"] = this.articleId;
+        data["descriptionProbleme"] = this.descriptionProbleme;
+        data["dateDepot"] = this.dateDepot ? this.dateDepot.toISOString() : <any>undefined;
+        data["dateLivraison"] = this.dateLivraison ? this.dateLivraison.toISOString() : <any>undefined;
+        data["etatReparation"] = this.etatReparation;
+        data["statutPaiement"] = this.statutPaiement;
+        data["coutReparation"] = this.coutReparation;
+        data["reparateurEnCharge"] = this.reparateurEnCharge;
+        data["remarques"] = this.remarques;
+        data["clientName"] = this.clientName;
+        data["articleName"] = this.articleName;
+        return data; 
+    }
+}
+
+export interface IReparationDTO {
+    id?: string;
+    clientId?: string;
+    articleId?: string;
+    descriptionProbleme?: string | undefined;
+    dateDepot?: Date;
+    dateLivraison?: Date | undefined;
+    etatReparation?: EtatReparation;
+    statutPaiement?: StatutPaiement;
+    coutReparation?: number;
+    reparateurEnCharge?: string | undefined;
+    remarques?: string | undefined;
+    clientName?: string | undefined;
+    articleName?: string | undefined;
+}
+export class ReparationDTOSearchResult implements IReparationDTOSearchResult {
+    results?: ReparationDTO[] | undefined;
+    totalCount?: number;
+    countPerPage?: number;
+    page?: number;
+
+    constructor(data?: IReparationDTOSearchResult) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["results"])) {
+                this.results = [] as any;
+                for (let item of _data["results"])
+                    this.results!.push(ReparationDTO.fromJS(item));
+            }
+            this.totalCount = _data["totalCount"];
+            this.countPerPage = _data["countPerPage"];
+            this.page = _data["page"];
+        }
+    }
+
+    static fromJS(data: any): ReparationDTOSearchResult {
+        data = typeof data === 'object' ? data : {};
+        let result = new ReparationDTOSearchResult();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.results)) {
+            data["results"] = [];
+            for (let item of this.results)
+                data["results"].push(item.toJSON());
+        }
+        data["totalCount"] = this.totalCount;
+        data["countPerPage"] = this.countPerPage;
+        data["page"] = this.page;
+        return data; 
+    }
+}
+
+export interface IReparationDTOSearchResult {
+    results?: ReparationDTO[] | undefined;
+    totalCount?: number;
+    countPerPage?: number;
+    page?: number;
+}
+
+export class UpdateReparationCommand implements IUpdateReparationCommand {
+    id?: string;
+    clientId?: string;
+    articleId?: string;
+    descriptionProbleme?: string | undefined;
+    dateDepot?: Date;
+    dateLivraison?: Date | undefined;
+    coutReparation?: number;
+    reparateurEnCharge?: string | undefined;
+    remarques?: string | undefined;
+
+    constructor(data?: IUpdateReparationCommand) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.clientId = _data["clientId"];
+            this.articleId = _data["articleId"];
+            this.descriptionProbleme = _data["descriptionProbleme"];
+            this.dateDepot = _data["dateDepot"] ? new Date(_data["dateDepot"].toString()) : <any>undefined;
+            this.dateLivraison = _data["dateLivraison"] ? new Date(_data["dateLivraison"].toString()) : <any>undefined;
+            this.coutReparation = _data["coutReparation"];
+            this.reparateurEnCharge = _data["reparateurEnCharge"];
+            this.remarques = _data["remarques"];
+        }
+    }
+
+    static fromJS(data: any): UpdateReparationCommand {
+        data = typeof data === 'object' ? data : {};
+        let result = new UpdateReparationCommand();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["clientId"] = this.clientId;
+        data["articleId"] = this.articleId;
+        data["descriptionProbleme"] = this.descriptionProbleme;
+        data["dateDepot"] = this.dateDepot ? this.dateDepot.toISOString() : <any>undefined;
+        data["dateLivraison"] = this.dateLivraison ? this.dateLivraison.toISOString() : <any>undefined;
+        data["coutReparation"] = this.coutReparation;
+        data["reparateurEnCharge"] = this.reparateurEnCharge;
+        data["remarques"] = this.remarques;
+        return data; 
+    }
+}
+
+export interface IUpdateReparationCommand {
+    id?: string;
+    clientId?: string;
+    articleId?: string;
+    descriptionProbleme?: string | undefined;
+    dateDepot?: Date;
+    dateLivraison?: Date | undefined;
+    coutReparation?: number;
+    reparateurEnCharge?: string | undefined;
+    remarques?: string | undefined;
+}
+
 
 export class ArticleDTO implements IArticleDTO {
     id?: string;
@@ -5521,6 +6219,7 @@ export class ProblemDetails implements IProblemDetails {
     status?: number | undefined;
     detail?: string | undefined;
     instance?: string | undefined;
+    errors?:any|undefined;
 
     constructor(data?: IProblemDetails) {
         if (data) {
@@ -5538,6 +6237,7 @@ export class ProblemDetails implements IProblemDetails {
             this.status = _data["status"];
             this.detail = _data["detail"];
             this.instance = _data["instance"];
+            this.errors = _data["errors"]
         }
     }
 
@@ -5565,6 +6265,7 @@ export interface IProblemDetails {
     status?: number | undefined;
     detail?: string | undefined;
     instance?: string | undefined;
+    errors?:any;
 }
 
 export class SearchDTO implements ISearchDTO {
