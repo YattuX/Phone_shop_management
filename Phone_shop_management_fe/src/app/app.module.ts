@@ -20,6 +20,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './shared/interceptors/AuthInterceptors/auth-Interceptor';
 import { ConfigurationModule } from './modules/configuration/configuration.module';
 import { DashboardsModule } from './shared/components/dashboards/dashboards.module';
+import { StockModule } from './modules/stock/stock.module';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { DashboardsModule } from './shared/components/dashboards/dashboards.modu
     ProviderModule,
     ConfigurationModule,
     DashboardsModule,
+    StockModule
   ],
  
   providers: [

@@ -18,8 +18,4 @@
     <ProjectReference Include="..\Kada.Domain\Kada.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Feature\Stock\Query\" />
-  </ItemGroup>
-
 </Project>

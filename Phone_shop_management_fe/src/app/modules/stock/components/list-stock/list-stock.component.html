@@ -1,1 +1,79 @@
-<p>list-stock works!</p>
+<div class="content mat-elevation-z2 mb-4">
+    <form [formGroup]="searchForm" >
+        <div class="flex justify-between border w-full p-4 space-x-2">
+            <div class="w-1/2">
+                <autocomplete formControlName="articleId" placeholder="Produit" [values]="articleList" idField="id" valueField="articleName">
+                </autocomplete>
+            </div>
+    
+            <div class="w-1/2">
+              <mat-form-field class="w-full">
+                <mat-label>Type de mouvement</mat-label>
+                <mat-select formControlName="typeMouvement">
+                  <mat-option>---</mat-option>
+                  <mat-option value='1'>Entrée</mat-option>
+                  <mat-option value='2'>Sortie</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+        </div>
+    </form>
+    <mat-table [dataSource]="pageRows" matSort cdkDropList cdkDropListOrientation="horizontal"
+        (cdkDropListDropped)="drop($event)">
+
+        <!-- ID Column -->
+        <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef mat-sort-header cdkDrag>#</mat-header-cell>
+            <mat-cell *matCellDef="let row;let index=index"> {{index+1}} </mat-cell>
+        </ng-container>
+
+        <!-- username Column -->
+        <ng-container matColumnDef="Produit">
+            <mat-header-cell *matHeaderCellDef mat-sort-header cdkDrag>Produit</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.articleName}} </mat-cell>
+        </ng-container>
+
+        <!-- firstname Column -->
+        <ng-container matColumnDef="Quantité">
+            <mat-header-cell *matHeaderCellDef mat-sort-header cdkDrag>Quantité</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.quantite}} </mat-cell>
+        </ng-container>
+
+        <!-- lastname Column -->
+        <ng-container matColumnDef="Type de transaction">
+            <mat-header-cell *matHeaderCellDef mat-sort-header cdkDrag>Type de transaction</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.typeName}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Date">
+            <mat-header-cell *matHeaderCellDef mat-sort-header cdkDrag>Date</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.creationDate | date : 'dd/MM/YYYY'}}  </mat-cell>
+        </ng-container>
+
+        <!-- action Column -->
+        <ng-container matColumnDef="Action">
+            <mat-header-cell *matHeaderCellDef mat-sort-header cdkDrag>Action</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <button mat-stroked-button [matMenuTriggerFor]="menu" color="primary">Action</button>
+                <mat-menu #menu="matMenu">
+                    <span mat-menu-item (click)="openDialog('edit',row)">
+                        Modifier
+                    </span>
+                </mat-menu>
+            </mat-cell>
+        </ng-container>
+        <ng-container *matNoDataRow> 
+            <div *ngIf="!loading" class="text-lg text-center p-2">
+                Aucune donnée trouvée
+            </div>
+            <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;">
+        </mat-row>
+    </mat-table>
+
+    <mat-paginator [length]="total" [pageSize]="pageSize"
+    (page)="onChangePage({pageSize: $event.pageSize, pageIndex: $event.pageIndex})"></mat-paginator>
+
+</div>

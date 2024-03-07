@@ -32,6 +32,7 @@ namespace Kada.Application.DTOs
         public CaracteristiqueDTO Caracteristiques { get; set; }
         public Guid? CaracteristiqueId { get; set; }
         public string? Puissance { get; set; }
-        public string modele { get; set; }
+        public string Modele { get; set; }
+        public string ArticleName { get; set; }
     }
 }
