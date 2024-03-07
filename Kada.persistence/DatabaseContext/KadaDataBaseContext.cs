@@ -25,6 +25,7 @@ namespace Kada.persistence.DatabaseContext
         public DbSet<Model> Modele { get; set; }
         public DbSet<Caracteristique> Caracteristique { get; set; }
         public DbSet<Article> Article { get; set; }
+        public DbSet<Reparation> Reparation { get; set; }
         public DbSet<Stock> Stock { get; set; }
 
 

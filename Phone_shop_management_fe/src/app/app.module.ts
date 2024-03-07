@@ -20,6 +20,9 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './shared/interceptors/AuthInterceptors/auth-Interceptor';
 import { ConfigurationModule } from './modules/configuration/configuration.module';
 import { DashboardsModule } from './shared/components/dashboards/dashboards.module';
+import { RepairModule } from './modules/repair/repair.module';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { StockModule } from './modules/stock/stock.module';
 
 @NgModule({
@@ -40,7 +43,10 @@ import { StockModule } from './modules/stock/stock.module';
     ProviderModule,
     ConfigurationModule,
     DashboardsModule,
-    StockModule
+    RepairModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    StockModule,
   ],
  
   providers: [
