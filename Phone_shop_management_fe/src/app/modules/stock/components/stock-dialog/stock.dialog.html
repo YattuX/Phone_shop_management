@@ -1,0 +1,61 @@
+<div class="headerDialog">
+    <h2 mat-dialog-title>{{data.title}}</h2>
+    <mat-icon [ngClass]="{'dialog-disabled': showSpinner}" class="cursor-pointer" (click)="dialogRef.close()">close</mat-icon>
+  </div>
+<mat-dialog-content [ngClass]="{'dialog-disabled': showSpinner}" class="mat-typography">
+    <div class="absolute inset-1/2 z-50 shadow" *ngIf="showSpinner">
+      <mat-spinner [diameter]="80"></mat-spinner>
+    </div>
+    <form [formGroup]="form">
+      <div class="flex justify-center items-center">
+        <div class="w-full">
+          <!-- form field last name -->
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Quantité</mat-label>
+            <input type="number" formControlName="quantite" matInput placeholder="Quantité">
+            <mat-error *ngIf="form.controls['quantite'].errors && 
+                        form.controls['quantite'].errors['required'] && 
+                        form.controls['quantite'].touched">La quatité est Obligatoire</mat-error>
+            <mat-error *ngIf="form.controls['quantite'].errors && 
+                        form.controls['quantite'].errors['max'] && 
+                        form.controls['quantite'].touched">Le nom ne doit pas dépasser
+              {{form.controls['quantite'].errors['max']['requiredMax']}}</mat-error>
+            <mat-error *ngIf="form.controls['quantite'].errors && 
+                        form.controls['quantite'].errors['min'] && 
+                        form.controls['quantite'].touched">Le nom doit avoir au moins
+              {{form.controls['quantite'].errors['min']['requiredMin']}}</mat-error>
+          </mat-form-field>
+        </div>
+       
+        <div class="w-full">
+            <autocomplete formControlName="articleId" placeholder="Produit" [values]="articleList" idField="id" valueField="articleName"
+                class="w-full md:w-[48%] m-2">
+            </autocomplete>
+        </div>
+      </div>
+
+        <div class=>
+          <mat-form-field class="w-full">
+            <mat-label>Type de mouvement</mat-label>
+            <mat-select formControlName="type">
+              <mat-option>---</mat-option>
+              <mat-option value='1'>Entrée</mat-option>
+              <mat-option value='2'>Sortie</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.controls['type'].errors && 
+            form.controls['type'].errors['required'] && 
+            form.controls['type'].touched">Le Type de Stock est Obligatoire</mat-error>
+          </mat-form-field>
+        </div>
+      </form>
+</mat-dialog-content>
+<mat-dialog-actions [ngClass]="{'dialog-disabled': showSpinner}" align="end">
+    <div class="space-x-3 px-4">
+      <button class="button text-black shadow-xl" (click)="dialogRef.close()">
+        Annuler
+      </button>
+      <button (click)="save()" class="button-primary mr-4 drop-shadow-lg">
+        {{data.action=='add'?'Ajouter':'Modifier'}}
+      </button>
+    </div>
+  </mat-dialog-actions>

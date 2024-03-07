@@ -60,7 +60,7 @@ namespace Kada.Api.Controllers
             {
 
                 throw;
-            } 
+            }
         }
 
         [HttpDelete]
@@ -76,7 +76,7 @@ namespace Kada.Api.Controllers
             {
 
                 throw;
-            } 
+            }
         }
 
         [HttpGet]

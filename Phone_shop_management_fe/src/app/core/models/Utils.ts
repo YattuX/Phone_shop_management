@@ -3,7 +3,7 @@ export class TypeArticleName{
     static tablette = "Tablette";
     static pochette = "Pochette";
     static microEtVibreur = "Micro et Vibreur";
-    static conectiques = "Conectiques";
+    static conectiques = "Connectiques";
     static ecran = "Ecran";
     static dépoussiérant = "Dépoussiérant";
     static appareilAccessoir = "Appareil-accessoir";

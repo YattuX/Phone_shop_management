@@ -18,7 +18,6 @@ import { CustomerTabComponent } from './components/customer-tab.component';
     CommonModule,
     CustomerRoutingModule,
     SharedModule,
-    
   ]
 })
 export class CustomerModule { }

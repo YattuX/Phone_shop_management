@@ -33,6 +33,7 @@ namespace Kada.Application.Feature.Article.Query.GetArticle
                 rows.Add(new ArticleDTO
                 {
                     Id = article.Id,
+                    ArticleName = article.Caracteristique.Model.Name,
                     StockageId = article.StockageId,
                     StockageName = article.Stockage?.Name,
                     CouleurId = article.CouleurId,
@@ -52,7 +53,7 @@ namespace Kada.Application.Feature.Article.Query.GetArticle
                     TypeContent = article.Type?.Content,
                     Capacite = article.Capacite,
                     Puissance = article.Puissance,
-                    modele = article.Caracteristique.Model.Name,
+                    Modele = article.Caracteristique.Model.Name,
                     CaracteristiqueId = article.CaracteristiqueId,
                     Description = article.Description,
                     Caracteristiques = _mapper.Map<CaracteristiqueDTO>(article.Caracteristique),

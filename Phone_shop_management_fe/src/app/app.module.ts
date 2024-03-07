@@ -23,6 +23,7 @@ import { DashboardsModule } from './shared/components/dashboards/dashboards.modu
 import { RepairModule } from './modules/repair/repair.module';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { StockModule } from './modules/stock/stock.module';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     DashboardsModule,
     RepairModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    StockModule,
   ],
  
   providers: [

@@ -1,206 +1,734 @@
-CREATE TABLE Client (
-  Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
-  Name VARCHAR(255) NOT NULL,
-  LastName VARCHAR(255) NOT NULL,
-  PhoneNumber VARCHAR(255) NULL,
-  WhatsappNumber VARCHAR(255) NULL,
-  Identifiant VARCHAR(255) NULL,
-  Adress VARCHAR(255) NULL,
-  IsClientEnGros BIT NULL,
-  DateCreated DATETIME2 NULL,
-  CreatedBy VARCHAR(255) NULL,
-  DateModified DATETIME2 NULL,
-  ModifiedBy VARCHAR(255) NULL,
-  PRIMARY KEY (Id)
-);
-
-CREATE TABLE Fournisseur (
-  Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
-  Name VARCHAR(255) NOT NULL,
-  Identifiant VARCHAR(225) NULL,
-  LastName VARCHAR(255) NOT NULL,
-  Email VARCHAR(255) NULL,
-  WhatsappNumber VARCHAR(255) NULL,
-  DateCreated DATETIME NULL,
-  CreatedBy VARCHAR(255) NULL,
-  DateModified DATETIME NULL,
-  ModifiedBy VARCHAR(255) NULL,
-  PRIMARY KEY (Id)
-);
-
-CREATE TABLE [Type_] (
-    Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
-    Content NVARCHAR(255),
-    DateCreated DateTime2,
-    CreatedBy VARCHAR(255),
-    DateModified DateTime2,
-    ModifiedBy VARCHAR(255),
-    PRIMARY KEY (Id)
-);
-
-CREATE TABLE [dbo].[Couleur] (
-    [Id]           UNIQUEIDENTIFIER DEFAULT (newid()) NOT NULL,
-    [Name]         NVARCHAR (255)   NULL,
-    [CodeCouleur]  NVARCHAR (255)   NULL,
-    [DateCreated]  DateTime2         NULL,
-    [CreatedBy]    VARCHAR (255)    NULL,
-    [DateModified] DateTime2         NULL,
-    [ModifiedBy]   VARCHAR (255)    NULL,
-    PRIMARY KEY CLUSTERED ([Id] ASC)
-);
-
-CREATE TABLE Etat (
-    Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
-    Content NVARCHAR(MAX),
-    DateCreated DateTime2,
-    CreatedBy VARCHAR(255),
-    DateModified DateTime2,
-    ModifiedBy VARCHAR(255),
-    PRIMARY KEY (Id),
-);
-
-CREATE TABLE Particularite (
-Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
-    Content NVARCHAR(MAX),
-    DateCreated DateTime2,
-    CreatedBy VARCHAR(255),
-    DateModified DateTime2,
-    ModifiedBy VARCHAR(255),
-    PRIMARY KEY (Id),
-);
-
-CREATE TABLE Processeurs (
-    Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
-    Content NVARCHAR(MAX),
-    DateCreated DateTime2,
-    CreatedBy VARCHAR(255),
-    DateModified DateTime2,
-    ModifiedBy VARCHAR(255),
-    PRIMARY KEY (Id),
-);
-
-CREATE TABLE Stockage (
-    Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
-    [Name] NVARCHAR(255),
-    DateCreated DateTime2,
-    CreatedBy VARCHAR(255),
-    DateModified DateTime2,
-    ModifiedBy VARCHAR(255),
-    PRIMARY KEY (Id),
-);
-
-CREATE TABLE TypeArticle (
-    Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
-    Name NVARCHAR(255),
-    DateCreated DateTime2,
-    CreatedBy VARCHAR(255),
-    DateModified DateTime2,
-    ModifiedBy VARCHAR(255),
-    PRIMARY KEY (Id)
-);
-
-CREATE TABLE Marque (
-    Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
-    [Name] NVARCHAR(255),
-    TypeArticleId UNIQUEIDENTIFIER,
-    DateCreated DateTime2,
-    CreatedBy VARCHAR(255),
-    DateModified DateTime2,
-    ModifiedBy VARCHAR(255),
-    FOREIGN KEY (TypeArticleId) REFERENCES TypeArticle(Id),
-    PRIMARY KEY (Id)
-);
-
-CREATE TABLE Modele (
-    Id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
-    [Name] NVARCHAR(255),
-    MarqueId UNIQUEIDENTIFIER,
-    FOREIGN KEY (MarqueId) REFERENCES Marque(Id),
-    DateCreated DateTime2,
-    CreatedBy VARCHAR(255),
-    DateModified DateTime2,
-    ModifiedBy VARCHAR(255),
-    PRIMARY KEY (Id)
-);
-
-
-CREATE TABLE Caracteristique
+USE [master]
+GO
+/****** Object:  Database [db_kada]    Script Date: 07/03/2024 17:01:16 ******/
+CREATE DATABASE [db_kada]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'db_kada', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\db_kada.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'db_kada_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\db_kada_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT
+GO
+ALTER DATABASE [db_kada] SET COMPATIBILITY_LEVEL = 150
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [db_kada].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [db_kada] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [db_kada] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [db_kada] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [db_kada] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [db_kada] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [db_kada] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [db_kada] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [db_kada] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [db_kada] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [db_kada] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [db_kada] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [db_kada] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [db_kada] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [db_kada] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [db_kada] SET  ENABLE_BROKER 
+GO
+ALTER DATABASE [db_kada] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [db_kada] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [db_kada] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [db_kada] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [db_kada] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [db_kada] SET READ_COMMITTED_SNAPSHOT ON 
+GO
+ALTER DATABASE [db_kada] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [db_kada] SET RECOVERY FULL 
+GO
+ALTER DATABASE [db_kada] SET  MULTI_USER 
+GO
+ALTER DATABASE [db_kada] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [db_kada] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [db_kada] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [db_kada] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [db_kada] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [db_kada] SET ACCELERATED_DATABASE_RECOVERY = OFF  
+GO
+EXEC sys.sp_db_vardecimal_storage_format N'db_kada', N'ON'
+GO
+ALTER DATABASE [db_kada] SET QUERY_STORE = OFF
+GO
+USE [db_kada]
+GO
+/****** Object:  Table [dbo].[__EFMigrationsHistory]    Script Date: 07/03/2024 17:01:17 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[__EFMigrationsHistory](
+	[MigrationId] [nvarchar](150) NOT NULL,
+	[ProductVersion] [nvarchar](32) NOT NULL,
+ CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY CLUSTERED 
 (
-    Id UNIQUEIDENTIFIER PRIMARY KEY,
-    DateCreated DateTime2,
-    CreatedBy NVARCHAR(MAX),
-    DateModified DateTime2,
-    ModifiedBy NVARCHAR(MAX),
-    HasStockage BIT,
-    HasCouleur BIT,
-    HasNombreDeSim BIT,
-    HasImei BIT,
-    HasParticularite BIT,
-    HasEtat BIT,
-    HasProcesseurs BIT,
-    HasTailleEcran BIT,
-    HasRam BIT,
-    HasQualite BIT,
-    HasType BIT,
-    HasCapacite BIT,
-    HasCaracteristic BIT,
-    HasPuissance BIT,
-    HasPosition BIT,
-    HasDescription BIT,
-    ModelId UNIQUEIDENTIFIER,
-    FOREIGN KEY (ModelId) REFERENCES Modele(Id)
-);
-
-CREATE TABLE [dbo].[Article] (
-    [Id]                UNIQUEIDENTIFIER NOT NULL,
-    [DateCreated]       DATETIME         NULL,
-    [CreatedBy]         NVARCHAR (255)   NULL,
-    [DateModified]      DATETIME         NULL,
-    [ModifiedBy]        NVARCHAR (255)   NULL,
-    [StockageId]        UNIQUEIDENTIFIER NULL,
-    [CouleurId]         UNIQUEIDENTIFIER NULL,
-    [NombreDeSim]       INT              NULL,
-    [Imei]              NVARCHAR (255)   NULL,
-    [ParticulariteId]   UNIQUEIDENTIFIER NULL,
-    [EtatId]            UNIQUEIDENTIFIER NULL,
-    [Processeurs]       NVARCHAR (255)   NULL,
-    [TailleEcran]       NVARCHAR (255)   NULL,
-    [Ram]               NVARCHAR (255)   NULL,
-    [Qualite]           NVARCHAR (255)   NULL,
-    [Position]          NVARCHAR (255)   NULL,
-    [TypeId]            UNIQUEIDENTIFIER NULL,
-    [Capacite]          NVARCHAR (255)   NULL,
-    [CaracteristiqueId] UNIQUEIDENTIFIER NULL,
-    [Puissance]         NVARCHAR (255)   NULL,
-    [Description]       NVARCHAR (Max)   NULL
-    PRIMARY KEY CLUSTERED ([Id] ASC),
-    FOREIGN KEY ([StockageId]) REFERENCES [dbo].[Stockage] ([Id]),
-    FOREIGN KEY ([CouleurId]) REFERENCES [dbo].[Couleur] ([Id]),
-    FOREIGN KEY ([ParticulariteId]) REFERENCES [dbo].[Particularite] ([Id]),
-    FOREIGN KEY ([EtatId]) REFERENCES [dbo].[Etat] ([Id]),
-    FOREIGN KEY ([TypeId]) REFERENCES [dbo].[Type_] ([Id]),
-    FOREIGN KEY ([CaracteristiqueId]) REFERENCES [dbo].[Caracteristique] ([Id])
-);
-
-CREATE TABLE Reparation (
-    Id UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
-    ClientId UNIQUEIDENTIFIER NOT NULL,
-    ArticleId UNIQUEIDENTIFIER NOT NULL,
-    DescriptionProbleme NVARCHAR(MAX),
-    DateDepot DATETIME NOT NULL,
-    DateLivraison DATETIME,
-    EtatReparation INT NOT NULL DEFAULT 0,
-    StatutPaiement INT NOT NULL DEFAULT 0,
-    CoutReparation DECIMAL(18, 2) NOT NULL,
-    ReparateurEnCharge NVARCHAR(36),
-    Remarques NVARCHAR(MAX),
-    DateCreated DATETIME default getDate(),
-    CreatedBy NVARCHAR(MAX),
-    DateModified DATETIME,
-    ModifiedBy NVARCHAR(MAX),
-    FOREIGN KEY (ClientId) REFERENCES Client(Id),
-    FOREIGN KEY (ArticleId) REFERENCES Article(Id)
-);
-
-
-
+	[MigrationId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Article]    Script Date: 07/03/2024 17:01:17 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Article](
+	[Id] [uniqueidentifier] NOT NULL,
+	[StockageId] [uniqueidentifier] NULL,
+	[CouleurId] [uniqueidentifier] NULL,
+	[NombreDeSim] [int] NULL,
+	[Imei] [nvarchar](max) NULL,
+	[ParticulariteId] [uniqueidentifier] NULL,
+	[EtatId] [uniqueidentifier] NULL,
+	[Processeurs] [nvarchar](max) NULL,
+	[TailleEcran] [nvarchar](max) NULL,
+	[Ram] [nvarchar](max) NULL,
+	[Qualite] [nvarchar](max) NULL,
+	[Position] [nvarchar](max) NULL,
+	[TypeId] [uniqueidentifier] NULL,
+	[Capacite] [nvarchar](max) NULL,
+	[CaracteristiqueId] [uniqueidentifier] NOT NULL,
+	[Description] [nvarchar](max) NULL,
+	[Puissance] [nvarchar](max) NULL,
+	[Status] [int] NULL,
+	[DateCreated] [datetime2](7) NULL,
+	[CreatedBy] [nvarchar](max) NULL,
+	[DateModified] [datetime2](7) NULL,
+	[ModifiedBy] [nvarchar](max) NULL,
+ CONSTRAINT [PK_Article] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[AspNetRoleClaims]    Script Date: 07/03/2024 17:01:17 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AspNetRoleClaims](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[RoleId] [nvarchar](450) NOT NULL,
+	[ClaimType] [nvarchar](max) NULL,
+	[ClaimValue] [nvarchar](max) NULL,
+ CONSTRAINT [PK_AspNetRoleClaims] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[AspNetRoles]    Script Date: 07/03/2024 17:01:17 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AspNetRoles](
+	[Id] [nvarchar](450) NOT NULL,
+	[Name] [nvarchar](256) NULL,
+	[NormalizedName] [nvarchar](256) NULL,
+	[ConcurrencyStamp] [nvarchar](max) NULL,
+ CONSTRAINT [PK_AspNetRoles] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[AspNetUserClaims]    Script Date: 07/03/2024 17:01:17 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AspNetUserClaims](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[UserId] [nvarchar](450) NOT NULL,
+	[ClaimType] [nvarchar](max) NULL,
+	[ClaimValue] [nvarchar](max) NULL,
+ CONSTRAINT [PK_AspNetUserClaims] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[AspNetUserLogins]    Script Date: 07/03/2024 17:01:17 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AspNetUserLogins](
+	[LoginProvider] [nvarchar](450) NOT NULL,
+	[ProviderKey] [nvarchar](450) NOT NULL,
+	[ProviderDisplayName] [nvarchar](max) NULL,
+	[UserId] [nvarchar](450) NOT NULL,
+ CONSTRAINT [PK_AspNetUserLogins] PRIMARY KEY CLUSTERED 
+(
+	[LoginProvider] ASC,
+	[ProviderKey] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[AspNetUserRoles]    Script Date: 07/03/2024 17:01:17 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AspNetUserRoles](
+	[UserId] [nvarchar](450) NOT NULL,
+	[RoleId] [nvarchar](450) NOT NULL,
+ CONSTRAINT [PK_AspNetUserRoles] PRIMARY KEY CLUSTERED 
+(
+	[UserId] ASC,
+	[RoleId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[AspNetUsers]    Script Date: 07/03/2024 17:01:17 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AspNetUsers](
+	[Id] [nvarchar](450) NOT NULL,
+	[FirstName] [nvarchar](max) NOT NULL,
+	[LastName] [nvarchar](max) NOT NULL,
+	[Identifiant] [nvarchar](max) NOT NULL,
+	[UserName] [nvarchar](256) NULL,
+	[NormalizedUserName] [nvarchar](256) NULL,
+	[Email] [nvarchar](256) NULL,
+	[NormalizedEmail] [nvarchar](256) NULL,
+	[EmailConfirmed] [bit] NOT NULL,
+	[PasswordHash] [nvarchar](max) NULL,
+	[SecurityStamp] [nvarchar](max) NULL,
+	[ConcurrencyStamp] [nvarchar](max) NULL,
+	[PhoneNumber] [nvarchar](max) NULL,
+	[PhoneNumberConfirmed] [bit] NOT NULL,
+	[TwoFactorEnabled] [bit] NOT NULL,
+	[LockoutEnd] [datetimeoffset](7) NULL,
+	[LockoutEnabled] [bit] NOT NULL,
+	[AccessFailedCount] [int] NOT NULL,
+ CONSTRAINT [PK_AspNetUsers] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[AspNetUserTokens]    Script Date: 07/03/2024 17:01:17 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AspNetUserTokens](
+	[UserId] [nvarchar](450) NOT NULL,
+	[LoginProvider] [nvarchar](450) NOT NULL,
+	[Name] [nvarchar](450) NOT NULL,
+	[Value] [nvarchar](max) NULL,
+ CONSTRAINT [PK_AspNetUserTokens] PRIMARY KEY CLUSTERED 
+(
+	[UserId] ASC,
+	[LoginProvider] ASC,
+	[Name] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Caracteristique]    Script Date: 07/03/2024 17:01:17 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Caracteristique](
+	[Id] [uniqueidentifier] NOT NULL,
+	[HasStockage] [bit] NOT NULL,
+	[HasCouleur] [bit] NOT NULL,
+	[HasNombreDeSim] [bit] NOT NULL,
+	[HasImei] [bit] NOT NULL,
+	[HasParticularite] [bit] NOT NULL,
+	[HasEtat] [bit] NOT NULL,
+	[HasProcesseurs] [bit] NOT NULL,
+	[HasTailleEcran] [bit] NOT NULL,
+	[HasRam] [bit] NOT NULL,
+	[HasQualite] [bit] NOT NULL,
+	[HasType] [bit] NOT NULL,
+	[HasCapacite] [bit] NOT NULL,
+	[HasCaracteristic] [bit] NOT NULL,
+	[HasPuissance] [bit] NOT NULL,
+	[HasPosition] [bit] NOT NULL,
+	[HasDescription] [bit] NOT NULL,
+	[ModelId] [uniqueidentifier] NOT NULL,
+	[Status] [int] NULL,
+	[DateCreated] [datetime2](7) NULL,
+	[CreatedBy] [nvarchar](max) NULL,
+	[DateModified] [datetime2](7) NULL,
+	[ModifiedBy] [nvarchar](max) NULL,
+ CONSTRAINT [PK_Caracteristique] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Client]    Script Date: 07/03/2024 17:01:17 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Client](
+	[Id] [uniqueidentifier] NOT NULL,
+	[Name] [nvarchar](max) NOT NULL,
+	[LastName] [nvarchar](max) NOT NULL,
+	[PhoneNumber] [nvarchar](max) NOT NULL,
+	[WhatsappNumber] [nvarchar](max) NOT NULL,
+	[Identifiant] [nvarchar](max) NOT NULL,
+	[Adress] [nvarchar](max) NOT NULL,
+	[IsClientEnGros] [bit] NOT NULL,
+	[Status] [int] NULL,
+	[DateCreated] [datetime2](7) NULL,
+	[CreatedBy] [nvarchar](max) NULL,
+	[DateModified] [datetime2](7) NULL,
+	[ModifiedBy] [nvarchar](max) NULL,
+ CONSTRAINT [PK_Client] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Couleur]    Script Date: 07/03/2024 17:01:17 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Couleur](
+	[Id] [uniqueidentifier] NOT NULL,
+	[Name] [nvarchar](max) NOT NULL,
+	[CodeCouleur] [nvarchar](max) NULL,
+	[Status] [int] NULL,
+	[DateCreated] [datetime2](7) NULL,
+	[CreatedBy] [nvarchar](max) NULL,
+	[DateModified] [datetime2](7) NULL,
+	[ModifiedBy] [nvarchar](max) NULL,
+ CONSTRAINT [PK_Couleur] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Etat]    Script Date: 07/03/2024 17:01:17 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Etat](
+	[Id] [uniqueidentifier] NOT NULL,
+	[Content] [nvarchar](max) NOT NULL,
+	[Status] [int] NULL,
+	[DateCreated] [datetime2](7) NULL,
+	[CreatedBy] [nvarchar](max) NULL,
+	[DateModified] [datetime2](7) NULL,
+	[ModifiedBy] [nvarchar](max) NULL,
+ CONSTRAINT [PK_Etat] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Fournisseur]    Script Date: 07/03/2024 17:01:17 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Fournisseur](
+	[Id] [uniqueidentifier] NOT NULL,
+	[Identifiant] [nvarchar](max) NOT NULL,
+	[Name] [nvarchar](max) NOT NULL,
+	[LastName] [nvarchar](max) NOT NULL,
+	[Email] [nvarchar](max) NOT NULL,
+	[WhatsappNumber] [nvarchar](max) NOT NULL,
+	[Status] [int] NULL,
+	[DateCreated] [datetime2](7) NULL,
+	[CreatedBy] [nvarchar](max) NULL,
+	[DateModified] [datetime2](7) NULL,
+	[ModifiedBy] [nvarchar](max) NULL,
+ CONSTRAINT [PK_Fournisseur] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Marque]    Script Date: 07/03/2024 17:01:17 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Marque](
+	[Id] [uniqueidentifier] NOT NULL,
+	[Name] [nvarchar](max) NOT NULL,
+	[TypeArticleId] [uniqueidentifier] NOT NULL,
+	[Status] [int] NULL,
+	[DateCreated] [datetime2](7) NULL,
+	[CreatedBy] [nvarchar](max) NULL,
+	[DateModified] [datetime2](7) NULL,
+	[ModifiedBy] [nvarchar](max) NULL,
+ CONSTRAINT [PK_Marque] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Modele]    Script Date: 07/03/2024 17:01:17 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Modele](
+	[Id] [uniqueidentifier] NOT NULL,
+	[Name] [nvarchar](max) NOT NULL,
+	[MarqueId] [uniqueidentifier] NOT NULL,
+	[Status] [int] NULL,
+	[DateCreated] [datetime2](7) NULL,
+	[CreatedBy] [nvarchar](max) NULL,
+	[DateModified] [datetime2](7) NULL,
+	[ModifiedBy] [nvarchar](max) NULL,
+ CONSTRAINT [PK_Modele] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Particularite]    Script Date: 07/03/2024 17:01:17 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Particularite](
+	[Id] [uniqueidentifier] NOT NULL,
+	[Content] [nvarchar](max) NOT NULL,
+	[Status] [int] NULL,
+	[DateCreated] [datetime2](7) NULL,
+	[CreatedBy] [nvarchar](max) NULL,
+	[DateModified] [datetime2](7) NULL,
+	[ModifiedBy] [nvarchar](max) NULL,
+ CONSTRAINT [PK_Particularite] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Stock]    Script Date: 07/03/2024 17:01:17 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Stock](
+	[Id] [uniqueidentifier] NOT NULL,
+	[Quantite] [float] NOT NULL,
+	[Type] [int] NOT NULL,
+	[ArticleId] [uniqueidentifier] NOT NULL,
+	[Status] [int] NULL,
+	[DateCreated] [datetime2](7) NULL,
+	[CreatedBy] [nvarchar](max) NULL,
+	[DateModified] [datetime2](7) NULL,
+	[ModifiedBy] [nvarchar](max) NULL,
+ CONSTRAINT [PK_Stock] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Stockage]    Script Date: 07/03/2024 17:01:17 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Stockage](
+	[Id] [uniqueidentifier] NOT NULL,
+	[Name] [nvarchar](max) NOT NULL,
+	[Status] [int] NULL,
+	[DateCreated] [datetime2](7) NULL,
+	[CreatedBy] [nvarchar](max) NULL,
+	[DateModified] [datetime2](7) NULL,
+	[ModifiedBy] [nvarchar](max) NULL,
+ CONSTRAINT [PK_Stockage] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Type_]    Script Date: 07/03/2024 17:01:17 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Type_](
+	[Id] [uniqueidentifier] NOT NULL,
+	[Content] [nvarchar](max) NOT NULL,
+	[Status] [int] NULL,
+	[DateCreated] [datetime2](7) NULL,
+	[CreatedBy] [nvarchar](max) NULL,
+	[DateModified] [datetime2](7) NULL,
+	[ModifiedBy] [nvarchar](max) NULL,
+ CONSTRAINT [PK_Type_] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[TypeArticle]    Script Date: 07/03/2024 17:01:17 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[TypeArticle](
+	[Id] [uniqueidentifier] NOT NULL,
+	[Name] [nvarchar](max) NOT NULL,
+	[Status] [int] NULL,
+	[DateCreated] [datetime2](7) NULL,
+	[CreatedBy] [nvarchar](max) NULL,
+	[DateModified] [datetime2](7) NULL,
+	[ModifiedBy] [nvarchar](max) NULL,
+ CONSTRAINT [PK_TypeArticle] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Article_CaracteristiqueId]    Script Date: 07/03/2024 17:01:17 ******/
+CREATE NONCLUSTERED INDEX [IX_Article_CaracteristiqueId] ON [dbo].[Article]
+(
+	[CaracteristiqueId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Article_CouleurId]    Script Date: 07/03/2024 17:01:17 ******/
+CREATE NONCLUSTERED INDEX [IX_Article_CouleurId] ON [dbo].[Article]
+(
+	[CouleurId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Article_EtatId]    Script Date: 07/03/2024 17:01:17 ******/
+CREATE NONCLUSTERED INDEX [IX_Article_EtatId] ON [dbo].[Article]
+(
+	[EtatId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Article_ParticulariteId]    Script Date: 07/03/2024 17:01:17 ******/
+CREATE NONCLUSTERED INDEX [IX_Article_ParticulariteId] ON [dbo].[Article]
+(
+	[ParticulariteId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Article_StockageId]    Script Date: 07/03/2024 17:01:17 ******/
+CREATE NONCLUSTERED INDEX [IX_Article_StockageId] ON [dbo].[Article]
+(
+	[StockageId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Article_TypeId]    Script Date: 07/03/2024 17:01:17 ******/
+CREATE NONCLUSTERED INDEX [IX_Article_TypeId] ON [dbo].[Article]
+(
+	[TypeId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [IX_AspNetRoleClaims_RoleId]    Script Date: 07/03/2024 17:01:17 ******/
+CREATE NONCLUSTERED INDEX [IX_AspNetRoleClaims_RoleId] ON [dbo].[AspNetRoleClaims]
+(
+	[RoleId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [RoleNameIndex]    Script Date: 07/03/2024 17:01:17 ******/
+CREATE UNIQUE NONCLUSTERED INDEX [RoleNameIndex] ON [dbo].[AspNetRoles]
+(
+	[NormalizedName] ASC
+)
+WHERE ([NormalizedName] IS NOT NULL)
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [IX_AspNetUserClaims_UserId]    Script Date: 07/03/2024 17:01:17 ******/
+CREATE NONCLUSTERED INDEX [IX_AspNetUserClaims_UserId] ON [dbo].[AspNetUserClaims]
+(
+	[UserId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [IX_AspNetUserLogins_UserId]    Script Date: 07/03/2024 17:01:17 ******/
+CREATE NONCLUSTERED INDEX [IX_AspNetUserLogins_UserId] ON [dbo].[AspNetUserLogins]
+(
+	[UserId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [IX_AspNetUserRoles_RoleId]    Script Date: 07/03/2024 17:01:17 ******/
+CREATE NONCLUSTERED INDEX [IX_AspNetUserRoles_RoleId] ON [dbo].[AspNetUserRoles]
+(
+	[RoleId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [EmailIndex]    Script Date: 07/03/2024 17:01:17 ******/
+CREATE NONCLUSTERED INDEX [EmailIndex] ON [dbo].[AspNetUsers]
+(
+	[NormalizedEmail] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [UserNameIndex]    Script Date: 07/03/2024 17:01:17 ******/
+CREATE UNIQUE NONCLUSTERED INDEX [UserNameIndex] ON [dbo].[AspNetUsers]
+(
+	[NormalizedUserName] ASC
+)
+WHERE ([NormalizedUserName] IS NOT NULL)
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Caracteristique_ModelId]    Script Date: 07/03/2024 17:01:17 ******/
+CREATE NONCLUSTERED INDEX [IX_Caracteristique_ModelId] ON [dbo].[Caracteristique]
+(
+	[ModelId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Marque_TypeArticleId]    Script Date: 07/03/2024 17:01:17 ******/
+CREATE NONCLUSTERED INDEX [IX_Marque_TypeArticleId] ON [dbo].[Marque]
+(
+	[TypeArticleId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Modele_MarqueId]    Script Date: 07/03/2024 17:01:17 ******/
+CREATE NONCLUSTERED INDEX [IX_Modele_MarqueId] ON [dbo].[Modele]
+(
+	[MarqueId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Stock_ArticleId]    Script Date: 07/03/2024 17:01:17 ******/
+CREATE NONCLUSTERED INDEX [IX_Stock_ArticleId] ON [dbo].[Stock]
+(
+	[ArticleId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Article]  WITH CHECK ADD  CONSTRAINT [FK_Article_Caracteristique_CaracteristiqueId] FOREIGN KEY([CaracteristiqueId])
+REFERENCES [dbo].[Caracteristique] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Article] CHECK CONSTRAINT [FK_Article_Caracteristique_CaracteristiqueId]
+GO
+ALTER TABLE [dbo].[Article]  WITH CHECK ADD  CONSTRAINT [FK_Article_Couleur_CouleurId] FOREIGN KEY([CouleurId])
+REFERENCES [dbo].[Couleur] ([Id])
+GO
+ALTER TABLE [dbo].[Article] CHECK CONSTRAINT [FK_Article_Couleur_CouleurId]
+GO
+ALTER TABLE [dbo].[Article]  WITH CHECK ADD  CONSTRAINT [FK_Article_Etat_EtatId] FOREIGN KEY([EtatId])
+REFERENCES [dbo].[Etat] ([Id])
+GO
+ALTER TABLE [dbo].[Article] CHECK CONSTRAINT [FK_Article_Etat_EtatId]
+GO
+ALTER TABLE [dbo].[Article]  WITH CHECK ADD  CONSTRAINT [FK_Article_Particularite_ParticulariteId] FOREIGN KEY([ParticulariteId])
+REFERENCES [dbo].[Particularite] ([Id])
+GO
+ALTER TABLE [dbo].[Article] CHECK CONSTRAINT [FK_Article_Particularite_ParticulariteId]
+GO
+ALTER TABLE [dbo].[Article]  WITH CHECK ADD  CONSTRAINT [FK_Article_Stockage_StockageId] FOREIGN KEY([StockageId])
+REFERENCES [dbo].[Stockage] ([Id])
+GO
+ALTER TABLE [dbo].[Article] CHECK CONSTRAINT [FK_Article_Stockage_StockageId]
+GO
+ALTER TABLE [dbo].[Article]  WITH CHECK ADD  CONSTRAINT [FK_Article_Type__TypeId] FOREIGN KEY([TypeId])
+REFERENCES [dbo].[Type_] ([Id])
+GO
+ALTER TABLE [dbo].[Article] CHECK CONSTRAINT [FK_Article_Type__TypeId]
+GO
+ALTER TABLE [dbo].[AspNetRoleClaims]  WITH CHECK ADD  CONSTRAINT [FK_AspNetRoleClaims_AspNetRoles_RoleId] FOREIGN KEY([RoleId])
+REFERENCES [dbo].[AspNetRoles] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[AspNetRoleClaims] CHECK CONSTRAINT [FK_AspNetRoleClaims_AspNetRoles_RoleId]
+GO
+ALTER TABLE [dbo].[AspNetUserClaims]  WITH CHECK ADD  CONSTRAINT [FK_AspNetUserClaims_AspNetUsers_UserId] FOREIGN KEY([UserId])
+REFERENCES [dbo].[AspNetUsers] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[AspNetUserClaims] CHECK CONSTRAINT [FK_AspNetUserClaims_AspNetUsers_UserId]
+GO
+ALTER TABLE [dbo].[AspNetUserLogins]  WITH CHECK ADD  CONSTRAINT [FK_AspNetUserLogins_AspNetUsers_UserId] FOREIGN KEY([UserId])
+REFERENCES [dbo].[AspNetUsers] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[AspNetUserLogins] CHECK CONSTRAINT [FK_AspNetUserLogins_AspNetUsers_UserId]
+GO
+ALTER TABLE [dbo].[AspNetUserRoles]  WITH CHECK ADD  CONSTRAINT [FK_AspNetUserRoles_AspNetRoles_RoleId] FOREIGN KEY([RoleId])
+REFERENCES [dbo].[AspNetRoles] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[AspNetUserRoles] CHECK CONSTRAINT [FK_AspNetUserRoles_AspNetRoles_RoleId]
+GO
+ALTER TABLE [dbo].[AspNetUserRoles]  WITH CHECK ADD  CONSTRAINT [FK_AspNetUserRoles_AspNetUsers_UserId] FOREIGN KEY([UserId])
+REFERENCES [dbo].[AspNetUsers] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[AspNetUserRoles] CHECK CONSTRAINT [FK_AspNetUserRoles_AspNetUsers_UserId]
+GO
+ALTER TABLE [dbo].[AspNetUserTokens]  WITH CHECK ADD  CONSTRAINT [FK_AspNetUserTokens_AspNetUsers_UserId] FOREIGN KEY([UserId])
+REFERENCES [dbo].[AspNetUsers] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[AspNetUserTokens] CHECK CONSTRAINT [FK_AspNetUserTokens_AspNetUsers_UserId]
+GO
+ALTER TABLE [dbo].[Caracteristique]  WITH CHECK ADD  CONSTRAINT [FK_Caracteristique_Modele_ModelId] FOREIGN KEY([ModelId])
+REFERENCES [dbo].[Modele] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Caracteristique] CHECK CONSTRAINT [FK_Caracteristique_Modele_ModelId]
+GO
+ALTER TABLE [dbo].[Marque]  WITH CHECK ADD  CONSTRAINT [FK_Marque_TypeArticle_TypeArticleId] FOREIGN KEY([TypeArticleId])
+REFERENCES [dbo].[TypeArticle] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Marque] CHECK CONSTRAINT [FK_Marque_TypeArticle_TypeArticleId]
+GO
+ALTER TABLE [dbo].[Modele]  WITH CHECK ADD  CONSTRAINT [FK_Modele_Marque_MarqueId] FOREIGN KEY([MarqueId])
+REFERENCES [dbo].[Marque] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Modele] CHECK CONSTRAINT [FK_Modele_Marque_MarqueId]
+GO
+ALTER TABLE [dbo].[Stock]  WITH CHECK ADD  CONSTRAINT [FK_Stock_Article_ArticleId] FOREIGN KEY([ArticleId])
+REFERENCES [dbo].[Article] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Stock] CHECK CONSTRAINT [FK_Stock_Article_ArticleId]
+GO
+USE [master]
+GO
+ALTER DATABASE [db_kada] SET  READ_WRITE 
+GO

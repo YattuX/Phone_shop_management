@@ -30,6 +30,7 @@ namespace Kada.persistence
             services.AddScoped<ICaracteristiqueRepository, CaracteristiqueRepository>();
             services.AddScoped<IArticleRepository, ArticleRepository>();
             services.AddScoped<IReparationRepository, ReparationRepository>();
+            services.AddScoped<IStockRepository, StockRepository>();
 
             return services;
         }

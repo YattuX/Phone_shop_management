@@ -1,0 +1,26 @@
+<app-breadcrumb [Title]="title"></app-breadcrumb>
+<mat-divider></mat-divider>
+<mat-toolbar class="content-toolbar flex flex-wrap justify-between items-center"
+    style="height: fit-content !important; padding:5px 10px;">
+    <div class="flex">
+        <mat-icon class="cursor-pointer text-white" title="retour">reply</mat-icon>
+    </div>
+
+    <div class="flex">
+        <button class="flex button items-center bg-white text-black shadow-xl" (click)="openDialog('add',{})">
+            + Ajouter
+        </button>
+    </div>
+</mat-toolbar>
+    <mat-tab-group [selectedIndex]="0">
+        <mat-tab label="Stock">
+            <ng-template matTabContent>
+                <app-etat-stock [change]="change" ></app-etat-stock>
+            </ng-template>
+        </mat-tab>
+        <mat-tab  label="Historique de stock">
+            <ng-template matTabContent>
+                <app-list-stock [change]="change" ></app-list-stock>
+            </ng-template>
+        </mat-tab>
+    </mat-tab-group>
